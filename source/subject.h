@@ -8,8 +8,8 @@ class Observer;
 class Subject {
     std::vector<Observer *> observers;
 public:
-    void attach(Observer *ob);
-    void notifyObservers();
+    void attach(Observer *ob); // attaches an observer to this subject
+    void notifyObservers(); // alerts all observers
     virtual ~Subject() = 0;
 };
 
