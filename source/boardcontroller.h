@@ -5,9 +5,12 @@
 #include "boardmodel.h"
 
 class BoardController: public Subject {
-    BoardModel data;
+    BoardModel boardData;
+    int currentPlayer;
+    bool gameOver;
+    void switchPlayers();
 public:
-    BoardController(std::vector<std::fstream> &data);
+    BoardController(std::vector<std::string> players, std::vector<std::ifstream> &data);
     void preTurn();
     void execute();
     void postTurn();
