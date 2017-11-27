@@ -1,4 +1,5 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/source.dir/ability.cc.obj"
   "CMakeFiles/source.dir/main.cc.obj"
   "CMakeFiles/source.dir/minion.cc.obj"
   "CMakeFiles/source.dir/player.cc.obj"

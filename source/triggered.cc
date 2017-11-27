@@ -2,4 +2,5 @@
 
 using namespace std;
 
-Triggered::Triggered(Event trigger) {}
+Triggered::Triggered(string &name, int cost, int owner, string &&description, Event trigger) :
+        Ability(name, cost, owner, description) {}

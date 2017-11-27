@@ -5,7 +5,7 @@
 
 class Activated: public Ability {
 public:
-    Activated();
+    Activated(std::string &name, int cost, int owner, std::string &description);
     virtual ~Activated() = 0;
 };
 
@@ -14,7 +14,7 @@ class AdderActive: public Activated {
     int defMod;
     std::string target;
 public:
-    AdderActive(int cost, int attMod, int defMod, std::string target, std::string description);
+    AdderActive(std::string &name, int cost, int owner, std::string &description, int attMod, int defMod, std::string &target);
 };
 
 #endif

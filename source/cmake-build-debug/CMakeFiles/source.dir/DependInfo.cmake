@@ -6,6 +6,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 set(CMAKE_DEPENDS_CHECK_CXX
   "C:/Users/pipli/OneDrive/Documents/sorcery/source/AdderActive.cc" "C:/Users/pipli/OneDrive/Documents/sorcery/source/cmake-build-debug/CMakeFiles/source.dir/AdderActive.cc.obj"
   "C:/Users/pipli/OneDrive/Documents/sorcery/source/AdderTriggered.cc" "C:/Users/pipli/OneDrive/Documents/sorcery/source/cmake-build-debug/CMakeFiles/source.dir/AdderTriggered.cc.obj"
+  "C:/Users/pipli/OneDrive/Documents/sorcery/source/ability.cc" "C:/Users/pipli/OneDrive/Documents/sorcery/source/cmake-build-debug/CMakeFiles/source.dir/ability.cc.obj"
   "C:/Users/pipli/OneDrive/Documents/sorcery/source/main.cc" "C:/Users/pipli/OneDrive/Documents/sorcery/source/cmake-build-debug/CMakeFiles/source.dir/main.cc.obj"
   "C:/Users/pipli/OneDrive/Documents/sorcery/source/minion.cc" "C:/Users/pipli/OneDrive/Documents/sorcery/source/cmake-build-debug/CMakeFiles/source.dir/minion.cc.obj"
   "C:/Users/pipli/OneDrive/Documents/sorcery/source/player.cc" "C:/Users/pipli/OneDrive/Documents/sorcery/source/cmake-build-debug/CMakeFiles/source.dir/player.cc.obj"

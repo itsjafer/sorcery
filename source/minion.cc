@@ -1,7 +1,6 @@
 #include "minion.h"
 #include "triggered.h"
 #include <fstream>
-#include "event.h"
 #include "activated.h"
 
 class Ability;

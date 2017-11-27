@@ -42,6 +42,11 @@ void Player::addCard(ifstream &cardData) {
     }
 }
 
+void Player::updateState(vector<Event> &events) {
+    for (int i = 0; i < minions.size(); ++i) minions.at(i)->update(events);
+    ritual->update(events);
+}
+
 void Player::drawCard(int numCards) {
     if (deck.size() > 0) {
         auto card = move(deck.back());
@@ -60,11 +65,37 @@ const vector<unique_ptr<NonPlayer>> &Player::getHand() const {
 }
 
 void Player::play(int i) {
-    
+    auto card = hand.at(i - 1).get();
+
+    if (card->getType() == Type::Spell) {
+        card->cast();               //will update the board: no need to do in here
+        graveyard.emplace_back(move(card));
+    }
+    else if (card->getType() == Type::Ritual) {
+        ritual = make_unique<Ritual>(move(card));
+    }
+    else if (card->getType() == Type::Minion) {
+        minions.emplace_back(move(card));
+    }
+    else { }    //handle exception
+
+    hand.erase(hand.begin() + (i - 1));     //remove card from hand
 }
 
-void Player::play(int i, int p, char t) {
+void Player::play(int i, int p, char t = 'r') {
+    auto card = hand.at(i - 1).get();
 
+    if (card->getType() == Type::Spell) {
+        card->cast(p, t);               //will update the board: no need to do in here
+        graveyard.emplace_back(move(card));
+    }
+    else if (card->getType() == Type::Enchantment) {
+        card->cast(p, t);
+        minions.at((int)(t - 1))->enchantments.emplace_back(move(card));
+    }
+    else { }    //handle exception
+
+    hand.erase(hand.begin() + (i - 1));     //remove card from hand
 }
 
 void Player::use(int i) {
@@ -80,5 +111,8 @@ void Player::attack(int i, int j = 0) {
 }
 
 Player::~Player() {
-
+    deck.clear();
+    graveyard.clear();
+    hand.clear();
+    minions.clear();
 }

@@ -176,6 +176,33 @@ AdderTriggered.cc.s:
 	$(MAKE) -f CMakeFiles\source.dir\build.make CMakeFiles/source.dir/AdderTriggered.cc.s
 .PHONY : AdderTriggered.cc.s
 
+ability.obj: ability.cc.obj
+
+.PHONY : ability.obj
+
+# target to build an object file
+ability.cc.obj:
+	$(MAKE) -f CMakeFiles\source.dir\build.make CMakeFiles/source.dir/ability.cc.obj
+.PHONY : ability.cc.obj
+
+ability.i: ability.cc.i
+
+.PHONY : ability.i
+
+# target to preprocess a source file
+ability.cc.i:
+	$(MAKE) -f CMakeFiles\source.dir\build.make CMakeFiles/source.dir/ability.cc.i
+.PHONY : ability.cc.i
+
+ability.s: ability.cc.s
+
+.PHONY : ability.s
+
+# target to generate assembly for a file
+ability.cc.s:
+	$(MAKE) -f CMakeFiles\source.dir\build.make CMakeFiles/source.dir/ability.cc.s
+.PHONY : ability.cc.s
+
 main.obj: main.cc.obj
 
 .PHONY : main.obj
@@ -299,6 +326,9 @@ help:
 	@echo ... AdderTriggered.obj
 	@echo ... AdderTriggered.i
 	@echo ... AdderTriggered.s
+	@echo ... ability.obj
+	@echo ... ability.i
+	@echo ... ability.s
 	@echo ... main.obj
 	@echo ... main.i
 	@echo ... main.s
