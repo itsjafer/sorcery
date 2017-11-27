@@ -11,7 +11,8 @@ void BoardController::switchPlayers() {
   currentPlayer++;
 }
 
-BoardController::BoardController(std::vector<std::string> players, std::vector<std::ifstream> &data) : boardData(players, data), currentPlayer(0), gameOver(false) {
+BoardController::BoardController(std::vector<std::string> players, std::vector<std::unique_ptr<std::ifstream>> &data) : boardData(players, data), currentPlayer(0), gameOver(false) {
+  
 }
 
 void BoardController::preTurn() {

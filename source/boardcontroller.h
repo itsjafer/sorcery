@@ -10,7 +10,7 @@ class BoardController: public Subject {
     bool gameOver;
     void switchPlayers();
 public:
-    BoardController(std::vector<std::string> players, std::vector<std::ifstream> &data);
+    BoardController(std::vector<std::string> players, std::vector<std::unique_ptr<std::ifstream>> &data);
     void preTurn();
     void execute();
     void postTurn();

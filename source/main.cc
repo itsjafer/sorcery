@@ -12,7 +12,7 @@ int main(int argc, char * argv[]) {
   // initialize each player
   int numPlayers = 2;
   vector<string> names; // this vector is a list of names (used for player construction)
-  vector<ifstream> deckFiles;
+  vector<unique_ptr<ifstream>> deckFiles;
 
   for (int i = 0; i < numPlayers; ++i) {
     // get the names for each player
@@ -23,9 +23,8 @@ int main(int argc, char * argv[]) {
 
     // get the deckfiles for each player
     // for now, we're going to assume both players use default.deck
-    ifstream deckFile;
-    deckFile.open ("default.deck");
-    deckFiles.emplace_back(deckFile);
+    unique_ptr<ifstream> deckFile(new ifstream("default.deck"));
+    deckFiles.emplace_back(move(deckFile));
   }
 
   // initialize the board  

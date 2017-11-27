@@ -6,19 +6,48 @@
 
 using namespace std;
 
-Player::Player(string &name, ifstream &deck): Card{name} {
+Player::Player(string &name, unique_ptr<ifstream> &deck): Card{name} {
     string cardFile;
-    while (getline(deck, cardFile)) {
+    while (getline(*deck, cardFile)) {
         ifstream cardData{cardFile};
         addCard(cardData);
     }
 }
 
-void Player::updateState(std::vector<Event> &events) {
-    // we're going to update the minions and the ritual
-    for (int i = 0; i < minions.size(); ++i) {
-      minions[i]->update(events);
-    }
+void Player::addCard(ifstream &cardData) {
 
-    //ritual->update(events);
+}
+
+void Player::updateState(vector<Event> &events) {
+}
+
+void Player::drawCard(int numCards) {
+}
+
+const Minion &Player::minion(int i) const {
+    return *(minions.at(i - 1));
+}
+
+const vector<unique_ptr<NonPlayer>> &Player::getHand() const {
+    return hand;
+}
+
+void Player::play(int i) {
+
+}
+
+void Player::play(int i, int p, char t) {
+
+}
+
+void Player::use(int i) {
+}
+    
+void Player::use(int i, int p, char t) {
+}
+
+void Player::attack(int i, int j) {
+}
+
+Player::~Player() {
 }
