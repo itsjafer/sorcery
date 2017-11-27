@@ -21,7 +21,7 @@ class Player: public Card {
     void addCard(std::ifstream &cardData);
     void updateState(std::vector<Event> &events);
 public:
-    Player(std::string &name, std::ifstream &deck);
+    Player(std::string &name, std::unique_ptr<std::ifstream> &deck);
     void drawCard(int numCards = 1);
     const Minion &minion(int i) const;                                  //to be accessed only for Display
     const std::vector<std::unique_ptr<NonPlayer>> &getHand() const;     //same here

@@ -7,9 +7,9 @@
 
 using namespace std;
 
-Player::Player(string &name, ifstream &deck): Card{name} {
+Player::Player(string &name, unique_ptr<ifstream> &deck): Card{name} {
     string cardFile;
-    while (getline(deck, cardFile)) {
+    while (getline(*deck, cardFile)) {
         ifstream cardData{cardFile};
         addCard(cardData);
     }
@@ -113,7 +113,7 @@ void Player::play(int i) {
     hand.erase(hand.begin() + (i - 1));     //remove card from hand
 }
 
-void Player::play(int i, int p, char t = 'r') {
+void Player::play(int i, int p, char t) {
     auto card = hand.at(i - 1).get();
 
     if (card->getType() == Type::Spell) {
@@ -133,11 +133,11 @@ void Player::use(int i) {
     minions.at(i - 1)->cast();
 }
     
-void Player::use(int i, int p, char t = 'r') {
+void Player::use(int i, int p, char t) {
     minions.at(i - 1)->cast(p, t);
 }
 
-void Player::attack(int i, int j = 0) {
+void Player::attack(int i, int j) {
     minions.at(i - 1)->attack(j);
 }
 

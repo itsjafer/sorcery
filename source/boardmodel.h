@@ -9,7 +9,7 @@
 class BoardModel {
 public:
     std::vector<Player> players;
-    BoardModel(std::vector<std::fstream> &data);
+    BoardModel(std::vector<std::unique_ptr<std::fstream>> &data);
     void updateBoard();
     ~BoardModel();
 };
