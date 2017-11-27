@@ -3,6 +3,7 @@
 
 #include "subject.h"
 #include "boardmodel.h"
+#include "textdisplay.h"
 
 class BoardController: public Subject {
     BoardModel boardData;
@@ -17,6 +18,10 @@ public:
     bool gameEnded();
     int whoWon();
     ~BoardController();
+
+    // operator overload to print out the board
+    friend std::ostream &operator<<(std::ostream &out, const BoardController &board);
+
 };
 
 #endif
