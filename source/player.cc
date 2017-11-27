@@ -42,6 +42,11 @@ void Player::addCard(ifstream &cardData) {
     }
 }
 
+void Player::updateState(vector<Event> &events) {
+    for (int i = 0; i < minions.size(); ++i) minions.at(i)->update(events);
+    ritual->update(events);
+}
+
 void Player::drawCard(int numCards) {
     if (deck.size() > 0) {
         auto card = move(deck.back());
@@ -106,5 +111,8 @@ void Player::attack(int i, int j = 0) {
 }
 
 Player::~Player() {
-
+    deck.clear();
+    graveyard.clear();
+    hand.clear();
+    minions.clear();
 }
