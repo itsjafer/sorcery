@@ -1,5 +1,6 @@
 #include "player.h"
 #include "minion.h"
+#include "spell.h"
 #include <fstream>
 #include <sstream>
 #include <stdexcept>
@@ -15,12 +16,14 @@ Player::Player(string &name, ifstream &deck): Card{name} {
 }
 
 void Player::addCard(ifstream &cardData) {
+
+    //Get card type {spell, minion, enchantment, ritual}
     string cardType; getline(cardData, cardType);
-    if (cardType == "Spell") { }
-    string cardName; getline(cardData, cardName);
-    int cardCost; cardData >> cardCost;
 
     if (cardType == "Minion") {
+        //Adding a minion type
+        string cardName; getline(cardData, cardName);
+        int cardCost; cardData >> cardCost;
         int cardAttack; cardData >> cardAttack;
         int cardDefense; cardData >> cardDefense;
         vector<ifstream> cardAbilityFiles;
@@ -32,12 +35,40 @@ void Player::addCard(ifstream &cardData) {
         deck.emplace_back(make_unique<Minion>(cardName, cardCost, playerNumber, cardAttack, cardDefense, cardAbilityFiles));
     }
     else if (cardType == "Spell") {
-
+        //Adding a spell card
+        //Get spell type
+        string spellType; getline(cardData, spellType);
+        if (spellType == "move") {
+            //Get move source
+            string moveSrc; getline(cardData, moveSrc);
+            //Get move destination
+            string moveDest; getline(cardData, moveDest);
+            //Get Target
+            string target; getline(cardData, target);
+            //Name and Cost and decsription
+            string cardName; getline(cardData, cardName);
+            int cardCost; cardData >> cardCost;
+            string cardDscr; getline(cardData, cardDscr);
+            //Create card
+            MoveSpell newSpell(cardName, cardCost, playerNumber, moveSrc, moveDest, target, static_cast<string &&>(cardDscr));
+            deck.emplace_back(newSpell);
+        } else if (spellType == "add") {
+            //Get Target and modifiers
+            string target; getline(cardData, target);
+            int attMod; cardData >> attMod;
+            int defMod; cardData >> defMod;
+            //Name and Cost and decsription
+            string cardName; getline(cardData, cardName);
+            int cardCost; cardData >> cardCost;
+            string cardDscr; getline(cardData, cardDscr);
+            //Create card
+            AddSpell newSpell(cardName, cardCost, attMod, defMod, playerNumber, target, static_cast<string &&>(cardDscr));
+        }
     }
     else if (cardType == "Ritual") {
-
+        //Adding a ritual card
     }
-    else {  //cardType == "Enhancement"
+    else if (cardType == "Enchantment") {  //cardType == "Enhancement"
 
     }
 }

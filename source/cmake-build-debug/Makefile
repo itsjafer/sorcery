@@ -122,6 +122,33 @@ source/fast:
 	$(MAKE) -f CMakeFiles\source.dir\build.make CMakeFiles/source.dir/build
 .PHONY : source/fast
 
+AddSpell.obj: AddSpell.cc.obj
+
+.PHONY : AddSpell.obj
+
+# target to build an object file
+AddSpell.cc.obj:
+	$(MAKE) -f CMakeFiles\source.dir\build.make CMakeFiles/source.dir/AddSpell.cc.obj
+.PHONY : AddSpell.cc.obj
+
+AddSpell.i: AddSpell.cc.i
+
+.PHONY : AddSpell.i
+
+# target to preprocess a source file
+AddSpell.cc.i:
+	$(MAKE) -f CMakeFiles\source.dir\build.make CMakeFiles/source.dir/AddSpell.cc.i
+.PHONY : AddSpell.cc.i
+
+AddSpell.s: AddSpell.cc.s
+
+.PHONY : AddSpell.s
+
+# target to generate assembly for a file
+AddSpell.cc.s:
+	$(MAKE) -f CMakeFiles\source.dir\build.make CMakeFiles/source.dir/AddSpell.cc.s
+.PHONY : AddSpell.cc.s
+
 AdderActive.obj: AdderActive.cc.obj
 
 .PHONY : AdderActive.obj
@@ -175,6 +202,33 @@ AdderTriggered.s: AdderTriggered.cc.s
 AdderTriggered.cc.s:
 	$(MAKE) -f CMakeFiles\source.dir\build.make CMakeFiles/source.dir/AdderTriggered.cc.s
 .PHONY : AdderTriggered.cc.s
+
+MoveSpell.obj: MoveSpell.cc.obj
+
+.PHONY : MoveSpell.obj
+
+# target to build an object file
+MoveSpell.cc.obj:
+	$(MAKE) -f CMakeFiles\source.dir\build.make CMakeFiles/source.dir/MoveSpell.cc.obj
+.PHONY : MoveSpell.cc.obj
+
+MoveSpell.i: MoveSpell.cc.i
+
+.PHONY : MoveSpell.i
+
+# target to preprocess a source file
+MoveSpell.cc.i:
+	$(MAKE) -f CMakeFiles\source.dir\build.make CMakeFiles/source.dir/MoveSpell.cc.i
+.PHONY : MoveSpell.cc.i
+
+MoveSpell.s: MoveSpell.cc.s
+
+.PHONY : MoveSpell.s
+
+# target to generate assembly for a file
+MoveSpell.cc.s:
+	$(MAKE) -f CMakeFiles\source.dir\build.make CMakeFiles/source.dir/MoveSpell.cc.s
+.PHONY : MoveSpell.cc.s
 
 ability.obj: ability.cc.obj
 
@@ -320,12 +374,18 @@ help:
 	@echo ... edit_cache
 	@echo ... source
 	@echo ... rebuild_cache
+	@echo ... AddSpell.obj
+	@echo ... AddSpell.i
+	@echo ... AddSpell.s
 	@echo ... AdderActive.obj
 	@echo ... AdderActive.i
 	@echo ... AdderActive.s
 	@echo ... AdderTriggered.obj
 	@echo ... AdderTriggered.i
 	@echo ... AdderTriggered.s
+	@echo ... MoveSpell.obj
+	@echo ... MoveSpell.i
+	@echo ... MoveSpell.s
 	@echo ... ability.obj
 	@echo ... ability.i
 	@echo ... ability.s

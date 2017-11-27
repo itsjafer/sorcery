@@ -82,10 +82,16 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="C:/Users/pipli/OneDrive/Documents/sorcery/source/AddSpell.cc">
+			<Option target="source"/>
+		</Unit>
 		<Unit filename="C:/Users/pipli/OneDrive/Documents/sorcery/source/AdderActive.cc">
 			<Option target="source"/>
 		</Unit>
 		<Unit filename="C:/Users/pipli/OneDrive/Documents/sorcery/source/AdderTriggered.cc">
+			<Option target="source"/>
+		</Unit>
+		<Unit filename="C:/Users/pipli/OneDrive/Documents/sorcery/source/MoveSpell.cc">
 			<Option target="source"/>
 		</Unit>
 		<Unit filename="C:/Users/pipli/OneDrive/Documents/sorcery/source/ability.cc">
@@ -152,6 +158,9 @@
 			<Option target="source"/>
 		</Unit>
 		<Unit filename="C:/Users/pipli/OneDrive/Documents/sorcery/source/triggered.h">
+			<Option target="source"/>
+		</Unit>
+		<Unit filename="C:/Users/pipli/OneDrive/Documents/sorcery/source/type.h">
 			<Option target="source"/>
 		</Unit>
 		<Unit filename="C:/Users/pipli/OneDrive/Documents/sorcery/source/CMakeLists.txt">

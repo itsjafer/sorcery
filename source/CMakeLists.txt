@@ -4,6 +4,7 @@ project(source)
 set(CMAKE_CXX_STANDARD 11)
 
 set(SOURCE_FILES
+        AddSpell.cc
         ability.h
         ability.cc
         activated.h
@@ -16,6 +17,7 @@ set(SOURCE_FILES
         main.cc
         minion.cc
         minion.h
+        MoveSpell.cc
         nonplayer.h
         observer.h
         player.cc
@@ -26,6 +28,7 @@ set(SOURCE_FILES
         textdisplay.h
         triggered.cc
         triggered.h
+        type.h
         AdderTriggered.cc
         AdderActive.cc)
 
