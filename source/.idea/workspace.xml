@@ -44,11 +44,21 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="spell.h" pinned="false" current-in-tab="true">
+          <file leaf-file-name="spell.h" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/spell.h">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="525">
                   <caret line="21" column="23" lean-forward="false" selection-start-line="21" selection-start-column="23" selection-end-line="21" selection-end-column="23" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="enchantment.h" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/enchantment.h">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="225">
+                  <caret line="9" column="2" lean-forward="true" selection-start-line="9" selection-start-column="2" selection-end-line="9" selection-end-column="2" />
                   <folding />
                 </state>
               </provider>
@@ -61,8 +71,8 @@
           <file leaf-file-name="player.cc" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/player.cc">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="986">
-                  <caret line="60" column="34" lean-forward="false" selection-start-line="60" selection-start-column="34" selection-end-line="60" selection-end-column="34" />
+                <state relative-caret-position="861">
+                  <caret line="84" column="25" lean-forward="true" selection-start-line="84" selection-start-column="25" selection-end-line="84" selection-end-column="25" />
                   <folding />
                 </state>
               </provider>
@@ -223,7 +233,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="13619000" />
+    <option name="totallyTimeSpent" value="14238000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-11" y="-11" width="2582" height="1462" extended-state="6" />
@@ -260,14 +270,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/player.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="625">
-          <caret line="25" column="29" lean-forward="false" selection-start-line="25" selection-start-column="29" selection-end-line="25" selection-end-column="29" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/cmake-build-debug/Makefile">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -656,10 +658,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/enchantment.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="9" column="2" lean-forward="true" selection-start-line="9" selection-start-column="2" selection-end-line="9" selection-end-column="2" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/player.cc">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="986">
-          <caret line="60" column="34" lean-forward="false" selection-start-line="60" selection-start-column="34" selection-end-line="60" selection-end-column="34" />
+        <state relative-caret-position="861">
+          <caret line="84" column="25" lean-forward="true" selection-start-line="84" selection-start-column="25" selection-end-line="84" selection-end-column="25" />
           <folding />
         </state>
       </provider>

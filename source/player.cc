@@ -69,7 +69,21 @@ void Player::addCard(ifstream &cardData) {
         //Adding a ritual card
     }
     else if (cardType == "Enchantment") {  //cardType == "Enhancement"
-
+        //Get ritual type
+        string ritualType; getline(cardData, ritualType);
+        if (ritualType == "change") {
+            //Get modifiers
+            int attMod; cardData >> attMod;
+            int defMod; cardData >> defMod;
+            int actPerTurn; cardData >> actPerTurn;
+            int abilityCost; cardData >> abilityCost;
+            int silenced; cardData >> silenced;
+            //Name and Cost and decsription
+            string cardName; getline(cardData, cardName);
+            int cardCost; cardData >> cardCost;
+            string cardDscr; getline(cardData, cardDscr);
+            //Create card
+        }
     }
 }
 
