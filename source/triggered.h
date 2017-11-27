@@ -15,7 +15,7 @@ class AdderTriggered: public Triggered {
     int defMod;
     std::string target;
 public:
-    AdderTriggered(Event trigger, int attMod, int defMod, std::string target);
+    AdderTriggered(Event trigger, int attMod, int defMod, std::string target, std::string description);
 };
 
 #endif

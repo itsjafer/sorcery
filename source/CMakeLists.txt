@@ -17,11 +17,15 @@ set(SOURCE_FILES
         minion.h
         nonplayer.h
         observer.h
+        player.cc
         player.h
         ritual.h
         spell.h
         subject.h
         textdisplay.h
-        triggered.h)
+        triggered.cc
+        triggered.h
+        AdderTriggered.cc
+        AdderActive.cc)
 
 add_executable(source ${SOURCE_FILES})

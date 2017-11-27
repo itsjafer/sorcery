@@ -82,6 +82,12 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="C:/Users/pipli/OneDrive/Documents/sorcery/source/AdderActive.cc">
+			<Option target="source"/>
+		</Unit>
+		<Unit filename="C:/Users/pipli/OneDrive/Documents/sorcery/source/AdderTriggered.cc">
+			<Option target="source"/>
+		</Unit>
 		<Unit filename="C:/Users/pipli/OneDrive/Documents/sorcery/source/ability.h">
 			<Option target="source"/>
 		</Unit>
@@ -121,6 +127,9 @@
 		<Unit filename="C:/Users/pipli/OneDrive/Documents/sorcery/source/observer.h">
 			<Option target="source"/>
 		</Unit>
+		<Unit filename="C:/Users/pipli/OneDrive/Documents/sorcery/source/player.cc">
+			<Option target="source"/>
+		</Unit>
 		<Unit filename="C:/Users/pipli/OneDrive/Documents/sorcery/source/player.h">
 			<Option target="source"/>
 		</Unit>
@@ -134,6 +143,9 @@
 			<Option target="source"/>
 		</Unit>
 		<Unit filename="C:/Users/pipli/OneDrive/Documents/sorcery/source/textdisplay.h">
+			<Option target="source"/>
+		</Unit>
+		<Unit filename="C:/Users/pipli/OneDrive/Documents/sorcery/source/triggered.cc">
 			<Option target="source"/>
 		</Unit>
 		<Unit filename="C:/Users/pipli/OneDrive/Documents/sorcery/source/triggered.h">
