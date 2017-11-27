@@ -10,4 +10,12 @@ public:
     virtual ~Triggered() = 0;
 };
 
+class AdderTriggered: public Triggered {
+    int attMod;
+    int defMod;
+    std::string target;
+public:
+    AdderTriggered(Event trigger, int attMod, int defMod, std::string target);
+};
+
 #endif
