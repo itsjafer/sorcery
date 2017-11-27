@@ -122,6 +122,60 @@ source/fast:
 	$(MAKE) -f CMakeFiles\source.dir\build.make CMakeFiles/source.dir/build
 .PHONY : source/fast
 
+AdderActive.obj: AdderActive.cc.obj
+
+.PHONY : AdderActive.obj
+
+# target to build an object file
+AdderActive.cc.obj:
+	$(MAKE) -f CMakeFiles\source.dir\build.make CMakeFiles/source.dir/AdderActive.cc.obj
+.PHONY : AdderActive.cc.obj
+
+AdderActive.i: AdderActive.cc.i
+
+.PHONY : AdderActive.i
+
+# target to preprocess a source file
+AdderActive.cc.i:
+	$(MAKE) -f CMakeFiles\source.dir\build.make CMakeFiles/source.dir/AdderActive.cc.i
+.PHONY : AdderActive.cc.i
+
+AdderActive.s: AdderActive.cc.s
+
+.PHONY : AdderActive.s
+
+# target to generate assembly for a file
+AdderActive.cc.s:
+	$(MAKE) -f CMakeFiles\source.dir\build.make CMakeFiles/source.dir/AdderActive.cc.s
+.PHONY : AdderActive.cc.s
+
+AdderTriggered.obj: AdderTriggered.cc.obj
+
+.PHONY : AdderTriggered.obj
+
+# target to build an object file
+AdderTriggered.cc.obj:
+	$(MAKE) -f CMakeFiles\source.dir\build.make CMakeFiles/source.dir/AdderTriggered.cc.obj
+.PHONY : AdderTriggered.cc.obj
+
+AdderTriggered.i: AdderTriggered.cc.i
+
+.PHONY : AdderTriggered.i
+
+# target to preprocess a source file
+AdderTriggered.cc.i:
+	$(MAKE) -f CMakeFiles\source.dir\build.make CMakeFiles/source.dir/AdderTriggered.cc.i
+.PHONY : AdderTriggered.cc.i
+
+AdderTriggered.s: AdderTriggered.cc.s
+
+.PHONY : AdderTriggered.s
+
+# target to generate assembly for a file
+AdderTriggered.cc.s:
+	$(MAKE) -f CMakeFiles\source.dir\build.make CMakeFiles/source.dir/AdderTriggered.cc.s
+.PHONY : AdderTriggered.cc.s
+
 main.obj: main.cc.obj
 
 .PHONY : main.obj
@@ -176,6 +230,60 @@ minion.cc.s:
 	$(MAKE) -f CMakeFiles\source.dir\build.make CMakeFiles/source.dir/minion.cc.s
 .PHONY : minion.cc.s
 
+player.obj: player.cc.obj
+
+.PHONY : player.obj
+
+# target to build an object file
+player.cc.obj:
+	$(MAKE) -f CMakeFiles\source.dir\build.make CMakeFiles/source.dir/player.cc.obj
+.PHONY : player.cc.obj
+
+player.i: player.cc.i
+
+.PHONY : player.i
+
+# target to preprocess a source file
+player.cc.i:
+	$(MAKE) -f CMakeFiles\source.dir\build.make CMakeFiles/source.dir/player.cc.i
+.PHONY : player.cc.i
+
+player.s: player.cc.s
+
+.PHONY : player.s
+
+# target to generate assembly for a file
+player.cc.s:
+	$(MAKE) -f CMakeFiles\source.dir\build.make CMakeFiles/source.dir/player.cc.s
+.PHONY : player.cc.s
+
+triggered.obj: triggered.cc.obj
+
+.PHONY : triggered.obj
+
+# target to build an object file
+triggered.cc.obj:
+	$(MAKE) -f CMakeFiles\source.dir\build.make CMakeFiles/source.dir/triggered.cc.obj
+.PHONY : triggered.cc.obj
+
+triggered.i: triggered.cc.i
+
+.PHONY : triggered.i
+
+# target to preprocess a source file
+triggered.cc.i:
+	$(MAKE) -f CMakeFiles\source.dir\build.make CMakeFiles/source.dir/triggered.cc.i
+.PHONY : triggered.cc.i
+
+triggered.s: triggered.cc.s
+
+.PHONY : triggered.s
+
+# target to generate assembly for a file
+triggered.cc.s:
+	$(MAKE) -f CMakeFiles\source.dir\build.make CMakeFiles/source.dir/triggered.cc.s
+.PHONY : triggered.cc.s
+
 # Help Target
 help:
 	@echo The following are some of the valid targets for this Makefile:
@@ -185,12 +293,24 @@ help:
 	@echo ... edit_cache
 	@echo ... source
 	@echo ... rebuild_cache
+	@echo ... AdderActive.obj
+	@echo ... AdderActive.i
+	@echo ... AdderActive.s
+	@echo ... AdderTriggered.obj
+	@echo ... AdderTriggered.i
+	@echo ... AdderTriggered.s
 	@echo ... main.obj
 	@echo ... main.i
 	@echo ... main.s
 	@echo ... minion.obj
 	@echo ... minion.i
 	@echo ... minion.s
+	@echo ... player.obj
+	@echo ... player.i
+	@echo ... player.s
+	@echo ... triggered.obj
+	@echo ... triggered.i
+	@echo ... triggered.s
 .PHONY : help
 
 
