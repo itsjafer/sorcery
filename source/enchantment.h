@@ -9,8 +9,14 @@ public:
     virtual ~Echantment() = 0;
 };
 
-public AddEnchant: public Enchantment {
-
+class AddEnchant: public Enchantment {
+    int attMod;
+    int defMod;
+    int actPerTurn;
+    int AbilityCost;
+    bool silence;
+public:
+    AddEnchant(std::string &cardName, int cardCost, int owner, int attMod, int defMod, int actPerTurn, int AbilityCost, int silencer, std::string &&description);
 };
 
 #endif

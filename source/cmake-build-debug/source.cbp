@@ -82,6 +82,9 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="C:/Users/pipli/OneDrive/Documents/sorcery/source/AddEnchant.cc">
+			<Option target="source"/>
+		</Unit>
 		<Unit filename="C:/Users/pipli/OneDrive/Documents/sorcery/source/AddSpell.cc">
 			<Option target="source"/>
 		</Unit>

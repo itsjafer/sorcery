@@ -74,9 +74,10 @@ Minion::Minion(string &name, int cost, int owner, int attack, int defence, vecto
                     //Get description
                     std::string descriptor;
                     getline(abilities[i], descriptor);
+                    string name = "none";
 
                     //Create ability, add it to the back
-                    AdderActive newAddAct{costAmount, modAtt, modDef, target, descriptor};
+                    AdderActive newAddAct{name, costAmount, -1, descriptor, modAtt, modDef, target};
                     this->abilities.emplace_back(newAddAct);
 
                 } else if (tempLine == "summon") {

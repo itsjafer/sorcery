@@ -122,6 +122,33 @@ source/fast:
 	$(MAKE) -f CMakeFiles\source.dir\build.make CMakeFiles/source.dir/build
 .PHONY : source/fast
 
+AddEnchant.obj: AddEnchant.cc.obj
+
+.PHONY : AddEnchant.obj
+
+# target to build an object file
+AddEnchant.cc.obj:
+	$(MAKE) -f CMakeFiles\source.dir\build.make CMakeFiles/source.dir/AddEnchant.cc.obj
+.PHONY : AddEnchant.cc.obj
+
+AddEnchant.i: AddEnchant.cc.i
+
+.PHONY : AddEnchant.i
+
+# target to preprocess a source file
+AddEnchant.cc.i:
+	$(MAKE) -f CMakeFiles\source.dir\build.make CMakeFiles/source.dir/AddEnchant.cc.i
+.PHONY : AddEnchant.cc.i
+
+AddEnchant.s: AddEnchant.cc.s
+
+.PHONY : AddEnchant.s
+
+# target to generate assembly for a file
+AddEnchant.cc.s:
+	$(MAKE) -f CMakeFiles\source.dir\build.make CMakeFiles/source.dir/AddEnchant.cc.s
+.PHONY : AddEnchant.cc.s
+
 AddSpell.obj: AddSpell.cc.obj
 
 .PHONY : AddSpell.obj
@@ -374,6 +401,9 @@ help:
 	@echo ... edit_cache
 	@echo ... source
 	@echo ... rebuild_cache
+	@echo ... AddEnchant.obj
+	@echo ... AddEnchant.i
+	@echo ... AddEnchant.s
 	@echo ... AddSpell.obj
 	@echo ... AddSpell.i
 	@echo ... AddSpell.s

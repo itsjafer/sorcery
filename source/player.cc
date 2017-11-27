@@ -1,6 +1,7 @@
 #include "player.h"
 #include "minion.h"
 #include "spell.h"
+#include "enchantment.h"
 #include <fstream>
 #include <sstream>
 #include <stdexcept>
@@ -63,15 +64,53 @@ void Player::addCard(ifstream &cardData) {
             string cardDscr; getline(cardData, cardDscr);
             //Create card
             AddSpell newSpell(cardName, cardCost, attMod, defMod, playerNumber, target, static_cast<string &&>(cardDscr));
+            deck.emplace_back(newSpell);
         }
     }
     else if (cardType == "Ritual") {
         //Adding a ritual card
+        string ritualType; getline(cardData, ritualType);
+        if (ritualType == "add") {
+            string target; getline(cardData, target);
+            if (target == "player") {
+                //Get player modifiers
+                int healthMod; cardData >> healthMod;
+                int magicMod; cardData >> healthMod;
+                string targets; getline(cardData, targets);
+                //Name and Cost and decsription
+                string cardName; getline(cardData, cardName);
+                int cardCost; cardData >> cardCost;
+                string cardDscr; getline(cardData, cardDscr);
+                //Create card
+
+            } else if (target == "minion") {
+                //Get modifiers
+                int attMod; cardData >> attMod;
+                int defMod; cardData >> defMod;
+                int actPerTurn; cardData >> actPerTurn;
+                int abilityCost; cardData >> abilityCost;
+                int silenced; cardData >> silenced;
+                string target; getline(cardData, target);
+                //Name and Cost and decsription
+                string cardName; getline(cardData, cardName);
+                int cardCost; cardData >> cardCost;
+                string cardDscr; getline(cardData, cardDscr);
+                //Create card
+            }
+        } else if (ritualType == "move") {
+            string target; getline(cardData, target);
+            string destination; getline(cardData, destination);
+            //Name and Cost and decsription
+            string cardName; getline(cardData, cardName);
+            int cardCost; cardData >> cardCost;
+            string cardDscr; getline(cardData, cardDscr);
+            //Create card
+        }
     }
     else if (cardType == "Enchantment") {  //cardType == "Enhancement"
         //Get ritual type
-        string ritualType; getline(cardData, ritualType);
-        if (ritualType == "change") {
+        string enchantType; getline(cardData, enchantType);
+        if (enchantType == "add") {
             //Get modifiers
             int attMod; cardData >> attMod;
             int defMod; cardData >> defMod;
@@ -83,6 +122,8 @@ void Player::addCard(ifstream &cardData) {
             int cardCost; cardData >> cardCost;
             string cardDscr; getline(cardData, cardDscr);
             //Create card
+            AddEnchant newEnchantment(cardName, cardCost, playerNumber, attMod, defMod, actPerTurn, abilityCost, silenced,cardDscr);
+            deck.emplace_back(newEnchantment);
         }
     }
 }

@@ -5,6 +5,7 @@ set(CMAKE_CXX_STANDARD 11)
 
 set(SOURCE_FILES
         AddSpell.cc
+        AddEnchant.cc
         ability.h
         ability.cc
         activated.h

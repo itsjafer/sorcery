@@ -1,5 +1,6 @@
 file(REMOVE_RECURSE
   "CMakeFiles/source.dir/AddSpell.cc.obj"
+  "CMakeFiles/source.dir/AddEnchant.cc.obj"
   "CMakeFiles/source.dir/ability.cc.obj"
   "CMakeFiles/source.dir/main.cc.obj"
   "CMakeFiles/source.dir/minion.cc.obj"
