@@ -7,9 +7,8 @@
 
 class BoardController: public Subject {
     BoardModel boardData;
-    int currentPlayer;
+    unsigned int currentPlayer;
     bool gameOver;
-    void switchPlayers();
 public:
     BoardController(std::vector<std::string> players, std::vector<std::unique_ptr<std::ifstream>> &data);
     void preTurn();
@@ -17,6 +16,7 @@ public:
     void postTurn();
     bool gameEnded();
     int whoWon();
+    void switchPlayers();    
     ~BoardController();
 
     // operator overload to print out the board

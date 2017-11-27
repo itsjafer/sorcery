@@ -27,14 +27,23 @@ int main(int argc, char * argv[]) {
     deckFiles.emplace_back(move(deckFile));
   }
 
+  cout << "main.cc: Board is now going to be initialized." << endl;
   // initialize the board  
   BoardController board(names, deckFiles);
 
   while (!board.gameEnded()) {
+    
     // go through the three stages of turns
+    cout << "main.cc: Board is now going to go through preTurn." << endl;
     board.preTurn();
+    cout << "main.cc: Board is now going to go through execute." << endl;    
     board.execute();
+    cout << "main.cc: Board is now going to go through postTurn." << endl;    
     board.postTurn();
+    
+    // switch the player turn
+    cout << "main.cc: Board is now going to switch turns." << endl;    
+    board.switchPlayers();
   }
   
   // find out who won

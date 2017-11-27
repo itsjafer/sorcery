@@ -1,7 +1,7 @@
 CXX = g++
 CXXFLAGS = -std=c++14 -Wall -Werror=vla -MMD
-EXEC = a4q5
-OBJECTS = main.o boardmodel.o boardcontroller.o player.o
+EXEC = sorcery
+OBJECTS = main.o boardmodel.o boardcontroller.o player.o subject.o observer.o card.o
 DEPENDS = ${OBJECTS:.o=.d}
 
 ${EXEC}: ${OBJECTS}
