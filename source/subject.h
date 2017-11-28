@@ -10,6 +10,7 @@ class Subject {
 public:
     void attach(Observer *ob); // attaches an observer to this subject
     void notifyObservers(); // alerts all observers
+    // virtual Info getInfo() const = 0;
     virtual ~Subject() = 0;
 };
 
