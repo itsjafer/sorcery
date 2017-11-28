@@ -14,26 +14,18 @@ class Player: public Card {
     int magic = 3;
     std::vector<std::unique_ptr<NonPlayer>> deck;
     std::vector<std::unique_ptr<NonPlayer>> hand;
-<<<<<<< HEAD
     std::unique_ptr<Ritual> ritual;
-=======
-    //std::unique_ptr<Ritual> ritual;
->>>>>>> master
     std::vector<std::unique_ptr<NonPlayer>> graveyard;
     std::vector<std::unique_ptr<Minion>> minions;
     int playerNumber;
     void addCard(std::ifstream &cardData);
-    void updateState(std::vector<Event> &events);
+    void updateState(std::vector<Event> &events) override;
 public:
-<<<<<<< HEAD
-    Player(std::string &name, std::ifstream &deck);
-=======
     Player(std::string &name, std::unique_ptr<std::ifstream> &deck);
->>>>>>> master
-    void drawCard(int numCards = 1);
-    const Minion &minion(int i) const;                                  //to be accessed only for Display
+    void drawCard(int numCards);
+    const Minion &minion(int i) const;                                  //to be used by displays (i.e. Observers)
     const std::vector<std::unique_ptr<NonPlayer>> &getHand() const;     //same here
-    void play(int i);                                                   //minions, rituals, & spells w/ no target
+    void play(int i);                                                   //non-targetted spells & rituals, as well as placing minions on the field
     void play(int i, int p, char t = 'r');                              //spells (w/ target) & enchantments 
     void use(int i);                                                    //untargetted activated ability of ith minion
     void use(int i, int p, char t = 'r');                               //targetted activated ability of ith minion
