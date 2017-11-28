@@ -8,8 +8,8 @@ class Enchantment;
 
 class Minion: public NonPlayer {
 public:
-    int attack;
-    int defence;
+    int att;
+    int def;
     int action = 0;
     std::vector<Ability> abilities;
     std::vector<Enchantment *> enchantments;
