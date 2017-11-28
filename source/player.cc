@@ -6,15 +6,22 @@
 
 using namespace std;
 
+<<<<<<< HEAD
 Player::Player(string &name, ifstream &deck): Card{name} {
     string cardFile;
     while (getline(deck, cardFile)) {
+=======
+Player::Player(string &name, unique_ptr<ifstream> &deck): Card{name} {
+    string cardFile;
+    while (getline(*deck, cardFile)) {
+>>>>>>> master
         ifstream cardData{cardFile};
         addCard(cardData);
     }
 }
 
 void Player::addCard(ifstream &cardData) {
+<<<<<<< HEAD
     string cardType; getline(cardData, cardType);
     if (cardType == "Spell") { }
     string cardName; getline(cardData, cardName);
@@ -54,6 +61,15 @@ void Player::drawCard(int numCards) {
         hand.emplace_back(move(card));
     }
     else throw out_of_range(getName());
+=======
+
+}
+
+void Player::updateState(vector<Event> &events) {
+}
+
+void Player::drawCard(int numCards) {
+>>>>>>> master
 }
 
 const Minion &Player::minion(int i) const {
@@ -65,6 +81,7 @@ const vector<unique_ptr<NonPlayer>> &Player::getHand() const {
 }
 
 void Player::play(int i) {
+<<<<<<< HEAD
     auto card = hand.at(i - 1).get();
 
     if (card->getType() == Type::Spell) {
@@ -116,3 +133,23 @@ Player::~Player() {
     hand.clear();
     minions.clear();
 }
+=======
+
+}
+
+void Player::play(int i, int p, char t) {
+
+}
+
+void Player::use(int i) {
+}
+    
+void Player::use(int i, int p, char t) {
+}
+
+void Player::attack(int i, int j) {
+}
+
+Player::~Player() {
+}
+>>>>>>> master
