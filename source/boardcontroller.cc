@@ -1,6 +1,7 @@
 #include "boardcontroller.h"
 #include "boardmodel.h"
 #include "event.h"
+#include "player.h"
 #include <iostream>
 #include <sstream>
 #include <vector>

@@ -3,7 +3,8 @@
 
 #include "subject.h"
 #include "boardmodel.h"
-#include "textdisplay.h"
+
+class Player;
 
 class BoardController: public Subject {
     BoardModel boardData;

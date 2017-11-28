@@ -4,8 +4,10 @@
 #include <vector>
 #include <string>
 #include <fstream>
-#include "player.h"
 #include "event.h"
+#include <memory>
+
+class Player;
 
 class BoardModel {
 public:

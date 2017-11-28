@@ -1,6 +1,7 @@
 #include "boardmodel.h"
 #include "minion.h"
 #include "nonplayer.h"
+#include "player.h"
 #include <iostream>
 
 BoardModel::BoardModel(std::vector<std::string> players, std::vector<std::unique_ptr<std::ifstream>> &data) {
