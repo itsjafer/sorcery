@@ -2,6 +2,7 @@
 #include "minion.h"
 #include "spell.h"
 #include "enchantment.h"
+#include "ritual.h"
 #include <fstream>
 #include <sstream>
 #include <stdexcept>
@@ -73,6 +74,18 @@ void Player::addCard(ifstream &cardData) {
         if (ritualType == "add") {
             string target; getline(cardData, target);
             if (target == "player") {
+                //Get Ritual basics
+                int activeCost; cardData >> activeCost;
+                int charges; cardData >> charges;
+                Event cardTrigger;
+                string trigger; getline(cardData, trigger);
+                if (trigger == "Beginning of turn") {
+                    cardTrigger = Event::startTurn;
+                } else if (trigger == "Enter controlled") {
+                    cardTrigger = Event::minionEnteredPlay; //Note incorrect event type for now, will change later
+                } else if (trigger == "Enter any") {
+                    cardTrigger = Event::minionEnteredPlay;
+                }
                 //Get player modifiers
                 int healthMod; cardData >> healthMod;
                 int magicMod; cardData >> healthMod;
@@ -82,9 +95,22 @@ void Player::addCard(ifstream &cardData) {
                 int cardCost; cardData >> cardCost;
                 string cardDscr; getline(cardData, cardDscr);
                 //Create card
-
+                AddPlayerRitual newRitual(cardName, cardCost, playerNumber, charges, activeCost, healthMod, magicMod, cardTrigger, targets, static_cast<string &&>(cardDscr));
+                deck.emplace_back(newRitual);
             } else if (target == "minion") {
                 //Get modifiers
+                //Get Ritual basics
+                int activeCost; cardData >> activeCost;
+                int charges; cardData >> charges;
+                Event cardTrigger;
+                string trigger; getline(cardData, trigger);
+                if (trigger == "Beginning of turn") {
+                    cardTrigger = Event::startTurn;
+                } else if (trigger == "Enter controlled") {
+                    cardTrigger = Event::minionEnteredPlay; //Note incorrect event type for now, will change later
+                } else if (trigger == "Enter any") {
+                    cardTrigger = Event::minionEnteredPlay;
+                }
                 int attMod; cardData >> attMod;
                 int defMod; cardData >> defMod;
                 int actPerTurn; cardData >> actPerTurn;
@@ -96,8 +122,23 @@ void Player::addCard(ifstream &cardData) {
                 int cardCost; cardData >> cardCost;
                 string cardDscr; getline(cardData, cardDscr);
                 //Create card
+                AddMinionRitual newRitual(cardName, cardCost, playerNumber, charges, activeCost, attMod, defMod,actPerTurn, abilityCost, silenced, cardTrigger, target, static_cast<string &&>(cardDscr));
+                deck.emplace_back(newRitual);
             }
         } else if (ritualType == "move") {
+            //Get Ritual basics
+            int activeCost; cardData >> activeCost;
+            int charges; cardData >> charges;
+            Event cardTrigger;
+            string trigger; getline(cardData, trigger);
+            if (trigger == "Beginning of turn") {
+                cardTrigger = Event::startTurn;
+            } else if (trigger == "Enter controlled") {
+                cardTrigger = Event::minionEnteredPlay; //Note incorrect event type for now, will change later
+            } else if (trigger == "Enter any") {
+                cardTrigger = Event::minionEnteredPlay;
+            }
+            //Move data
             string target; getline(cardData, target);
             string destination; getline(cardData, destination);
             //Name and Cost and decsription
@@ -105,6 +146,8 @@ void Player::addCard(ifstream &cardData) {
             int cardCost; cardData >> cardCost;
             string cardDscr; getline(cardData, cardDscr);
             //Create card
+            MoveRitual newRitual(cardName, cardCost, playerNumber, charges, activeCost, cardTrigger, target, destination, static_cast<string &&>(cardDscr));
+            deck.emplace_back(newRitual);
         }
     }
     else if (cardType == "Enchantment") {  //cardType == "Enhancement"

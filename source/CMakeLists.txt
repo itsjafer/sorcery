@@ -6,6 +6,8 @@ set(CMAKE_CXX_STANDARD 11)
 set(SOURCE_FILES
         AddSpell.cc
         AddEnchant.cc
+        AddPlayerRitual.cc
+        AddMinionRitual.cc
         ability.h
         ability.cc
         activated.h
@@ -19,6 +21,7 @@ set(SOURCE_FILES
         minion.cc
         minion.h
         MoveSpell.cc
+        MoveRitual.cc
         nonplayer.h
         observer.h
         player.cc

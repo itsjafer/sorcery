@@ -5,9 +5,12 @@ set(CMAKE_DEPENDS_LANGUAGES
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
   "C:/Users/pipli/OneDrive/Documents/sorcery/source/AddEnchant.cc" "C:/Users/pipli/OneDrive/Documents/sorcery/source/cmake-build-debug/CMakeFiles/source.dir/AddEnchant.cc.obj"
+  "C:/Users/pipli/OneDrive/Documents/sorcery/source/AddMinionRitual.cc" "C:/Users/pipli/OneDrive/Documents/sorcery/source/cmake-build-debug/CMakeFiles/source.dir/AddMinionRitual.cc.obj"
+  "C:/Users/pipli/OneDrive/Documents/sorcery/source/AddPlayerRitual.cc" "C:/Users/pipli/OneDrive/Documents/sorcery/source/cmake-build-debug/CMakeFiles/source.dir/AddPlayerRitual.cc.obj"
   "C:/Users/pipli/OneDrive/Documents/sorcery/source/AddSpell.cc" "C:/Users/pipli/OneDrive/Documents/sorcery/source/cmake-build-debug/CMakeFiles/source.dir/AddSpell.cc.obj"
   "C:/Users/pipli/OneDrive/Documents/sorcery/source/AdderActive.cc" "C:/Users/pipli/OneDrive/Documents/sorcery/source/cmake-build-debug/CMakeFiles/source.dir/AdderActive.cc.obj"
   "C:/Users/pipli/OneDrive/Documents/sorcery/source/AdderTriggered.cc" "C:/Users/pipli/OneDrive/Documents/sorcery/source/cmake-build-debug/CMakeFiles/source.dir/AdderTriggered.cc.obj"
+  "C:/Users/pipli/OneDrive/Documents/sorcery/source/MoveRitual.cc" "C:/Users/pipli/OneDrive/Documents/sorcery/source/cmake-build-debug/CMakeFiles/source.dir/MoveRitual.cc.obj"
   "C:/Users/pipli/OneDrive/Documents/sorcery/source/MoveSpell.cc" "C:/Users/pipli/OneDrive/Documents/sorcery/source/cmake-build-debug/CMakeFiles/source.dir/MoveSpell.cc.obj"
   "C:/Users/pipli/OneDrive/Documents/sorcery/source/ability.cc" "C:/Users/pipli/OneDrive/Documents/sorcery/source/cmake-build-debug/CMakeFiles/source.dir/ability.cc.obj"
   "C:/Users/pipli/OneDrive/Documents/sorcery/source/main.cc" "C:/Users/pipli/OneDrive/Documents/sorcery/source/cmake-build-debug/CMakeFiles/source.dir/main.cc.obj"

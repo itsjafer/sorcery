@@ -1,10 +1,13 @@
 file(REMOVE_RECURSE
   "CMakeFiles/source.dir/AddSpell.cc.obj"
   "CMakeFiles/source.dir/AddEnchant.cc.obj"
+  "CMakeFiles/source.dir/AddPlayerRitual.cc.obj"
+  "CMakeFiles/source.dir/AddMinionRitual.cc.obj"
   "CMakeFiles/source.dir/ability.cc.obj"
   "CMakeFiles/source.dir/main.cc.obj"
   "CMakeFiles/source.dir/minion.cc.obj"
   "CMakeFiles/source.dir/MoveSpell.cc.obj"
+  "CMakeFiles/source.dir/MoveRitual.cc.obj"
   "CMakeFiles/source.dir/player.cc.obj"
   "CMakeFiles/source.dir/triggered.cc.obj"
   "CMakeFiles/source.dir/AdderTriggered.cc.obj"

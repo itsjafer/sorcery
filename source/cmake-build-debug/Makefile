@@ -149,6 +149,60 @@ AddEnchant.cc.s:
 	$(MAKE) -f CMakeFiles\source.dir\build.make CMakeFiles/source.dir/AddEnchant.cc.s
 .PHONY : AddEnchant.cc.s
 
+AddMinionRitual.obj: AddMinionRitual.cc.obj
+
+.PHONY : AddMinionRitual.obj
+
+# target to build an object file
+AddMinionRitual.cc.obj:
+	$(MAKE) -f CMakeFiles\source.dir\build.make CMakeFiles/source.dir/AddMinionRitual.cc.obj
+.PHONY : AddMinionRitual.cc.obj
+
+AddMinionRitual.i: AddMinionRitual.cc.i
+
+.PHONY : AddMinionRitual.i
+
+# target to preprocess a source file
+AddMinionRitual.cc.i:
+	$(MAKE) -f CMakeFiles\source.dir\build.make CMakeFiles/source.dir/AddMinionRitual.cc.i
+.PHONY : AddMinionRitual.cc.i
+
+AddMinionRitual.s: AddMinionRitual.cc.s
+
+.PHONY : AddMinionRitual.s
+
+# target to generate assembly for a file
+AddMinionRitual.cc.s:
+	$(MAKE) -f CMakeFiles\source.dir\build.make CMakeFiles/source.dir/AddMinionRitual.cc.s
+.PHONY : AddMinionRitual.cc.s
+
+AddPlayerRitual.obj: AddPlayerRitual.cc.obj
+
+.PHONY : AddPlayerRitual.obj
+
+# target to build an object file
+AddPlayerRitual.cc.obj:
+	$(MAKE) -f CMakeFiles\source.dir\build.make CMakeFiles/source.dir/AddPlayerRitual.cc.obj
+.PHONY : AddPlayerRitual.cc.obj
+
+AddPlayerRitual.i: AddPlayerRitual.cc.i
+
+.PHONY : AddPlayerRitual.i
+
+# target to preprocess a source file
+AddPlayerRitual.cc.i:
+	$(MAKE) -f CMakeFiles\source.dir\build.make CMakeFiles/source.dir/AddPlayerRitual.cc.i
+.PHONY : AddPlayerRitual.cc.i
+
+AddPlayerRitual.s: AddPlayerRitual.cc.s
+
+.PHONY : AddPlayerRitual.s
+
+# target to generate assembly for a file
+AddPlayerRitual.cc.s:
+	$(MAKE) -f CMakeFiles\source.dir\build.make CMakeFiles/source.dir/AddPlayerRitual.cc.s
+.PHONY : AddPlayerRitual.cc.s
+
 AddSpell.obj: AddSpell.cc.obj
 
 .PHONY : AddSpell.obj
@@ -229,6 +283,33 @@ AdderTriggered.s: AdderTriggered.cc.s
 AdderTriggered.cc.s:
 	$(MAKE) -f CMakeFiles\source.dir\build.make CMakeFiles/source.dir/AdderTriggered.cc.s
 .PHONY : AdderTriggered.cc.s
+
+MoveRitual.obj: MoveRitual.cc.obj
+
+.PHONY : MoveRitual.obj
+
+# target to build an object file
+MoveRitual.cc.obj:
+	$(MAKE) -f CMakeFiles\source.dir\build.make CMakeFiles/source.dir/MoveRitual.cc.obj
+.PHONY : MoveRitual.cc.obj
+
+MoveRitual.i: MoveRitual.cc.i
+
+.PHONY : MoveRitual.i
+
+# target to preprocess a source file
+MoveRitual.cc.i:
+	$(MAKE) -f CMakeFiles\source.dir\build.make CMakeFiles/source.dir/MoveRitual.cc.i
+.PHONY : MoveRitual.cc.i
+
+MoveRitual.s: MoveRitual.cc.s
+
+.PHONY : MoveRitual.s
+
+# target to generate assembly for a file
+MoveRitual.cc.s:
+	$(MAKE) -f CMakeFiles\source.dir\build.make CMakeFiles/source.dir/MoveRitual.cc.s
+.PHONY : MoveRitual.cc.s
 
 MoveSpell.obj: MoveSpell.cc.obj
 
@@ -404,6 +485,12 @@ help:
 	@echo ... AddEnchant.obj
 	@echo ... AddEnchant.i
 	@echo ... AddEnchant.s
+	@echo ... AddMinionRitual.obj
+	@echo ... AddMinionRitual.i
+	@echo ... AddMinionRitual.s
+	@echo ... AddPlayerRitual.obj
+	@echo ... AddPlayerRitual.i
+	@echo ... AddPlayerRitual.s
 	@echo ... AddSpell.obj
 	@echo ... AddSpell.i
 	@echo ... AddSpell.s
@@ -413,6 +500,9 @@ help:
 	@echo ... AdderTriggered.obj
 	@echo ... AdderTriggered.i
 	@echo ... AdderTriggered.s
+	@echo ... MoveRitual.obj
+	@echo ... MoveRitual.i
+	@echo ... MoveRitual.s
 	@echo ... MoveSpell.obj
 	@echo ... MoveSpell.i
 	@echo ... MoveSpell.s
