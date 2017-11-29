@@ -173,16 +173,9 @@ void Player::addCard(ifstream &cardData) {
 }
 
 void Player::updateState(vector<Event> &events) {
-    for (int i = 0; i < minions.size(); ++i) minions.at(i)->update(events);
-    ritual->update(events);
 }
 
 void Player::drawCard(int numCards) {
-    if (deck.size() > 0) {
-        hand.emplace_back(deck.back());    //not sure if this actually works...
-        deck.pop_back();
-    }
-    else throw out_of_range(getName());
 }
 
 const Minion &Player::minion(int i) const {
@@ -228,7 +221,6 @@ void Player::play(int i, int p, char t) {
 }
 
 void Player::use(int i) {
-    minions.at(i - 1)->cast();
 }
     
 void Player::use(int i, int p, char t) {
