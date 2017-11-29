@@ -90,7 +90,9 @@ Minion::Minion(string &name, int cost, int owner, int attack, int defence, vecto
     //Construct concrete abilities here
 };
 
-void Minion::attack(int i = 0);
+void Minion::attack(int i = 0) {
+    
+}
 
 Minion::~Minion(){
 

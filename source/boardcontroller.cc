@@ -1,5 +1,6 @@
 #include "boardcontroller.h"
 #include "boardmodel.h"
+#include "textdisplay.h"
 #include "event.h"
 #include "player.h"
 #include <iostream>
@@ -9,11 +10,18 @@
 void BoardController::switchPlayers() {
   if (currentPlayer == boardData.players.size() - 1) {
     currentPlayer = 0;
+    return;
   }
   currentPlayer++;
 }
 
 BoardController::BoardController(std::vector<std::string> players, std::vector<std::unique_ptr<std::ifstream>> &data) : boardData(players, data), currentPlayer(0), gameOver(false) {
+  
+  // set the BoardModel to be a subject of our textdisplay
+  td = std::unique_ptr<TextDisplay>(new TextDisplay());
+  boardData.attach(td);
+  std::cout << "BoardController.cc: TextDisplay has been attached as an observer of BoardData." << std::endl;
+
   // have each of the players draw 3 cards
   for (unsigned int i = 0; i < players.size(); ++i) {
     std::cout << "BoardController.cc: Player " << i << " is drawing 3 cards" << std::endl;
@@ -35,7 +43,7 @@ void BoardController::preTurn() {
   // check if the deck is non-empty
   if (!boardData.isDeckEmpty(currentPlayer)) {
     // draw a card
-    boardData.players[currentPlayer]->drawCard();
+    boardData.players[currentPlayer]->drawCard(1);
     std::cout << "BoardController.cc: Player " << currentPlayer << " has drawn a card." << std::endl;
     std::cout << "BoardController.cc: Player " << currentPlayer << " now has " << boardData.players[currentPlayer]->getHand().size() << " cards in their hand." << std::endl;    
   }
@@ -128,12 +136,13 @@ void BoardController::execute() {
     } else if (s == "hand") {
       // textDisplay
     } else if (s == "board") {
-      // textDisplay
+      boardData.displayBoard();
+      std::cout << *td;
     } else if (cmd == "help") {
       // textDisplay
     } else if (s == "draw") {
       // this is only available in testing mode
-      boardData.players[currentPlayer]->drawCard();
+      boardData.players[currentPlayer]->drawCard(1);
     } else if (s == "discard") {
       // this is only available in testing mode
       // TODO: ADD TO PLAYER.H

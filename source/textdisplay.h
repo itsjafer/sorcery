@@ -7,18 +7,19 @@
 #include <vector>
 
 class TextDisplay: public Observer {
-    std::vector<std::vector<card_template_t>> theDisplay; // holds all display information
-    std::vector<card_template_t> playerOneField;
-    std::vector<card_template_t> playerOneHand;
-    std::vector<card_template_t> playerTwoField;
-    std::vector<card_template_t> playerTwoHand;
-
+    std::vector<std::vector<card_template_t>> fields;
+    std::vector<std::vector<card_template_t>> hands;
+    void printHand(int currentPlayer, std::ostream &out, const TextDisplay &td) const;
+    void printField(int currentPlayer, std::ostream &out, const TextDisplay &td) const;
+    
 public: 
     TextDisplay();
     ~TextDisplay();
-
-    void notifyDisplay(Subject &whoNotified) override;
+    void printBoard(Subject &whoNotified); 
+    void notifyDisplay(Subject &whoNotified, State command) override;
     friend std::ostream &operator<<(std::ostream &out, const TextDisplay &td);
+    friend std::ostream &operator<<(std::ostream &out, const int i);
+
 };
 
 #endif

@@ -2,16 +2,22 @@
 #include "minion.h"
 #include "nonplayer.h"
 #include "player.h"
+#include "subject.h"
+#include "state.h"
+#include "info.h"
 #include <iostream>
 
 BoardModel::BoardModel(std::vector<std::string> players, std::vector<std::unique_ptr<std::ifstream>> &data) {
   std::cout << "BoardModel.cc: Players are being initialized in the constructor." << std::endl;
   for (unsigned int i = 0; i < players.size(); ++i) {
     std::cout << "BoardModel.cc: Player " << i << " has been created (as a unique pointer: this might need to change)" << std::endl;
-    this->players.emplace_back(std::unique_ptr<Player>(new Player(players[i], data[i])));
+    this->players.emplace_back(std::shared_ptr<Player>(new Player(players[i], data[i])));
   }
 }
 
+void BoardModel::displayBoard() {
+  notifyObservers(State::printBoard);
+}
 bool BoardModel::isDeckEmpty(int player) {
   return (players[player])->deck.size();
 }
@@ -40,4 +46,34 @@ int BoardModel::getHealth(int player) {
 
 BoardModel::~BoardModel() {
   
+}
+
+Info BoardModel::getInfo() const {
+  Info myInfo;
+  for (unsigned int i = 0; i < players.size(); ++i) {
+    // add the name, magic, and health of the player
+    myInfo.name.emplace_back(players[i]->getName());
+    myInfo.magic.emplace_back(players[i]->magic);
+    myInfo.health.emplace_back(players[i]->health);
+
+    // add the name of the player's ritual
+    // if the player has a ritual:
+    //  myInfo.ritual.emplace_back(players[i]->ritual);
+    // else
+    myInfo.ritual.emplace_back("");
+
+    // add the name of the player's minions
+    for (int j = 0; j < players[i]->minions.size(); ++i) {
+      // if the player has a minion:
+      //  myInfo.minions[i].emplace_back(players[i]->minions[j]->getName());
+      // else
+      myInfo.minions[i].emplace_back("");
+    }
+
+    // if the player has a graveyard:
+    //  myInfo.graveYard.emplace_back(players[i]->graveyard.top().getName());
+    // else
+    myInfo.graveyard.emplace_back("");
+  }
+  return myInfo;
 }

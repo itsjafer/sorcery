@@ -5,8 +5,10 @@
 #include "boardmodel.h"
 
 class Player;
+class TextDisplay;
 
-class BoardController: public Subject {
+class BoardController {
+    std::shared_ptr<TextDisplay> td;
     BoardModel boardData;
     unsigned int currentPlayer;
     bool gameOver;
