@@ -8,7 +8,7 @@ class Ritual: public NonPlayer {
     int activationCost;
     Event trigger;
 public:
-    Ritual(int charges, int activationCost, Event trigger);
+    Ritual(std::string &cardName, int cost, int owner, std::string &&description, int charges, int activationCost, Event trigger);
     virtual ~Ritual() = 0;
 };
 

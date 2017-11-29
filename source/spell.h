@@ -5,6 +5,7 @@
 
 class Spell: public NonPlayer {
 public:
+    Spell(std::string &name, int cost, int owner, std::string &&description = "");
     virtual ~Spell() = 0;
 };
 

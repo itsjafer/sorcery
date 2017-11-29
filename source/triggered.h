@@ -6,7 +6,7 @@
 class Triggered: public Ability {
     Event trigger;
 public:
-    Triggered(std::string &name, int cost, int owner, std::string &&description, Event trigger);
+    Triggered(std::string &name, int cost, int owner, std::string &description, Event trigger);
     virtual ~Triggered() = 0;
 };
 

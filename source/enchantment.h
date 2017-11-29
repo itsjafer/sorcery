@@ -5,8 +5,8 @@
 
 class Enchantment: public NonPlayer {
 public:
-    void uncastCard();
-    virtual ~Echantment() = 0;
+    Enchantment(std::string &name, int cost, int owner, std::string &&description = "");
+    virtual ~Enchantment() = 0;
 };
 
 class AddEnchant: public Enchantment {
@@ -15,6 +15,7 @@ class AddEnchant: public Enchantment {
     int actPerTurn;
     int AbilityCost;
     bool silence;
+    void castCard() override;
 public:
     AddEnchant(std::string &cardName, int cardCost, int owner, int attMod, int defMod, int actPerTurn, int AbilityCost, int silencer, std::string &&description);
 };
