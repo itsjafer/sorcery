@@ -11,8 +11,11 @@ set(SOURCE_FILES
         ability.h
         ability.cc
         activated.h
+        boardcontroller.cc
         boardcontroller.h
+        boardmodel.cc
         boardmodel.h
+        card.cc
         card.h
         enchantment.h
         event.h

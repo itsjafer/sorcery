@@ -115,10 +115,19 @@
 		<Unit filename="C:/Users/pipli/OneDrive/Documents/sorcery/source/activated.h">
 			<Option target="source"/>
 		</Unit>
+		<Unit filename="C:/Users/pipli/OneDrive/Documents/sorcery/source/boardcontroller.cc">
+			<Option target="source"/>
+		</Unit>
 		<Unit filename="C:/Users/pipli/OneDrive/Documents/sorcery/source/boardcontroller.h">
 			<Option target="source"/>
 		</Unit>
+		<Unit filename="C:/Users/pipli/OneDrive/Documents/sorcery/source/boardmodel.cc">
+			<Option target="source"/>
+		</Unit>
 		<Unit filename="C:/Users/pipli/OneDrive/Documents/sorcery/source/boardmodel.h">
+			<Option target="source"/>
+		</Unit>
+		<Unit filename="C:/Users/pipli/OneDrive/Documents/sorcery/source/card.cc">
 			<Option target="source"/>
 		</Unit>
 		<Unit filename="C:/Users/pipli/OneDrive/Documents/sorcery/source/card.h">

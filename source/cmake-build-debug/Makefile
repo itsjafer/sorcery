@@ -365,6 +365,87 @@ ability.cc.s:
 	$(MAKE) -f CMakeFiles\source.dir\build.make CMakeFiles/source.dir/ability.cc.s
 .PHONY : ability.cc.s
 
+boardcontroller.obj: boardcontroller.cc.obj
+
+.PHONY : boardcontroller.obj
+
+# target to build an object file
+boardcontroller.cc.obj:
+	$(MAKE) -f CMakeFiles\source.dir\build.make CMakeFiles/source.dir/boardcontroller.cc.obj
+.PHONY : boardcontroller.cc.obj
+
+boardcontroller.i: boardcontroller.cc.i
+
+.PHONY : boardcontroller.i
+
+# target to preprocess a source file
+boardcontroller.cc.i:
+	$(MAKE) -f CMakeFiles\source.dir\build.make CMakeFiles/source.dir/boardcontroller.cc.i
+.PHONY : boardcontroller.cc.i
+
+boardcontroller.s: boardcontroller.cc.s
+
+.PHONY : boardcontroller.s
+
+# target to generate assembly for a file
+boardcontroller.cc.s:
+	$(MAKE) -f CMakeFiles\source.dir\build.make CMakeFiles/source.dir/boardcontroller.cc.s
+.PHONY : boardcontroller.cc.s
+
+boardmodel.obj: boardmodel.cc.obj
+
+.PHONY : boardmodel.obj
+
+# target to build an object file
+boardmodel.cc.obj:
+	$(MAKE) -f CMakeFiles\source.dir\build.make CMakeFiles/source.dir/boardmodel.cc.obj
+.PHONY : boardmodel.cc.obj
+
+boardmodel.i: boardmodel.cc.i
+
+.PHONY : boardmodel.i
+
+# target to preprocess a source file
+boardmodel.cc.i:
+	$(MAKE) -f CMakeFiles\source.dir\build.make CMakeFiles/source.dir/boardmodel.cc.i
+.PHONY : boardmodel.cc.i
+
+boardmodel.s: boardmodel.cc.s
+
+.PHONY : boardmodel.s
+
+# target to generate assembly for a file
+boardmodel.cc.s:
+	$(MAKE) -f CMakeFiles\source.dir\build.make CMakeFiles/source.dir/boardmodel.cc.s
+.PHONY : boardmodel.cc.s
+
+card.obj: card.cc.obj
+
+.PHONY : card.obj
+
+# target to build an object file
+card.cc.obj:
+	$(MAKE) -f CMakeFiles\source.dir\build.make CMakeFiles/source.dir/card.cc.obj
+.PHONY : card.cc.obj
+
+card.i: card.cc.i
+
+.PHONY : card.i
+
+# target to preprocess a source file
+card.cc.i:
+	$(MAKE) -f CMakeFiles\source.dir\build.make CMakeFiles/source.dir/card.cc.i
+.PHONY : card.cc.i
+
+card.s: card.cc.s
+
+.PHONY : card.s
+
+# target to generate assembly for a file
+card.cc.s:
+	$(MAKE) -f CMakeFiles\source.dir\build.make CMakeFiles/source.dir/card.cc.s
+.PHONY : card.cc.s
+
 main.obj: main.cc.obj
 
 .PHONY : main.obj
@@ -509,6 +590,15 @@ help:
 	@echo ... ability.obj
 	@echo ... ability.i
 	@echo ... ability.s
+	@echo ... boardcontroller.obj
+	@echo ... boardcontroller.i
+	@echo ... boardcontroller.s
+	@echo ... boardmodel.obj
+	@echo ... boardmodel.i
+	@echo ... boardmodel.s
+	@echo ... card.obj
+	@echo ... card.i
+	@echo ... card.s
 	@echo ... main.obj
 	@echo ... main.i
 	@echo ... main.s
