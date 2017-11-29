@@ -1,0 +1,3 @@
+C:/Users/pipli/OneDrive/Documents/sorcery/source/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/pipli/OneDrive/Documents/sorcery/source/cmake-build-debug/CMakeFiles/source.dir
+C:/Users/pipli/OneDrive/Documents/sorcery/source/cmake-build-debug/CMakeFiles/rebuild_cache.dir
