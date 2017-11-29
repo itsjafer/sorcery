@@ -15,21 +15,28 @@ Player::Player(string &name, unique_ptr<ifstream> &deck): Card{name} {
 }
 
 void Player::addCard(ifstream &cardData) {
-    string cardType; getline(cardData, cardType);
-    if (cardType == "Spell") { }
-    string cardName; getline(cardData, cardName);
-    int cardCost; cardData >> cardCost;
+    // Read in card data from the ifstream
+    string cardType;
+    getline(cardData, cardType);
+    if (cardType == "Spell") { }    //Spell requires that we read in the type of Spell
+    string cardName; 
+    getline(cardData, cardName);
+    int cardCost;
+    cardData >> cardCost;
 
     if (cardType == "Minion") {
-        int cardAttack; cardData >> cardAttack;
-        int cardDefense; cardData >> cardDefense;
+        int cardAttack;
+        cardData >> cardAttack;
+        int cardDefense; 
+        cardData >> cardDefense;
         vector<ifstream> cardAbilityFiles;
         string ability;
         while (getline(cardData, ability)) {
             cardAbilityFiles.emplace_back(move(ability));
         }
 
-        deck.emplace_back(make_unique<Minion>(cardName, cardCost, playerNumber, cardAttack, cardDefense, cardAbilityFiles));
+        deck.emplace_back(make_shared<Minion>(cardName, cardCost, playerNumber, cardAttack, cardDefense, cardAbilityFiles));
+        //deck.emplace_back(make_unique<Minion>(cardName, cardCost, playerNumber, cardAttack, cardDefense, cardAbilityFiles));
     }
     else if (cardType == "Spell") {
 
@@ -49,9 +56,8 @@ void Player::updateState(vector<Event> &events) {
 
 void Player::drawCard(int numCards) {
     if (deck.size() > 0) {
-        auto card = move(deck.back());
+        hand.emplace_back(deck.back());    //not sure if this actually works...
         deck.pop_back();
-        hand.emplace_back(move(card));
     }
     else throw out_of_range(getName());
 }
@@ -60,22 +66,22 @@ const Minion &Player::minion(int i) const {
     return *(minions.at(i - 1));
 }
 
-const vector<unique_ptr<NonPlayer>> &Player::getHand() const {
+const vector<shared_ptr<NonPlayer>> &Player::getHand() const {
     return hand;
 }
 
 void Player::play(int i) {
-    auto card = hand.at(i - 1).get();
+    auto card = hand.at(i - 1);
 
     if (card->getType() == Type::Spell) {
         card->cast();               //will update the board: no need to do in here
-        graveyard.emplace_back(move(card));
+        graveyard.emplace_back(card);
     }
     else if (card->getType() == Type::Ritual) {
-        ritual = make_unique<Ritual>(move(card));
+        ritual = card;
     }
     else if (card->getType() == Type::Minion) {
-        minions.emplace_back(move(card));
+        minions.emplace_back(card);
     }
     else { }    //handle exception
 
@@ -83,15 +89,15 @@ void Player::play(int i) {
 }
 
 void Player::play(int i, int p, char t = 'r') {
-    auto card = hand.at(i - 1).get();
+    auto card = hand.at(i - 1);
 
     if (card->getType() == Type::Spell) {
         card->cast(p, t);               //will update the board: no need to do in here
-        graveyard.emplace_back(move(card));
+        graveyard.emplace_back(card);
     }
     else if (card->getType() == Type::Enchantment) {
         card->cast(p, t);
-        minions.at((int)(t - 1))->enchantments.emplace_back(move(card));
+        minions.at((int)(t - 1))->enchantments.emplace_back(card);
     }
     else { }    //handle exception
 
