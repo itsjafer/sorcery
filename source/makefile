@@ -1,11 +1,11 @@
 CXX = g++
 CXXFLAGS = -std=c++14 -Wall -Werror=vla -MMD
 EXEC = sorcery
-OBJECTS = main.o textdisplay.o ascii_graphics.o
+OBJECTS = main.o boardmodel.o boardcontroller.o player.o subject.o observer.o card.o
 DEPENDS = ${OBJECTS:.o=.d}
 
 ${EXEC}: ${OBJECTS}
-	${CXX} ${CXXFLAGS} ${OBJECTS} -o ${EXEC}
+	${CXX} ${CXXFLAGS} ${OBJECTS} -o ${EXEC} -lX11
 
 -include ${DEPENDS}
 

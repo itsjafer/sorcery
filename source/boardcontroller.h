@@ -3,19 +3,21 @@
 
 #include "subject.h"
 #include "boardmodel.h"
-#include "textdisplay.h"
+
+class Player;
 
 class BoardController: public Subject {
-    TextDisplay *td; // The text display
-
-    BoardModel data;
+    BoardModel boardData;
+    unsigned int currentPlayer;
+    bool gameOver;
 public:
-    BoardController(std::vector<std::fstream> &data);
+    BoardController(std::vector<std::string> players, std::vector<std::unique_ptr<std::ifstream>> &data);
     void preTurn();
     void execute();
     void postTurn();
     bool gameEnded();
     int whoWon();
+    void switchPlayers();    
     ~BoardController();
 
     // operator overload to print out the board
