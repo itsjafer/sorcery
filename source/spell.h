@@ -5,7 +5,7 @@
 
 class Spell: public NonPlayer {
 public:
-    Spell(std::string &name, int cost, int owner, std::string &&description = "");
+    Spell(std::string &name, int cost, int owner, std::string &description);
     virtual ~Spell() = 0;
 };
 
@@ -14,7 +14,7 @@ class MoveSpell: public Spell {
     std::string moveDestination;
     std::string Target;
 public:
-    MoveSpell(std::string &cardName, int cost, int owner, std::string &moveSource, std::string &moveDestination, std::string &Target, std::string &&description);
+    MoveSpell(std::string &cardName, int cost, int owner, std::string &description, std::string &moveSource, std::string &moveDestination, std::string &Target);
 };
 
 class AddSpell: public Spell {
@@ -22,7 +22,7 @@ class AddSpell: public Spell {
     int defMod;
     std::string Target;
 public:
-    AddSpell(std::string &cardName, int cost, int attMod, int defMod, int owner, std::string &Target, std::string &&description);
+    AddSpell(std::string &cardName, int cost, int owner, std::string &description, int attMod, int defMod, std::string &Target);
 };
 
 #endif

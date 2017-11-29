@@ -8,7 +8,7 @@ class Ritual: public NonPlayer {
     int activationCost;
     Event trigger;
 public:
-    Ritual(std::string &cardName, int cost, int owner, std::string &&description, int charges, int activationCost, Event trigger);
+    Ritual(std::string &cardName, int cost, int owner, std::string &description, int charges, int activationCost, Event trigger);
     virtual ~Ritual() = 0;
 };
 
@@ -17,7 +17,7 @@ class AddPlayerRitual: public Ritual {
     int magicMod;
     std::string target;
 public:
-    AddPlayerRitual(std::string &cardName, int cost, int owner, int charges, int activationCost, int healthMod, int magicMod, Event trigger, std::string &target, std::string &&description);
+    AddPlayerRitual(std::string &cardName, int cost, int owner, std::string &description, int charges, int activationCost, int healthMod, int magicMod, Event trigger, std::string &target);
 };
 
 class AddMinionRitual: public Ritual {
@@ -28,14 +28,14 @@ class AddMinionRitual: public Ritual {
     bool silence = false;
     std::string target;
 public:
-    AddMinionRitual(std::string &cardName, int cost, int owner, int charges, int activationCost, int attMod, int defMod, int actPerTurn, int abilityCost, int silencer, Event trigger, std::string &target, std::string &&description);
+    AddMinionRitual(std::string &cardName, int cost, int owner, std::string &description, int charges, int activationCost, int attMod, int defMod, int actPerTurn, int abilityCost, int silencer, Event trigger, std::string &target);
 };
 
 class MoveRitual: public Ritual {
     std::string target;
     std::string destination;
 public:
-    MoveRitual(std::string &cardName, int cost, int owner, int charges, int activationCost, Event trigger, std::string &target, std::string &destination, std::string &&description);
+    MoveRitual(std::string &cardName, int cost, int owner, std::string &description, int charges, int activationCost, Event trigger, std::string &target, std::string &destination);
 };
 
 #endif

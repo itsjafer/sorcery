@@ -52,7 +52,7 @@ void Player::addCard(ifstream &cardData) {
             int cardCost; cardData >> cardCost;
             string cardDscr; getline(cardData, cardDscr);
             //Create card
-            MoveSpell newSpell(cardName, cardCost, playerNumber, moveSrc, moveDest, target, static_cast<string &&>(cardDscr));
+            MoveSpell newSpell(cardName, cardCost, playerNumber, cardDscr, moveSrc, moveDest, target);
             deck.emplace_back(newSpell);
         } else if (spellType == "add") {
             //Get Target and modifiers
@@ -64,7 +64,7 @@ void Player::addCard(ifstream &cardData) {
             int cardCost; cardData >> cardCost;
             string cardDscr; getline(cardData, cardDscr);
             //Create card
-            AddSpell newSpell(cardName, cardCost, attMod, defMod, playerNumber, target, static_cast<string &&>(cardDscr));
+            AddSpell newSpell(cardName, cardCost, playerNumber, cardDscr, attMod, defMod, target);
             deck.emplace_back(newSpell);
         }
     }
@@ -95,7 +95,7 @@ void Player::addCard(ifstream &cardData) {
                 int cardCost; cardData >> cardCost;
                 string cardDscr; getline(cardData, cardDscr);
                 //Create card
-                AddPlayerRitual newRitual(cardName, cardCost, playerNumber, charges, activeCost, healthMod, magicMod, cardTrigger, targets, static_cast<string &&>(cardDscr));
+                AddPlayerRitual newRitual(cardName, cardCost, playerNumber, cardDscr, charges, activeCost, healthMod, magicMod, cardTrigger, targets);
                 deck.emplace_back(newRitual);
             } else if (target == "minion") {
                 //Get modifiers
@@ -122,7 +122,7 @@ void Player::addCard(ifstream &cardData) {
                 int cardCost; cardData >> cardCost;
                 string cardDscr; getline(cardData, cardDscr);
                 //Create card
-                AddMinionRitual newRitual(cardName, cardCost, playerNumber, charges, activeCost, attMod, defMod,actPerTurn, abilityCost, silenced, cardTrigger, target, static_cast<string &&>(cardDscr));
+                AddMinionRitual newRitual(cardName, cardCost, playerNumber, cardDscr, charges, activeCost, attMod, defMod,actPerTurn, abilityCost, silenced, cardTrigger, target);
                 deck.emplace_back(newRitual);
             }
         } else if (ritualType == "move") {
@@ -146,7 +146,7 @@ void Player::addCard(ifstream &cardData) {
             int cardCost; cardData >> cardCost;
             string cardDscr; getline(cardData, cardDscr);
             //Create card
-            MoveRitual newRitual(cardName, cardCost, playerNumber, charges, activeCost, cardTrigger, target, destination, static_cast<string &&>(cardDscr));
+            MoveRitual newRitual(cardName, cardCost, playerNumber, cardDscr, charges, activeCost, cardTrigger, target, destination);
             deck.emplace_back(newRitual);
         }
     }
@@ -165,7 +165,7 @@ void Player::addCard(ifstream &cardData) {
             int cardCost; cardData >> cardCost;
             string cardDscr; getline(cardData, cardDscr);
             //Create card
-            AddEnchant newEnchantment(cardName, cardCost, playerNumber, attMod, defMod, actPerTurn, abilityCost, silenced,cardDscr);
+            AddEnchant newEnchantment(cardName, cardCost, playerNumber, cardDscr, attMod, defMod, actPerTurn, abilityCost, silenced);
             deck.emplace_back(newEnchantment);
         }
     }

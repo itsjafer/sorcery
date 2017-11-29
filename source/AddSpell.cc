@@ -2,6 +2,5 @@
 
 using namespace std;
 
-AddSpell::AddSpell(std::string &cardName, int cost, int attMod, int defMod, int owner, std::string &Target,
-                   std::string &&description):
-        Spell(cardName, cost, owner), attMod(attMod), defMod(defMod), Target(Target) {}
+AddSpell::AddSpell(std::string &cardName, int cost, int owner, string &description, int attMod, int defMod, string &Target):
+        Spell(cardName, cost, owner, description), attMod(attMod), defMod(defMod), Target(Target) {}

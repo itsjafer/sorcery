@@ -17,7 +17,7 @@ class AddEnchant: public Enchantment {
     bool silence;
     void castCard() override;
 public:
-    AddEnchant(std::string &cardName, int cardCost, int owner, int attMod, int defMod, int actPerTurn, int AbilityCost, int silencer, std::string &&description);
+    AddEnchant(std::string &cardName, int cardCost, int owner, std::string &description, int attMod, int defMod, int actPerTurn, int AbilityCost, int silencer);
 };
 
 #endif
