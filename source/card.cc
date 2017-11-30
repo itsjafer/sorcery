@@ -1,8 +1,6 @@
 #include "card.h"
 
-Card::Card(std::string &name) {
-  this->name = name;
-}
+Card::Card(std::string &name): name{name} { }
 
 void Card::setBoard(BoardModel *board) {
 

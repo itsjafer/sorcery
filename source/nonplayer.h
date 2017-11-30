@@ -2,6 +2,7 @@
 #define NONPLAYER_H
 
 #include "card.h"
+#include "type.h"
 
 class NonPlayer: public Card {
     int cost;
@@ -9,15 +10,18 @@ class NonPlayer: public Card {
     std::string description;
     virtual void castCard() = 0;
     virtual void castCard(int p, char t = 'r') = 0;
+protected:
+    Type type;
 public:
-    NonPlayer(int cost, int owner, std::string &&description = "");
+    NonPlayer(std::string &name, int cost, int owner, std::string description = "");
     void cast();
     void cast(int p, char t = 'r');
     int getCost();
     void setCost(int cost);
     int getOwner();
     void setOwner(int owner);
-    virtual ~NonPlayer() = 0;
+    const Type getType() const;
+    virtual ~NonPlayer() = default;
 };
 
 #endif

@@ -2,6 +2,7 @@
 #define TEXTDISPLAY_H
 
 #include "observer.h"
+#include "ascii_graphics.h"
 #include <string>
 #include <vector>
 

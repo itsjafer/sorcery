@@ -2,21 +2,25 @@
 #define MINION_H
 
 #include "nonplayer.h"
+#include <memory>
 
 class Ability;
 class Enchantment;
 
 class Minion: public NonPlayer {
+    void updateState(std::vector<Event> &events) override;
+    void castCard() override;
+    void castCard(int p, char t = 'r') override;
 public:
     int att;
     int def;
     int action = 0;
-    std::vector<Ability> abilities;
-    std::vector<Enchantment *> enchantments;
+    std::vector<std::shared_ptr<Ability>> abilities;
+    std::vector<std::shared_ptr<Enchantment>> enchantments;
 
-    Minion(int attack, int defence, std::vector<std::fstream> &abilities);
+    Minion(std::string &name, int cost, int owner, int attack, int defence, std::vector<std::ifstream> &abilities);
     void attack(int i = 0);
-    virtual ~Minion() = 0;
+    ~Minion();
 };
 
 #endif

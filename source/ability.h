@@ -5,7 +5,8 @@
 
 class Ability: public NonPlayer {
 public:
-    virtual ~Ability() = 0;
+    Ability(std::string &name, int cost, int owner, std::string &description);
+    virtual ~Ability() = default;
 };
 
 #endif
