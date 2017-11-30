@@ -8,8 +8,46 @@ class Ritual: public NonPlayer {
     int activationCost;
     Event trigger;
 public:
-    Ritual(int charges, int activationCost, Event trigger);
+    Ritual(std::string &cardName, int cost, int owner, std::string &description, int charges, int activationCost, Event trigger):
+        NonPlayer{cardName, cost, owner, description}, charges{charges}, activationCost{activationCost}, trigger{trigger} {
+            type = Type::Ritual;
+        }
     virtual ~Ritual() = 0;
+};
+
+class AddPlayerRitual: public Ritual {
+    int healthMod;
+    int magicMod;
+    std::string target;
+    void updateState(std::vector<Event> &events) override;
+    void castCard() override;
+    void castCard(int p, char t = 'r') override;
+public:
+    AddPlayerRitual(std::string &cardName, int cost, int owner, std::string &description, int charges, int activationCost, int healthMod, int magicMod, Event trigger, std::string &target);
+};
+
+class AddMinionRitual: public Ritual {
+    int attMod;
+    int defMod;
+    int actPerTurn;
+    int abilityCost;
+    bool silence = false;
+    std::string target;
+    void updateState(std::vector<Event> &events) override;
+    void castCard() override;
+    void castCard(int p, char t = 'r') override;
+public:
+    AddMinionRitual(std::string &cardName, int cost, int owner, std::string &description, int charges, int activationCost, int attMod, int defMod, int actPerTurn, int abilityCost, int silencer, Event trigger, std::string &target);
+};
+
+class MoveRitual: public Ritual {
+    std::string target;
+    std::string destination;
+    void updateState(std::vector<Event> &events) override;
+    void castCard() override;
+    void castCard(int p, char t = 'r') override;
+public:
+    MoveRitual(std::string &cardName, int cost, int owner, std::string &description, int charges, int activationCost, Event trigger, std::string &target, std::string &destination);
 };
 
 #endif
