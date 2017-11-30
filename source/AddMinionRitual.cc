@@ -21,6 +21,6 @@ void AddMinionRitual::castCard() {
 
 }
 
-void AddMinionRitual::castCard(int p, char t = 'r') {
+void AddMinionRitual::castCard(int p, char t) {
 
 }

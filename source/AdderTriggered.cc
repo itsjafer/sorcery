@@ -13,6 +13,6 @@ void AdderTriggered::castCard() {
 
 }
 
-void AdderTriggered::castCard(int p, char t = 'r') {
+void AdderTriggered::castCard(int p, char t) {
 
 }

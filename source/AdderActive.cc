@@ -13,6 +13,6 @@ void AdderActive::castCard() {
 
 }
 
-void AdderActive::castCard(int p, char t = 'r') {
+void AdderActive::castCard(int p, char t) {
 
 }

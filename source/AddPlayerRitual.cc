@@ -14,6 +14,6 @@ void AddPlayerRitual::castCard() {
 
 }
 
-void AddPlayerRitual::castCard(int p, char t = 'r') {
+void AddPlayerRitual::castCard(int p, char t) {
 
 }

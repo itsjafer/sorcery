@@ -2,6 +2,7 @@
 #define MINION_H
 
 #include "nonplayer.h"
+#include <memory>
 
 class Ability;
 class Enchantment;
@@ -14,7 +15,7 @@ public:
     int att;
     int def;
     int action = 0;
-    std::vector<Ability> abilities;
+    std::vector<std::shared_ptr<Ability>> abilities;
     std::vector<Enchantment *> enchantments;
 
     Minion(std::string &name, int cost, int owner, int attack, int defence, std::vector<std::ifstream> &abilities);

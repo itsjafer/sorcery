@@ -14,6 +14,6 @@ void MoveRitual::castCard() {
 
 }
 
-void MoveRitual::castCard(int p, char t = 'r') {
+void MoveRitual::castCard(int p, char t) {
 
 }

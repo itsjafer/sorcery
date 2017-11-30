@@ -21,6 +21,6 @@ void AddEnchant::castCard() {
 
 }
 
-void AddEnchant::castCard(int p, char t = 'r') {
+void AddEnchant::castCard(int p, char t) {
 
 }
