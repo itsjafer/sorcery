@@ -119,6 +119,6 @@ void Minion::attack(int i) {
 }
 
 Minion::~Minion(){
-
+    abilities.clear();
+    enchantments.clear();
 };
-

@@ -21,7 +21,7 @@ public:
     int getOwner();
     void setOwner(int owner);
     const Type getType() const;
-    virtual ~NonPlayer() = 0;
+    virtual ~NonPlayer() = default;
 };
 
 #endif

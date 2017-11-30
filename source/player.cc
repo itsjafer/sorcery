@@ -36,7 +36,8 @@ void Player::addCard(ifstream &cardData) {
             cardAbilityFiles.emplace_back(move(ability));
         }
 
-        deck.emplace_back(make_unique<Minion>(cardName, cardCost, playerNumber, cardAttack, cardDefense, cardAbilityFiles));
+        deck.emplace_back(make_shared<Minion>(cardName, cardCost, playerNumber, cardAttack, cardDefense, cardAbilityFiles));
+        //deck.emplace_back(make_unique<Minion>(cardName, cardCost, playerNumber, cardAttack, cardDefense, cardAbilityFiles));
     }
     else if (cardType == "Spell") {
         //Adding a spell card
@@ -59,7 +60,7 @@ void Player::addCard(ifstream &cardData) {
             string cardDscr; getline(cardData, cardDscr);
 
             //Create card
-            MoveSpell newSpell(cardName, cardCost, playerNumber, cardDscr, moveSrc, moveDest, target);
+            shared_ptr<Spell> newSpell(new MoveSpell(cardName, cardCost, playerNumber, cardDscr, moveSrc, moveDest, target));
             deck.emplace_back(newSpell);
         } else if (spellType == "add") {
 
@@ -76,7 +77,7 @@ void Player::addCard(ifstream &cardData) {
             string cardDscr; getline(cardData, cardDscr);
 
             //Create card
-            AddSpell newSpell(cardName, cardCost, playerNumber, cardDscr, attMod, defMod, attFier, defFier, target);
+            shared_ptr<Spell> newSpell(new AddSpell(cardName, cardCost, playerNumber, cardDscr, attMod, defMod, attFier, defFier, target));
             deck.emplace_back(newSpell);
         } else if (spellType == "moveAdd") {
             //Get move source
@@ -97,7 +98,7 @@ void Player::addCard(ifstream &cardData) {
             int cardCost; cardData >> cardCost;
             string cardDscr; getline(cardData, cardDscr);
             //Create card
-            MoveAddSpell newSpell(cardName, cardCost, playerNumber, cardDscr, attMod, defMod, attFier, defFier, moveSrc, moveDest, target);
+            shared_ptr<Spell> newSpell(new MoveAddSpell(cardName, cardCost, playerNumber, cardDscr, attMod, defMod, attFier, defFier, moveSrc, moveDest, target));
             deck.emplace_back(newSpell);
 
         } else if (spellType == "ritualMod") {
@@ -112,7 +113,7 @@ void Player::addCard(ifstream &cardData) {
             string cardDscr; getline(cardData, cardDscr);
 
             //Create card
-            AddRitualSpell newSpell(cardName, cardCost, playerNumber, cardDscr, chargeMod, costMod);
+            shared_ptr<Spell> newSpell(new AddRitualSpell(cardName, cardCost, playerNumber, cardDscr, chargeMod, costMod));
             deck.emplace_back(newSpell);
         }
     }
@@ -138,7 +139,7 @@ void Player::addCard(ifstream &cardData) {
 
                 //Get player modifiers
                 int healthMod; cardData >> healthMod;
-                int magicMod; cardData >> healthMod;
+                int magicMod; cardData >> magicMod;
                 string targets; getline(cardData, targets);
 
                 //Name and Cost and decsription
@@ -147,7 +148,7 @@ void Player::addCard(ifstream &cardData) {
                 string cardDscr; getline(cardData, cardDscr);
 
                 //Create card
-                AddPlayerRitual newRitual(cardName, cardCost, playerNumber, cardDscr, charges, activeCost, healthMod, magicMod, cardTrigger, targets);
+                shared_ptr<Ritual> newRitual(new AddPlayerRitual(cardName, cardCost, playerNumber, cardDscr, charges, activeCost, healthMod, magicMod, cardTrigger, targets));
                 deck.emplace_back(newRitual);
             } else if (target == "minion") {
 
@@ -178,7 +179,7 @@ void Player::addCard(ifstream &cardData) {
                 string cardDscr; getline(cardData, cardDscr);
 
                 //Create card
-                AddMinionRitual newRitual(cardName, cardCost, playerNumber, cardDscr, charges, activeCost, attMod, defMod,actPerTurn, abilityCost, silenced, cardTrigger, target);
+                shared_ptr<Ritual> newRitual(new AddMinionRitual(cardName, cardCost, playerNumber, cardDscr, charges, activeCost, attMod, defMod,actPerTurn, abilityCost, silenced, cardTrigger, target));
                 deck.emplace_back(newRitual);
             }
         } else if (ritualType == "move") {
@@ -206,7 +207,7 @@ void Player::addCard(ifstream &cardData) {
             string cardDscr; getline(cardData, cardDscr);
 
             //Create card
-            MoveRitual newRitual(cardName, cardCost, playerNumber, cardDscr, charges, activeCost, cardTrigger, target, destination);
+            shared_ptr<Ritual> newRitual(new MoveRitual(cardName, cardCost, playerNumber, cardDscr, charges, activeCost, cardTrigger, target, destination));
             deck.emplace_back(newRitual);
         }
     }
@@ -230,7 +231,7 @@ void Player::addCard(ifstream &cardData) {
             string cardDscr; getline(cardData, cardDscr);
 
             //Create card
-            AddEnchant newEnchantment(cardName, cardCost, playerNumber, cardDscr, attMod, defMod, actPerTurn, abilityCost, attFier, defFier, silenced);
+            shared_ptr<Enchantment> newEnchantment(new AddEnchant(cardName, cardCost, playerNumber, cardDscr, attMod, defMod, actPerTurn, abilityCost, attFier, defFier, silenced));
             deck.emplace_back(newEnchantment);
         }
     }
@@ -243,9 +244,8 @@ void Player::updateState(vector<Event> &events) {
 
 void Player::drawCard(int numCards) {
     if (deck.size() > 0) {
-        auto card = move(deck.back());
+        hand.emplace_back(deck.back());    //not sure if this actually works...
         deck.pop_back();
-        hand.emplace_back(move(card));
     }
     else throw out_of_range(getName());
 }
@@ -254,22 +254,22 @@ const Minion &Player::minion(int i) const {
     return *(minions.at(i - 1));
 }
 
-const vector<unique_ptr<NonPlayer>> &Player::getHand() const {
+const vector<shared_ptr<NonPlayer>> &Player::getHand() const {
     return hand;
 }
 
 void Player::play(int i) {
-    auto card = hand.at(i - 1).get();
+    auto card = hand.at(i - 1);
 
     if (card->getType() == Type::Spell) {
         card->cast();               //will update the board: no need to do in here
-        graveyard.emplace_back(move(card));
+        graveyard.emplace_back(card);
     }
     else if (card->getType() == Type::Ritual) {
-        ritual = make_unique<Ritual>(move(card));
+        ritual = dynamic_pointer_cast<Ritual>(card);
     }
     else if (card->getType() == Type::Minion) {
-        minions.emplace_back(move(card));
+        minions.emplace_back(dynamic_pointer_cast<Minion>(card));
     }
     else { }    //handle exception
 
@@ -277,15 +277,15 @@ void Player::play(int i) {
 }
 
 void Player::play(int i, int p, char t) {
-    auto card = hand.at(i - 1).get();
+    auto card = hand.at(i - 1);
 
     if (card->getType() == Type::Spell) {
         card->cast(p, t);               //will update the board: no need to do in here
-        graveyard.emplace_back(move(card));
+        graveyard.emplace_back(card);
     }
     else if (card->getType() == Type::Enchantment) {
         card->cast(p, t);
-        minions.at((int)(t - 1))->enchantments.emplace_back(move(card));
+        minions.at((int)(t - 1))->enchantments.emplace_back(dynamic_pointer_cast<Enchantment>(card));
     }
     else { }    //handle exception
 

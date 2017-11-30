@@ -12,7 +12,7 @@ public:
         NonPlayer{cardName, cost, owner, description}, charges{charges}, activationCost{activationCost}, trigger{trigger} {
             type = Type::Ritual;
         }
-    virtual ~Ritual() = 0;
+    virtual ~Ritual() = default;
 };
 
 class AddPlayerRitual: public Ritual {
@@ -24,6 +24,7 @@ class AddPlayerRitual: public Ritual {
     void castCard(int p, char t = 'r') override;
 public:
     AddPlayerRitual(std::string &cardName, int cost, int owner, std::string &description, int charges, int activationCost, int healthMod, int magicMod, Event trigger, std::string &target);
+    ~AddPlayerRitual() { }
 };
 
 class AddMinionRitual: public Ritual {
@@ -38,6 +39,7 @@ class AddMinionRitual: public Ritual {
     void castCard(int p, char t = 'r') override;
 public:
     AddMinionRitual(std::string &cardName, int cost, int owner, std::string &description, int charges, int activationCost, int attMod, int defMod, int actPerTurn, int abilityCost, int silencer, Event trigger, std::string &target);
+    ~AddMinionRitual() { }
 };
 
 class MoveRitual: public Ritual {
@@ -48,6 +50,7 @@ class MoveRitual: public Ritual {
     void castCard(int p, char t = 'r') override;
 public:
     MoveRitual(std::string &cardName, int cost, int owner, std::string &description, int charges, int activationCost, Event trigger, std::string &target, std::string &destination);
+    ~MoveRitual() { }
 };
 
 #endif
