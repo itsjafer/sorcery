@@ -224,17 +224,11 @@ void Player::use(int i) {
 }
     
 void Player::use(int i, int p, char t) {
-<<<<<<< HEAD
-}
-
-void Player::attack(int i, int j) {
-=======
     minions.at(i - 1)->cast(p, t);
 }
 
 void Player::attack(int i, int j) {
     minions.at(i - 1)->attack(j);
->>>>>>> master
 }
 
 Player::~Player() {

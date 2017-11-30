@@ -100,11 +100,11 @@ bool Minion::hasAbility() {
 }
 
 Type Minion::getAbilityType(int i) {
-    return abilities[i].getType();
+    return abilities[i]->getType();
 }
 
 int Minion::getAbilityCost(int i) {
-    return abilities[i].getCost();
+    return abilities[i]->getCost();
 }
 
 void Minion::updateState(vector<Event> &events) {

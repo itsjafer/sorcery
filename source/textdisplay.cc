@@ -5,6 +5,7 @@
 #include "nonplayer.h"
 #include "info.h"
 #include "minion.h"
+#include "ritual.h"
 #include "enchantment.h"
 #include <iostream>
 
@@ -86,11 +87,9 @@ void TextDisplay::update (Subject &whoNotified) {
         std::shared_ptr<Minion> m = std::dynamic_pointer_cast<Minion>(boardInfos[i].hand[j]);
         
         // get attack and defense
-        //int attack = m->getAttack();
-        //int defence = m->getDefence();
+        int attack = m->getAttack();
+        int defence = m->getDefence();
         
-        // UNCOMMENT THIS WHEN ABILITIES ARE IMPLEMENTED
-        /*
         // check if theres an ability
         if (m->hasAbility()) {
 
@@ -98,21 +97,20 @@ void TextDisplay::update (Subject &whoNotified) {
           if (m->getAbilityType(0) == Type::ActivatedAbility) {
             // check the cost of the activated ability
             int abilityCost = m->getAbilityCost();
-            hands[i][j] + (display_minion_activated_ability(name, cost, attack, defence, abilityCost, description));
+            hands[i][j] = (display_minion_activated_ability(name, cost, attack, defence, abilityCost, description));
           } else {
             hands[i][j] = (display_minion_triggered_ability(name, cost, attack, defence, description));
           }
         } else {
           hands[i][j] = (display_minion_no_ability(name, cost, attack, defence));
-        }*/
+        }
 
       }
 
       // check if its a ritual
       else if (boardInfos[i].hand[j]->getType() == Type::Ritual) {
-        //std::shared_ptr<Ritual> r = std::dynamic_pointer_cast<Ritual>(boardInfos[i].hand[j]);
-        // UNCOMMENT THIS WHEN RITUALS ARE IMPLEMENTED
-        // hands[i][j] = (display_ritual(name, cost, r->getCost(), r->getDescription(), r->getCharges()));
+        std::shared_ptr<Ritual> r = std::dynamic_pointer_cast<Ritual>(boardInfos[i].hand[j]);
+        hands[i][j] = (display_ritual(name, cost, r->getCost(), r->getDescription(), r->getCharges()));
 
       }
 
@@ -123,7 +121,7 @@ void TextDisplay::update (Subject &whoNotified) {
 
       // check if its an enchantment
       else if (boardInfos[i].hand[j]->getType() == Type::Enchantment) {
-        //std::shared_ptr<Enchantment> e = std::dynamic_pointer_cast<Enchantment>(boardInfos[i].hand[j]);
+        std::shared_ptr<Enchantment> e = std::dynamic_pointer_cast<Enchantment>(boardInfos[i].hand[j]);
 
         // UNCOMMENT THIS WHEN ENCHANTMENTS ARE IMPLEMENTED
         /*
