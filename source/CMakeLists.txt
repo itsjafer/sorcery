@@ -28,6 +28,7 @@ set(SOURCE_FILES
         MoveAddSpell.cc
         MoveSpell.cc
         MoveRitual.cc
+        nonplayer.cc
         nonplayer.h
         observer.cc
         observer.h
@@ -38,7 +39,6 @@ set(SOURCE_FILES
         subject.cc
         subject.h
         SummonActive.cc
-        textdisplay.cc
         textdisplay.h
         triggered.cc
         triggered.h

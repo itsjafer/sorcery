@@ -85,7 +85,8 @@ Minion::Minion(string &name, int cost, int owner, int attack, int defence, vecto
                     abilities[i] >> costAmount;
                     int summonAmount;
                     abilities[i] >> summonAmount;
-                    std::string summonMinion; getline(abilities[i], summonMinion);
+                    std::string summonMinion;
+                    getline(abilities[i], summonMinion);
 
                     //Get description
                     std::string descriptor;
@@ -93,9 +94,10 @@ Minion::Minion(string &name, int cost, int owner, int attack, int defence, vecto
                     string name = "none";
 
                     //Create ability, add it to the back
-                    shared_ptr<Ability> newSumAct{new SummonActive(name, costAmount, -1, descriptor, summonAmount, summonMinion)};
+                    shared_ptr<Ability> newSumAct{
+                            new SummonActive(name, costAmount, -1, descriptor, summonAmount, summonMinion)};
                     this->abilities.emplace_back(newSumAct);
-
+                }
             }
         }
     }

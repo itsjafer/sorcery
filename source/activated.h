@@ -24,6 +24,9 @@ public:
 class SummonActive: public  Activated {
     int summonAmount;
     std::string summonMinion;
+    void updateState(std::vector<Event> &events) override;
+    void castCard() override;
+    void castCard(int p, char t = 'r') override;
 public:
     SummonActive(std::string &name, int cost, int owner, std::string &description, int summonAmount, std::string &summonMinion);
     ~SummonActive() { }

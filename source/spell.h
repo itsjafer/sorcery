@@ -42,6 +42,9 @@ class MoveAddSpell: public Spell {
     std::string moveSource;
     std::string moveDestination;
     std::string Target;
+    void updateState(std::vector<Event> &events) override;
+    void castCard() override;
+    void castCard(int p, char t = 'r') override;
 public:
     MoveAddSpell(std::string &cardName, int cost, int owner, std::string &description, int attMod, int defMod, std::string attFier, std::string defFier, std::string &moveSource, std::string &moveDestination,  std::string &Target);
     ~MoveAddSpell() { }
@@ -50,6 +53,9 @@ public:
 class AddRitualSpell: public Spell {
     int chargeMod;
     int costMod;
+    void updateState(std::vector<Event> &events) override;
+    void castCard() override;
+    void castCard(int p, char t = 'r') override;
 public:
     AddRitualSpell(std::string &cardName, int cost, int owner, std::string &description, int chargeMod, int costMod);
     ~AddRitualSpell() { }

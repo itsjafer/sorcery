@@ -163,6 +163,9 @@
 		<Unit filename="C:/Users/pipli/OneDrive/Documents/sorcery/source/minion.h">
 			<Option target="source"/>
 		</Unit>
+		<Unit filename="C:/Users/pipli/OneDrive/Documents/sorcery/source/nonplayer.cc">
+			<Option target="source"/>
+		</Unit>
 		<Unit filename="C:/Users/pipli/OneDrive/Documents/sorcery/source/nonplayer.h">
 			<Option target="source"/>
 		</Unit>
@@ -188,9 +191,6 @@
 			<Option target="source"/>
 		</Unit>
 		<Unit filename="C:/Users/pipli/OneDrive/Documents/sorcery/source/subject.h">
-			<Option target="source"/>
-		</Unit>
-		<Unit filename="C:/Users/pipli/OneDrive/Documents/sorcery/source/textdisplay.cc">
 			<Option target="source"/>
 		</Unit>
 		<Unit filename="C:/Users/pipli/OneDrive/Documents/sorcery/source/textdisplay.h">

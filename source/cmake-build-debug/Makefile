@@ -608,6 +608,33 @@ minion.cc.s:
 	$(MAKE) -f CMakeFiles\source.dir\build.make CMakeFiles/source.dir/minion.cc.s
 .PHONY : minion.cc.s
 
+nonplayer.obj: nonplayer.cc.obj
+
+.PHONY : nonplayer.obj
+
+# target to build an object file
+nonplayer.cc.obj:
+	$(MAKE) -f CMakeFiles\source.dir\build.make CMakeFiles/source.dir/nonplayer.cc.obj
+.PHONY : nonplayer.cc.obj
+
+nonplayer.i: nonplayer.cc.i
+
+.PHONY : nonplayer.i
+
+# target to preprocess a source file
+nonplayer.cc.i:
+	$(MAKE) -f CMakeFiles\source.dir\build.make CMakeFiles/source.dir/nonplayer.cc.i
+.PHONY : nonplayer.cc.i
+
+nonplayer.s: nonplayer.cc.s
+
+.PHONY : nonplayer.s
+
+# target to generate assembly for a file
+nonplayer.cc.s:
+	$(MAKE) -f CMakeFiles\source.dir\build.make CMakeFiles/source.dir/nonplayer.cc.s
+.PHONY : nonplayer.cc.s
+
 observer.obj: observer.cc.obj
 
 .PHONY : observer.obj
@@ -688,33 +715,6 @@ subject.s: subject.cc.s
 subject.cc.s:
 	$(MAKE) -f CMakeFiles\source.dir\build.make CMakeFiles/source.dir/subject.cc.s
 .PHONY : subject.cc.s
-
-textdisplay.obj: textdisplay.cc.obj
-
-.PHONY : textdisplay.obj
-
-# target to build an object file
-textdisplay.cc.obj:
-	$(MAKE) -f CMakeFiles\source.dir\build.make CMakeFiles/source.dir/textdisplay.cc.obj
-.PHONY : textdisplay.cc.obj
-
-textdisplay.i: textdisplay.cc.i
-
-.PHONY : textdisplay.i
-
-# target to preprocess a source file
-textdisplay.cc.i:
-	$(MAKE) -f CMakeFiles\source.dir\build.make CMakeFiles/source.dir/textdisplay.cc.i
-.PHONY : textdisplay.cc.i
-
-textdisplay.s: textdisplay.cc.s
-
-.PHONY : textdisplay.s
-
-# target to generate assembly for a file
-textdisplay.cc.s:
-	$(MAKE) -f CMakeFiles\source.dir\build.make CMakeFiles/source.dir/textdisplay.cc.s
-.PHONY : textdisplay.cc.s
 
 triggered.obj: triggered.cc.obj
 
@@ -806,6 +806,9 @@ help:
 	@echo ... minion.obj
 	@echo ... minion.i
 	@echo ... minion.s
+	@echo ... nonplayer.obj
+	@echo ... nonplayer.i
+	@echo ... nonplayer.s
 	@echo ... observer.obj
 	@echo ... observer.i
 	@echo ... observer.s
@@ -815,9 +818,6 @@ help:
 	@echo ... subject.obj
 	@echo ... subject.i
 	@echo ... subject.s
-	@echo ... textdisplay.obj
-	@echo ... textdisplay.i
-	@echo ... textdisplay.s
 	@echo ... triggered.obj
 	@echo ... triggered.i
 	@echo ... triggered.s

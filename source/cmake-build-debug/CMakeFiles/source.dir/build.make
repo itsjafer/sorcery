@@ -416,9 +416,33 @@ CMakeFiles/source.dir/MoveRitual.cc.obj.provides: CMakeFiles/source.dir/MoveRitu
 CMakeFiles/source.dir/MoveRitual.cc.obj.provides.build: CMakeFiles/source.dir/MoveRitual.cc.obj
 
 
+CMakeFiles/source.dir/nonplayer.cc.obj: CMakeFiles/source.dir/flags.make
+CMakeFiles/source.dir/nonplayer.cc.obj: ../nonplayer.cc
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\pipli\OneDrive\Documents\sorcery\source\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_16) "Building CXX object CMakeFiles/source.dir/nonplayer.cc.obj"
+	C:\MinGW\bin\g++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\source.dir\nonplayer.cc.obj -c C:\Users\pipli\OneDrive\Documents\sorcery\source\nonplayer.cc
+
+CMakeFiles/source.dir/nonplayer.cc.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/source.dir/nonplayer.cc.i"
+	C:\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\pipli\OneDrive\Documents\sorcery\source\nonplayer.cc > CMakeFiles\source.dir\nonplayer.cc.i
+
+CMakeFiles/source.dir/nonplayer.cc.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/source.dir/nonplayer.cc.s"
+	C:\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\pipli\OneDrive\Documents\sorcery\source\nonplayer.cc -o CMakeFiles\source.dir\nonplayer.cc.s
+
+CMakeFiles/source.dir/nonplayer.cc.obj.requires:
+
+.PHONY : CMakeFiles/source.dir/nonplayer.cc.obj.requires
+
+CMakeFiles/source.dir/nonplayer.cc.obj.provides: CMakeFiles/source.dir/nonplayer.cc.obj.requires
+	$(MAKE) -f CMakeFiles\source.dir\build.make CMakeFiles/source.dir/nonplayer.cc.obj.provides.build
+.PHONY : CMakeFiles/source.dir/nonplayer.cc.obj.provides
+
+CMakeFiles/source.dir/nonplayer.cc.obj.provides.build: CMakeFiles/source.dir/nonplayer.cc.obj
+
+
 CMakeFiles/source.dir/observer.cc.obj: CMakeFiles/source.dir/flags.make
 CMakeFiles/source.dir/observer.cc.obj: ../observer.cc
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\pipli\OneDrive\Documents\sorcery\source\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_16) "Building CXX object CMakeFiles/source.dir/observer.cc.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\pipli\OneDrive\Documents\sorcery\source\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_17) "Building CXX object CMakeFiles/source.dir/observer.cc.obj"
 	C:\MinGW\bin\g++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\source.dir\observer.cc.obj -c C:\Users\pipli\OneDrive\Documents\sorcery\source\observer.cc
 
 CMakeFiles/source.dir/observer.cc.i: cmake_force
@@ -442,7 +466,7 @@ CMakeFiles/source.dir/observer.cc.obj.provides.build: CMakeFiles/source.dir/obse
 
 CMakeFiles/source.dir/player.cc.obj: CMakeFiles/source.dir/flags.make
 CMakeFiles/source.dir/player.cc.obj: ../player.cc
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\pipli\OneDrive\Documents\sorcery\source\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_17) "Building CXX object CMakeFiles/source.dir/player.cc.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\pipli\OneDrive\Documents\sorcery\source\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_18) "Building CXX object CMakeFiles/source.dir/player.cc.obj"
 	C:\MinGW\bin\g++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\source.dir\player.cc.obj -c C:\Users\pipli\OneDrive\Documents\sorcery\source\player.cc
 
 CMakeFiles/source.dir/player.cc.i: cmake_force
@@ -466,7 +490,7 @@ CMakeFiles/source.dir/player.cc.obj.provides.build: CMakeFiles/source.dir/player
 
 CMakeFiles/source.dir/subject.cc.obj: CMakeFiles/source.dir/flags.make
 CMakeFiles/source.dir/subject.cc.obj: ../subject.cc
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\pipli\OneDrive\Documents\sorcery\source\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_18) "Building CXX object CMakeFiles/source.dir/subject.cc.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\pipli\OneDrive\Documents\sorcery\source\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_19) "Building CXX object CMakeFiles/source.dir/subject.cc.obj"
 	C:\MinGW\bin\g++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\source.dir\subject.cc.obj -c C:\Users\pipli\OneDrive\Documents\sorcery\source\subject.cc
 
 CMakeFiles/source.dir/subject.cc.i: cmake_force
@@ -490,7 +514,7 @@ CMakeFiles/source.dir/subject.cc.obj.provides.build: CMakeFiles/source.dir/subje
 
 CMakeFiles/source.dir/SummonActive.cc.obj: CMakeFiles/source.dir/flags.make
 CMakeFiles/source.dir/SummonActive.cc.obj: ../SummonActive.cc
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\pipli\OneDrive\Documents\sorcery\source\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_19) "Building CXX object CMakeFiles/source.dir/SummonActive.cc.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\pipli\OneDrive\Documents\sorcery\source\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_20) "Building CXX object CMakeFiles/source.dir/SummonActive.cc.obj"
 	C:\MinGW\bin\g++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\source.dir\SummonActive.cc.obj -c C:\Users\pipli\OneDrive\Documents\sorcery\source\SummonActive.cc
 
 CMakeFiles/source.dir/SummonActive.cc.i: cmake_force
@@ -510,30 +534,6 @@ CMakeFiles/source.dir/SummonActive.cc.obj.provides: CMakeFiles/source.dir/Summon
 .PHONY : CMakeFiles/source.dir/SummonActive.cc.obj.provides
 
 CMakeFiles/source.dir/SummonActive.cc.obj.provides.build: CMakeFiles/source.dir/SummonActive.cc.obj
-
-
-CMakeFiles/source.dir/textdisplay.cc.obj: CMakeFiles/source.dir/flags.make
-CMakeFiles/source.dir/textdisplay.cc.obj: ../textdisplay.cc
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\pipli\OneDrive\Documents\sorcery\source\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_20) "Building CXX object CMakeFiles/source.dir/textdisplay.cc.obj"
-	C:\MinGW\bin\g++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\source.dir\textdisplay.cc.obj -c C:\Users\pipli\OneDrive\Documents\sorcery\source\textdisplay.cc
-
-CMakeFiles/source.dir/textdisplay.cc.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/source.dir/textdisplay.cc.i"
-	C:\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\pipli\OneDrive\Documents\sorcery\source\textdisplay.cc > CMakeFiles\source.dir\textdisplay.cc.i
-
-CMakeFiles/source.dir/textdisplay.cc.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/source.dir/textdisplay.cc.s"
-	C:\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\pipli\OneDrive\Documents\sorcery\source\textdisplay.cc -o CMakeFiles\source.dir\textdisplay.cc.s
-
-CMakeFiles/source.dir/textdisplay.cc.obj.requires:
-
-.PHONY : CMakeFiles/source.dir/textdisplay.cc.obj.requires
-
-CMakeFiles/source.dir/textdisplay.cc.obj.provides: CMakeFiles/source.dir/textdisplay.cc.obj.requires
-	$(MAKE) -f CMakeFiles\source.dir\build.make CMakeFiles/source.dir/textdisplay.cc.obj.provides.build
-.PHONY : CMakeFiles/source.dir/textdisplay.cc.obj.provides
-
-CMakeFiles/source.dir/textdisplay.cc.obj.provides.build: CMakeFiles/source.dir/textdisplay.cc.obj
 
 
 CMakeFiles/source.dir/triggered.cc.obj: CMakeFiles/source.dir/flags.make
@@ -625,11 +625,11 @@ source_OBJECTS = \
 "CMakeFiles/source.dir/MoveAddSpell.cc.obj" \
 "CMakeFiles/source.dir/MoveSpell.cc.obj" \
 "CMakeFiles/source.dir/MoveRitual.cc.obj" \
+"CMakeFiles/source.dir/nonplayer.cc.obj" \
 "CMakeFiles/source.dir/observer.cc.obj" \
 "CMakeFiles/source.dir/player.cc.obj" \
 "CMakeFiles/source.dir/subject.cc.obj" \
 "CMakeFiles/source.dir/SummonActive.cc.obj" \
-"CMakeFiles/source.dir/textdisplay.cc.obj" \
 "CMakeFiles/source.dir/triggered.cc.obj" \
 "CMakeFiles/source.dir/AdderTriggered.cc.obj" \
 "CMakeFiles/source.dir/AdderActive.cc.obj"
@@ -652,11 +652,11 @@ source.exe: CMakeFiles/source.dir/minion.cc.obj
 source.exe: CMakeFiles/source.dir/MoveAddSpell.cc.obj
 source.exe: CMakeFiles/source.dir/MoveSpell.cc.obj
 source.exe: CMakeFiles/source.dir/MoveRitual.cc.obj
+source.exe: CMakeFiles/source.dir/nonplayer.cc.obj
 source.exe: CMakeFiles/source.dir/observer.cc.obj
 source.exe: CMakeFiles/source.dir/player.cc.obj
 source.exe: CMakeFiles/source.dir/subject.cc.obj
 source.exe: CMakeFiles/source.dir/SummonActive.cc.obj
-source.exe: CMakeFiles/source.dir/textdisplay.cc.obj
 source.exe: CMakeFiles/source.dir/triggered.cc.obj
 source.exe: CMakeFiles/source.dir/AdderTriggered.cc.obj
 source.exe: CMakeFiles/source.dir/AdderActive.cc.obj
@@ -687,11 +687,11 @@ CMakeFiles/source.dir/requires: CMakeFiles/source.dir/minion.cc.obj.requires
 CMakeFiles/source.dir/requires: CMakeFiles/source.dir/MoveAddSpell.cc.obj.requires
 CMakeFiles/source.dir/requires: CMakeFiles/source.dir/MoveSpell.cc.obj.requires
 CMakeFiles/source.dir/requires: CMakeFiles/source.dir/MoveRitual.cc.obj.requires
+CMakeFiles/source.dir/requires: CMakeFiles/source.dir/nonplayer.cc.obj.requires
 CMakeFiles/source.dir/requires: CMakeFiles/source.dir/observer.cc.obj.requires
 CMakeFiles/source.dir/requires: CMakeFiles/source.dir/player.cc.obj.requires
 CMakeFiles/source.dir/requires: CMakeFiles/source.dir/subject.cc.obj.requires
 CMakeFiles/source.dir/requires: CMakeFiles/source.dir/SummonActive.cc.obj.requires
-CMakeFiles/source.dir/requires: CMakeFiles/source.dir/textdisplay.cc.obj.requires
 CMakeFiles/source.dir/requires: CMakeFiles/source.dir/triggered.cc.obj.requires
 CMakeFiles/source.dir/requires: CMakeFiles/source.dir/AdderTriggered.cc.obj.requires
 CMakeFiles/source.dir/requires: CMakeFiles/source.dir/AdderActive.cc.obj.requires
