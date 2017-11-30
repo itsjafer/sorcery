@@ -4,12 +4,14 @@ project(source)
 set(CMAKE_CXX_STANDARD 11)
 
 set(SOURCE_FILES
+        AddRitualSpell.cc
         AddSpell.cc
         AddEnchant.cc
         AddPlayerRitual.cc
         AddMinionRitual.cc
         ability.h
         ability.cc
+        activated.cc
         activated.h
         boardcontroller.cc
         boardcontroller.h
@@ -23,15 +25,20 @@ set(SOURCE_FILES
         main.cc
         minion.cc
         minion.h
+        MoveAddSpell.cc
         MoveSpell.cc
         MoveRitual.cc
+        nonplayer.cc
         nonplayer.h
+        observer.cc
         observer.h
         player.cc
         player.h
         ritual.h
         spell.h
+        subject.cc
         subject.h
+        SummonActive.cc
         textdisplay.h
         triggered.cc
         triggered.h
