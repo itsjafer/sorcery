@@ -1,20 +1,33 @@
 #include "nonplayer.h"
 
-const Type NonPlayer::getType() const {
-  return Type::Spell;
+using namespace std;
+
+NonPlayer::NonPlayer(string &name, int cost, int owner, string description): Card{name}, cost{cost}, owner{owner}, description{description} { }
+
+void NonPlayer::cast() {
+
 }
 
-std::string NonPlayer::getDescription() {
-  return description;
+void NonPlayer::cast(int p, char t) {
+
 }
 
 int NonPlayer::getCost() {
-  return cost;
+
 }
 
-void NonPlayer::cast() {
-  castCard();
+void NonPlayer::setCost(int cost) {
+
 }
-void NonPlayer::cast(int p, char t) {
-  castCard(p,t);
+
+int NonPlayer::getOwner() {
+
+}
+
+void NonPlayer::setOwner(int owner) {
+    
+}
+
+const Type NonPlayer::getType() const {
+
 }

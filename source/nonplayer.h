@@ -8,11 +8,12 @@ class NonPlayer: public Card {
     int cost;
     int owner;
     std::string description;
-    Type type;
     virtual void castCard() = 0;
     virtual void castCard(int p, char t = 'r') = 0;
+protected:
+    Type type;
 public:
-    NonPlayer(std::string &name, int cost, int owner, std::string &&description = "");
+    NonPlayer(std::string &name, int cost, int owner, std::string description = "");
     void cast();
     void cast(int p, char t = 'r');
     int getCost();
@@ -21,7 +22,7 @@ public:
     void setOwner(int owner);
     std::string getDescription();
     const Type getType() const;
-    virtual ~NonPlayer() = 0;
+    virtual ~NonPlayer() = default;
 };
 
 #endif

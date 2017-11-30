@@ -122,6 +122,114 @@ source/fast:
 	$(MAKE) -f CMakeFiles\source.dir\build.make CMakeFiles/source.dir/build
 .PHONY : source/fast
 
+AddEnchant.obj: AddEnchant.cc.obj
+
+.PHONY : AddEnchant.obj
+
+# target to build an object file
+AddEnchant.cc.obj:
+	$(MAKE) -f CMakeFiles\source.dir\build.make CMakeFiles/source.dir/AddEnchant.cc.obj
+.PHONY : AddEnchant.cc.obj
+
+AddEnchant.i: AddEnchant.cc.i
+
+.PHONY : AddEnchant.i
+
+# target to preprocess a source file
+AddEnchant.cc.i:
+	$(MAKE) -f CMakeFiles\source.dir\build.make CMakeFiles/source.dir/AddEnchant.cc.i
+.PHONY : AddEnchant.cc.i
+
+AddEnchant.s: AddEnchant.cc.s
+
+.PHONY : AddEnchant.s
+
+# target to generate assembly for a file
+AddEnchant.cc.s:
+	$(MAKE) -f CMakeFiles\source.dir\build.make CMakeFiles/source.dir/AddEnchant.cc.s
+.PHONY : AddEnchant.cc.s
+
+AddMinionRitual.obj: AddMinionRitual.cc.obj
+
+.PHONY : AddMinionRitual.obj
+
+# target to build an object file
+AddMinionRitual.cc.obj:
+	$(MAKE) -f CMakeFiles\source.dir\build.make CMakeFiles/source.dir/AddMinionRitual.cc.obj
+.PHONY : AddMinionRitual.cc.obj
+
+AddMinionRitual.i: AddMinionRitual.cc.i
+
+.PHONY : AddMinionRitual.i
+
+# target to preprocess a source file
+AddMinionRitual.cc.i:
+	$(MAKE) -f CMakeFiles\source.dir\build.make CMakeFiles/source.dir/AddMinionRitual.cc.i
+.PHONY : AddMinionRitual.cc.i
+
+AddMinionRitual.s: AddMinionRitual.cc.s
+
+.PHONY : AddMinionRitual.s
+
+# target to generate assembly for a file
+AddMinionRitual.cc.s:
+	$(MAKE) -f CMakeFiles\source.dir\build.make CMakeFiles/source.dir/AddMinionRitual.cc.s
+.PHONY : AddMinionRitual.cc.s
+
+AddPlayerRitual.obj: AddPlayerRitual.cc.obj
+
+.PHONY : AddPlayerRitual.obj
+
+# target to build an object file
+AddPlayerRitual.cc.obj:
+	$(MAKE) -f CMakeFiles\source.dir\build.make CMakeFiles/source.dir/AddPlayerRitual.cc.obj
+.PHONY : AddPlayerRitual.cc.obj
+
+AddPlayerRitual.i: AddPlayerRitual.cc.i
+
+.PHONY : AddPlayerRitual.i
+
+# target to preprocess a source file
+AddPlayerRitual.cc.i:
+	$(MAKE) -f CMakeFiles\source.dir\build.make CMakeFiles/source.dir/AddPlayerRitual.cc.i
+.PHONY : AddPlayerRitual.cc.i
+
+AddPlayerRitual.s: AddPlayerRitual.cc.s
+
+.PHONY : AddPlayerRitual.s
+
+# target to generate assembly for a file
+AddPlayerRitual.cc.s:
+	$(MAKE) -f CMakeFiles\source.dir\build.make CMakeFiles/source.dir/AddPlayerRitual.cc.s
+.PHONY : AddPlayerRitual.cc.s
+
+AddSpell.obj: AddSpell.cc.obj
+
+.PHONY : AddSpell.obj
+
+# target to build an object file
+AddSpell.cc.obj:
+	$(MAKE) -f CMakeFiles\source.dir\build.make CMakeFiles/source.dir/AddSpell.cc.obj
+.PHONY : AddSpell.cc.obj
+
+AddSpell.i: AddSpell.cc.i
+
+.PHONY : AddSpell.i
+
+# target to preprocess a source file
+AddSpell.cc.i:
+	$(MAKE) -f CMakeFiles\source.dir\build.make CMakeFiles/source.dir/AddSpell.cc.i
+.PHONY : AddSpell.cc.i
+
+AddSpell.s: AddSpell.cc.s
+
+.PHONY : AddSpell.s
+
+# target to generate assembly for a file
+AddSpell.cc.s:
+	$(MAKE) -f CMakeFiles\source.dir\build.make CMakeFiles/source.dir/AddSpell.cc.s
+.PHONY : AddSpell.cc.s
+
 AdderActive.obj: AdderActive.cc.obj
 
 .PHONY : AdderActive.obj
@@ -175,6 +283,168 @@ AdderTriggered.s: AdderTriggered.cc.s
 AdderTriggered.cc.s:
 	$(MAKE) -f CMakeFiles\source.dir\build.make CMakeFiles/source.dir/AdderTriggered.cc.s
 .PHONY : AdderTriggered.cc.s
+
+MoveRitual.obj: MoveRitual.cc.obj
+
+.PHONY : MoveRitual.obj
+
+# target to build an object file
+MoveRitual.cc.obj:
+	$(MAKE) -f CMakeFiles\source.dir\build.make CMakeFiles/source.dir/MoveRitual.cc.obj
+.PHONY : MoveRitual.cc.obj
+
+MoveRitual.i: MoveRitual.cc.i
+
+.PHONY : MoveRitual.i
+
+# target to preprocess a source file
+MoveRitual.cc.i:
+	$(MAKE) -f CMakeFiles\source.dir\build.make CMakeFiles/source.dir/MoveRitual.cc.i
+.PHONY : MoveRitual.cc.i
+
+MoveRitual.s: MoveRitual.cc.s
+
+.PHONY : MoveRitual.s
+
+# target to generate assembly for a file
+MoveRitual.cc.s:
+	$(MAKE) -f CMakeFiles\source.dir\build.make CMakeFiles/source.dir/MoveRitual.cc.s
+.PHONY : MoveRitual.cc.s
+
+MoveSpell.obj: MoveSpell.cc.obj
+
+.PHONY : MoveSpell.obj
+
+# target to build an object file
+MoveSpell.cc.obj:
+	$(MAKE) -f CMakeFiles\source.dir\build.make CMakeFiles/source.dir/MoveSpell.cc.obj
+.PHONY : MoveSpell.cc.obj
+
+MoveSpell.i: MoveSpell.cc.i
+
+.PHONY : MoveSpell.i
+
+# target to preprocess a source file
+MoveSpell.cc.i:
+	$(MAKE) -f CMakeFiles\source.dir\build.make CMakeFiles/source.dir/MoveSpell.cc.i
+.PHONY : MoveSpell.cc.i
+
+MoveSpell.s: MoveSpell.cc.s
+
+.PHONY : MoveSpell.s
+
+# target to generate assembly for a file
+MoveSpell.cc.s:
+	$(MAKE) -f CMakeFiles\source.dir\build.make CMakeFiles/source.dir/MoveSpell.cc.s
+.PHONY : MoveSpell.cc.s
+
+ability.obj: ability.cc.obj
+
+.PHONY : ability.obj
+
+# target to build an object file
+ability.cc.obj:
+	$(MAKE) -f CMakeFiles\source.dir\build.make CMakeFiles/source.dir/ability.cc.obj
+.PHONY : ability.cc.obj
+
+ability.i: ability.cc.i
+
+.PHONY : ability.i
+
+# target to preprocess a source file
+ability.cc.i:
+	$(MAKE) -f CMakeFiles\source.dir\build.make CMakeFiles/source.dir/ability.cc.i
+.PHONY : ability.cc.i
+
+ability.s: ability.cc.s
+
+.PHONY : ability.s
+
+# target to generate assembly for a file
+ability.cc.s:
+	$(MAKE) -f CMakeFiles\source.dir\build.make CMakeFiles/source.dir/ability.cc.s
+.PHONY : ability.cc.s
+
+boardcontroller.obj: boardcontroller.cc.obj
+
+.PHONY : boardcontroller.obj
+
+# target to build an object file
+boardcontroller.cc.obj:
+	$(MAKE) -f CMakeFiles\source.dir\build.make CMakeFiles/source.dir/boardcontroller.cc.obj
+.PHONY : boardcontroller.cc.obj
+
+boardcontroller.i: boardcontroller.cc.i
+
+.PHONY : boardcontroller.i
+
+# target to preprocess a source file
+boardcontroller.cc.i:
+	$(MAKE) -f CMakeFiles\source.dir\build.make CMakeFiles/source.dir/boardcontroller.cc.i
+.PHONY : boardcontroller.cc.i
+
+boardcontroller.s: boardcontroller.cc.s
+
+.PHONY : boardcontroller.s
+
+# target to generate assembly for a file
+boardcontroller.cc.s:
+	$(MAKE) -f CMakeFiles\source.dir\build.make CMakeFiles/source.dir/boardcontroller.cc.s
+.PHONY : boardcontroller.cc.s
+
+boardmodel.obj: boardmodel.cc.obj
+
+.PHONY : boardmodel.obj
+
+# target to build an object file
+boardmodel.cc.obj:
+	$(MAKE) -f CMakeFiles\source.dir\build.make CMakeFiles/source.dir/boardmodel.cc.obj
+.PHONY : boardmodel.cc.obj
+
+boardmodel.i: boardmodel.cc.i
+
+.PHONY : boardmodel.i
+
+# target to preprocess a source file
+boardmodel.cc.i:
+	$(MAKE) -f CMakeFiles\source.dir\build.make CMakeFiles/source.dir/boardmodel.cc.i
+.PHONY : boardmodel.cc.i
+
+boardmodel.s: boardmodel.cc.s
+
+.PHONY : boardmodel.s
+
+# target to generate assembly for a file
+boardmodel.cc.s:
+	$(MAKE) -f CMakeFiles\source.dir\build.make CMakeFiles/source.dir/boardmodel.cc.s
+.PHONY : boardmodel.cc.s
+
+card.obj: card.cc.obj
+
+.PHONY : card.obj
+
+# target to build an object file
+card.cc.obj:
+	$(MAKE) -f CMakeFiles\source.dir\build.make CMakeFiles/source.dir/card.cc.obj
+.PHONY : card.cc.obj
+
+card.i: card.cc.i
+
+.PHONY : card.i
+
+# target to preprocess a source file
+card.cc.i:
+	$(MAKE) -f CMakeFiles\source.dir\build.make CMakeFiles/source.dir/card.cc.i
+.PHONY : card.cc.i
+
+card.s: card.cc.s
+
+.PHONY : card.s
+
+# target to generate assembly for a file
+card.cc.s:
+	$(MAKE) -f CMakeFiles\source.dir\build.make CMakeFiles/source.dir/card.cc.s
+.PHONY : card.cc.s
 
 main.obj: main.cc.obj
 
@@ -293,12 +563,42 @@ help:
 	@echo ... edit_cache
 	@echo ... source
 	@echo ... rebuild_cache
+	@echo ... AddEnchant.obj
+	@echo ... AddEnchant.i
+	@echo ... AddEnchant.s
+	@echo ... AddMinionRitual.obj
+	@echo ... AddMinionRitual.i
+	@echo ... AddMinionRitual.s
+	@echo ... AddPlayerRitual.obj
+	@echo ... AddPlayerRitual.i
+	@echo ... AddPlayerRitual.s
+	@echo ... AddSpell.obj
+	@echo ... AddSpell.i
+	@echo ... AddSpell.s
 	@echo ... AdderActive.obj
 	@echo ... AdderActive.i
 	@echo ... AdderActive.s
 	@echo ... AdderTriggered.obj
 	@echo ... AdderTriggered.i
 	@echo ... AdderTriggered.s
+	@echo ... MoveRitual.obj
+	@echo ... MoveRitual.i
+	@echo ... MoveRitual.s
+	@echo ... MoveSpell.obj
+	@echo ... MoveSpell.i
+	@echo ... MoveSpell.s
+	@echo ... ability.obj
+	@echo ... ability.i
+	@echo ... ability.s
+	@echo ... boardcontroller.obj
+	@echo ... boardcontroller.i
+	@echo ... boardcontroller.s
+	@echo ... boardmodel.obj
+	@echo ... boardmodel.i
+	@echo ... boardmodel.s
+	@echo ... card.obj
+	@echo ... card.i
+	@echo ... card.s
 	@echo ... main.obj
 	@echo ... main.i
 	@echo ... main.s
