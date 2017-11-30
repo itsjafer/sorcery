@@ -132,14 +132,20 @@ void BoardController::execute() {
         // call the use
         boardData.players[currentPlayer]->use(i);
     } else if (s == "inspect") {
-      // textDisplay
+      int i;
+      ss >> i; // the i'th minion to inspect
+
+      boardData.notifyObservers(State::printMinion, i);
+      std::cout << *td;
     } else if (s == "hand") {
-      // textDisplay
+      boardData.notifyObservers(State::printHand);
+      std::cout << *td;
     } else if (s == "board") {
-      boardData.displayBoard();
+      boardData.notifyObservers(State::printBoard);
       std::cout << *td;
     } else if (cmd == "help") {
-      // textDisplay
+      boardData.notifyObservers(State::printHelp);      
+      std::cout << *td;
     } else if (s == "draw") {
       // this is only available in testing mode
       boardData.players[currentPlayer]->drawCard(1);

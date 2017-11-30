@@ -16,6 +16,11 @@ public:
 
     Minion(std::string &name, int cost, int owner, int attack, int defence, std::vector<std::ifstream> &abilities);
     void attack(int i = 0);
+    int getAttack();
+    int getDefence();
+    int getAbilityCost(int i = 0);
+    bool hasAbility();
+    Type getAbilityType(int i = 0);
     virtual ~Minion() = 0;
 };
 

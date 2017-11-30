@@ -94,6 +94,25 @@ void Minion::attack(int i = 0) {
     
 }
 
+int Minion::getAttack() {
+    return att;
+}
+
+int Minion::getDefence() {
+    return def;
+}
+
+bool Minion::hasAbility() {
+    return !abilities.empty();
+}
+
+Type Minion::getAbilityType(int i) {
+    return abilities[i].getType();
+}
+
+int Minion::getAbilityCost(int i) {
+    return abilities[i].getCost();
+}
 Minion::~Minion(){
 
 };

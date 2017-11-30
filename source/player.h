@@ -14,7 +14,7 @@ class Player: public Card {
     int magic = 3;
     std::vector<std::shared_ptr<NonPlayer>> deck;
     std::vector<std::shared_ptr<NonPlayer>> hand;
-    //std::shared_ptr<Ritual> ritual;
+    //std::shared_ptr<Ritual> ritual = nullptr;
     std::vector<std::shared_ptr<NonPlayer>> graveyard;
     std::vector<std::shared_ptr<Minion>> minions;
     int playerNumber;

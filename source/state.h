@@ -3,7 +3,9 @@
 
 enum class State {
     printBoard,
-    inspectMinion
+    printMinion,
+    printHelp,
+    printHand
 };
 
 #endif

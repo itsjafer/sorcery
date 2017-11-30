@@ -4,6 +4,14 @@ const Type NonPlayer::getType() const {
   return Type::Spell;
 }
 
+std::string NonPlayer::getDescription() {
+  return description;
+}
+
+int NonPlayer::getCost() {
+  return cost;
+}
+
 void NonPlayer::cast() {
   castCard();
 }
