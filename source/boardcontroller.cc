@@ -14,6 +14,11 @@ void BoardController::switchPlayers() {
 }
 
 BoardController::BoardController(std::vector<std::string> players, std::vector<std::unique_ptr<std::ifstream>> &data) : boardData(players, data), currentPlayer(0), gameOver(false) {
+  // checking if default.deck is still open
+  if (!data[0]) {
+    std::cout << "BoardController.cc: default.deck was not found" << std::endl;
+  }
+  
   // have each of the players draw 3 cards
   for (unsigned int i = 0; i < players.size(); ++i) {
     std::cout << "BoardController.cc: Player " << i << " is drawing 3 cards" << std::endl;

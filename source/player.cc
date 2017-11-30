@@ -12,6 +12,7 @@ using namespace std;
 Player::Player(string &name, unique_ptr<ifstream> &deck): Card{name} {
     string cardFile;
     while (getline(*deck, cardFile)) {
+        cardFile += ".card"; // adding the card extension
         ifstream cardData{cardFile};
         addCard(cardData);
     }
@@ -244,8 +245,11 @@ void Player::updateState(vector<Event> &events) {
 
 void Player::drawCard(int numCards) {
     if (deck.size() > 0) {
-        hand.emplace_back(deck.back());    //not sure if this actually works...
-        deck.pop_back();
+        for (int i = 0; i < numCards; ++i) {
+            hand.emplace_back(deck.back());    //not sure if this actually works...
+            deck.pop_back();
+        }
+        
     }
     else throw out_of_range(getName());
 }
