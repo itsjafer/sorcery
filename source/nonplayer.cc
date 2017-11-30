@@ -4,10 +4,6 @@ using namespace std;
 
 NonPlayer::NonPlayer(string &name, int cost, int owner, string description): Card{name}, cost{cost}, owner{owner}, description{description} { }
 
-std::string NonPlayer::getDescription() {
-  return description;
-}
-
 int NonPlayer::getCost() {
   return cost;
 }
@@ -18,10 +14,6 @@ void NonPlayer::cast() {
 
 void NonPlayer::cast(int p, char t) {
   castCard(p,t);
-}
-
-int NonPlayer::getCost() {
-  return cost;
 }
 
 void NonPlayer::setCost(int cost) {

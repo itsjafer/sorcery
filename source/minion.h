@@ -26,11 +26,6 @@ public:
     bool hasAbility();
     Type getAbilityType(int i = 0);
     ~Minion();
-    int getAttack();
-    int getDefence();
-    int getAbilityCost(int i = 0);
-    bool hasAbility();
-    Type getAbilityType(int i = 0);
 };
 
 #endif

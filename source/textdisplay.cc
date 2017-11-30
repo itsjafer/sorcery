@@ -31,9 +31,12 @@ TextDisplay::~TextDisplay() {
 
 }
 
-void TextDisplay::notifyDisplay(Subject &whoNotified, State command, int minion) {
-  std::cout << "textdisplay.cc: I have been notified." << std::endl;
+void TextDisplay::notifyDisplay(Subject &whoNotified, State command, int player, int minion) {
+  std::cout << "textdisplay.cc: I have been notified by player "<< player << "." << std::endl;
   // update the board when I'm notified
+  this->player = player;
+  this->minion = minion;
+
   std::cout << "textdisplay.cc: Updating myself with players information." << std::endl;
   update(whoNotified);
 
@@ -124,9 +127,9 @@ void TextDisplay::update (Subject &whoNotified) {
         std::shared_ptr<Enchantment> e = std::dynamic_pointer_cast<Enchantment>(boardInfos[i].hand[j]);
 
         // UNCOMMENT THIS WHEN ENCHANTMENTS ARE IMPLEMENTED
-        /*
+        
         Type enchantmentType = e->getType();
-
+        /*
         std::string attack = e->getAttackOperator() + e->getAttackModifier();
         std::string defence = e->getDefenceOperator() + e->getDefenceModifier();
         hands[i][j] = display_enchantment_attack_defence(name, cost, description, attack, defence));
@@ -155,7 +158,9 @@ void TextDisplay::update (Subject &whoNotified) {
 }
 
 void TextDisplay::printHand(std::ostream &out) const {
-
+  // we have a vector, hands
+  // we go through hands[player] because we only care about the current player
+  // since we only display 
 }
 
 void TextDisplay::printBoard(std::ostream &out) const {

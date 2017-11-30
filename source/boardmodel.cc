@@ -59,8 +59,7 @@ std::vector<Info> BoardModel::getInfo() const {
     myInfo.health = players[i]->health;
 
     // add the name of the player's ritual
-    // if the player has a ritual:
-    // myInfo.ritual = players[i].ritual;
+    myInfo.ritual = players[i]->ritual;
 
     // add the player's minions
     for (unsigned int j = 0; j < players[i]->minions.size(); ++j) {

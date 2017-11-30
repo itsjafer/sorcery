@@ -8,6 +8,9 @@
 
 class TextDisplay: public Observer {
     State currentCommand; // holds the enumeration of the current command
+    int player; // the current player
+    int minion; // the minion that needs to be displayed
+    
     std::vector<std::vector<card_template_t>> minionRow; // holds both players' row of minions
     std::vector<std::vector<card_template_t>> playerRow; // holds both players' row of player information
     std::vector<std::vector<card_template_t>> hands; // holds both players' hands
@@ -23,7 +26,7 @@ public:
     TextDisplay();
     ~TextDisplay();
     void updateBoard(Subject &whoNotified); 
-    void notifyDisplay(Subject &whoNotified, State command, int minion = 0) override;
+    void notifyDisplay(Subject &whoNotified, State command, int player, int minion = 0) override;
     friend std::ostream &operator<<(std::ostream &out, const TextDisplay &td);
 
 };
