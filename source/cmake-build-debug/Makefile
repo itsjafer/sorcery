@@ -392,6 +392,33 @@ MoveSpell.cc.s:
 	$(MAKE) -f CMakeFiles\source.dir\build.make CMakeFiles/source.dir/MoveSpell.cc.s
 .PHONY : MoveSpell.cc.s
 
+SummonActive.obj: SummonActive.cc.obj
+
+.PHONY : SummonActive.obj
+
+# target to build an object file
+SummonActive.cc.obj:
+	$(MAKE) -f CMakeFiles\source.dir\build.make CMakeFiles/source.dir/SummonActive.cc.obj
+.PHONY : SummonActive.cc.obj
+
+SummonActive.i: SummonActive.cc.i
+
+.PHONY : SummonActive.i
+
+# target to preprocess a source file
+SummonActive.cc.i:
+	$(MAKE) -f CMakeFiles\source.dir\build.make CMakeFiles/source.dir/SummonActive.cc.i
+.PHONY : SummonActive.cc.i
+
+SummonActive.s: SummonActive.cc.s
+
+.PHONY : SummonActive.s
+
+# target to generate assembly for a file
+SummonActive.cc.s:
+	$(MAKE) -f CMakeFiles\source.dir\build.make CMakeFiles/source.dir/SummonActive.cc.s
+.PHONY : SummonActive.cc.s
+
 ability.obj: ability.cc.obj
 
 .PHONY : ability.obj
@@ -418,6 +445,33 @@ ability.s: ability.cc.s
 ability.cc.s:
 	$(MAKE) -f CMakeFiles\source.dir\build.make CMakeFiles/source.dir/ability.cc.s
 .PHONY : ability.cc.s
+
+activated.obj: activated.cc.obj
+
+.PHONY : activated.obj
+
+# target to build an object file
+activated.cc.obj:
+	$(MAKE) -f CMakeFiles\source.dir\build.make CMakeFiles/source.dir/activated.cc.obj
+.PHONY : activated.cc.obj
+
+activated.i: activated.cc.i
+
+.PHONY : activated.i
+
+# target to preprocess a source file
+activated.cc.i:
+	$(MAKE) -f CMakeFiles\source.dir\build.make CMakeFiles/source.dir/activated.cc.i
+.PHONY : activated.cc.i
+
+activated.s: activated.cc.s
+
+.PHONY : activated.s
+
+# target to generate assembly for a file
+activated.cc.s:
+	$(MAKE) -f CMakeFiles\source.dir\build.make CMakeFiles/source.dir/activated.cc.s
+.PHONY : activated.cc.s
 
 boardcontroller.obj: boardcontroller.cc.obj
 
@@ -554,6 +608,33 @@ minion.cc.s:
 	$(MAKE) -f CMakeFiles\source.dir\build.make CMakeFiles/source.dir/minion.cc.s
 .PHONY : minion.cc.s
 
+observer.obj: observer.cc.obj
+
+.PHONY : observer.obj
+
+# target to build an object file
+observer.cc.obj:
+	$(MAKE) -f CMakeFiles\source.dir\build.make CMakeFiles/source.dir/observer.cc.obj
+.PHONY : observer.cc.obj
+
+observer.i: observer.cc.i
+
+.PHONY : observer.i
+
+# target to preprocess a source file
+observer.cc.i:
+	$(MAKE) -f CMakeFiles\source.dir\build.make CMakeFiles/source.dir/observer.cc.i
+.PHONY : observer.cc.i
+
+observer.s: observer.cc.s
+
+.PHONY : observer.s
+
+# target to generate assembly for a file
+observer.cc.s:
+	$(MAKE) -f CMakeFiles\source.dir\build.make CMakeFiles/source.dir/observer.cc.s
+.PHONY : observer.cc.s
+
 player.obj: player.cc.obj
 
 .PHONY : player.obj
@@ -580,6 +661,60 @@ player.s: player.cc.s
 player.cc.s:
 	$(MAKE) -f CMakeFiles\source.dir\build.make CMakeFiles/source.dir/player.cc.s
 .PHONY : player.cc.s
+
+subject.obj: subject.cc.obj
+
+.PHONY : subject.obj
+
+# target to build an object file
+subject.cc.obj:
+	$(MAKE) -f CMakeFiles\source.dir\build.make CMakeFiles/source.dir/subject.cc.obj
+.PHONY : subject.cc.obj
+
+subject.i: subject.cc.i
+
+.PHONY : subject.i
+
+# target to preprocess a source file
+subject.cc.i:
+	$(MAKE) -f CMakeFiles\source.dir\build.make CMakeFiles/source.dir/subject.cc.i
+.PHONY : subject.cc.i
+
+subject.s: subject.cc.s
+
+.PHONY : subject.s
+
+# target to generate assembly for a file
+subject.cc.s:
+	$(MAKE) -f CMakeFiles\source.dir\build.make CMakeFiles/source.dir/subject.cc.s
+.PHONY : subject.cc.s
+
+textdisplay.obj: textdisplay.cc.obj
+
+.PHONY : textdisplay.obj
+
+# target to build an object file
+textdisplay.cc.obj:
+	$(MAKE) -f CMakeFiles\source.dir\build.make CMakeFiles/source.dir/textdisplay.cc.obj
+.PHONY : textdisplay.cc.obj
+
+textdisplay.i: textdisplay.cc.i
+
+.PHONY : textdisplay.i
+
+# target to preprocess a source file
+textdisplay.cc.i:
+	$(MAKE) -f CMakeFiles\source.dir\build.make CMakeFiles/source.dir/textdisplay.cc.i
+.PHONY : textdisplay.cc.i
+
+textdisplay.s: textdisplay.cc.s
+
+.PHONY : textdisplay.s
+
+# target to generate assembly for a file
+textdisplay.cc.s:
+	$(MAKE) -f CMakeFiles\source.dir\build.make CMakeFiles/source.dir/textdisplay.cc.s
+.PHONY : textdisplay.cc.s
 
 triggered.obj: triggered.cc.obj
 
@@ -647,9 +782,15 @@ help:
 	@echo ... MoveSpell.obj
 	@echo ... MoveSpell.i
 	@echo ... MoveSpell.s
+	@echo ... SummonActive.obj
+	@echo ... SummonActive.i
+	@echo ... SummonActive.s
 	@echo ... ability.obj
 	@echo ... ability.i
 	@echo ... ability.s
+	@echo ... activated.obj
+	@echo ... activated.i
+	@echo ... activated.s
 	@echo ... boardcontroller.obj
 	@echo ... boardcontroller.i
 	@echo ... boardcontroller.s
@@ -665,9 +806,18 @@ help:
 	@echo ... minion.obj
 	@echo ... minion.i
 	@echo ... minion.s
+	@echo ... observer.obj
+	@echo ... observer.i
+	@echo ... observer.s
 	@echo ... player.obj
 	@echo ... player.i
 	@echo ... player.s
+	@echo ... subject.obj
+	@echo ... subject.i
+	@echo ... subject.s
+	@echo ... textdisplay.obj
+	@echo ... textdisplay.i
+	@echo ... textdisplay.s
 	@echo ... triggered.obj
 	@echo ... triggered.i
 	@echo ... triggered.s

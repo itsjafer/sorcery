@@ -14,13 +14,18 @@ set(CMAKE_DEPENDS_CHECK_CXX
   "C:/Users/pipli/OneDrive/Documents/sorcery/source/MoveAddSpell.cc" "C:/Users/pipli/OneDrive/Documents/sorcery/source/cmake-build-debug/CMakeFiles/source.dir/MoveAddSpell.cc.obj"
   "C:/Users/pipli/OneDrive/Documents/sorcery/source/MoveRitual.cc" "C:/Users/pipli/OneDrive/Documents/sorcery/source/cmake-build-debug/CMakeFiles/source.dir/MoveRitual.cc.obj"
   "C:/Users/pipli/OneDrive/Documents/sorcery/source/MoveSpell.cc" "C:/Users/pipli/OneDrive/Documents/sorcery/source/cmake-build-debug/CMakeFiles/source.dir/MoveSpell.cc.obj"
+  "C:/Users/pipli/OneDrive/Documents/sorcery/source/SummonActive.cc" "C:/Users/pipli/OneDrive/Documents/sorcery/source/cmake-build-debug/CMakeFiles/source.dir/SummonActive.cc.obj"
   "C:/Users/pipli/OneDrive/Documents/sorcery/source/ability.cc" "C:/Users/pipli/OneDrive/Documents/sorcery/source/cmake-build-debug/CMakeFiles/source.dir/ability.cc.obj"
+  "C:/Users/pipli/OneDrive/Documents/sorcery/source/activated.cc" "C:/Users/pipli/OneDrive/Documents/sorcery/source/cmake-build-debug/CMakeFiles/source.dir/activated.cc.obj"
   "C:/Users/pipli/OneDrive/Documents/sorcery/source/boardcontroller.cc" "C:/Users/pipli/OneDrive/Documents/sorcery/source/cmake-build-debug/CMakeFiles/source.dir/boardcontroller.cc.obj"
   "C:/Users/pipli/OneDrive/Documents/sorcery/source/boardmodel.cc" "C:/Users/pipli/OneDrive/Documents/sorcery/source/cmake-build-debug/CMakeFiles/source.dir/boardmodel.cc.obj"
   "C:/Users/pipli/OneDrive/Documents/sorcery/source/card.cc" "C:/Users/pipli/OneDrive/Documents/sorcery/source/cmake-build-debug/CMakeFiles/source.dir/card.cc.obj"
   "C:/Users/pipli/OneDrive/Documents/sorcery/source/main.cc" "C:/Users/pipli/OneDrive/Documents/sorcery/source/cmake-build-debug/CMakeFiles/source.dir/main.cc.obj"
   "C:/Users/pipli/OneDrive/Documents/sorcery/source/minion.cc" "C:/Users/pipli/OneDrive/Documents/sorcery/source/cmake-build-debug/CMakeFiles/source.dir/minion.cc.obj"
+  "C:/Users/pipli/OneDrive/Documents/sorcery/source/observer.cc" "C:/Users/pipli/OneDrive/Documents/sorcery/source/cmake-build-debug/CMakeFiles/source.dir/observer.cc.obj"
   "C:/Users/pipli/OneDrive/Documents/sorcery/source/player.cc" "C:/Users/pipli/OneDrive/Documents/sorcery/source/cmake-build-debug/CMakeFiles/source.dir/player.cc.obj"
+  "C:/Users/pipli/OneDrive/Documents/sorcery/source/subject.cc" "C:/Users/pipli/OneDrive/Documents/sorcery/source/cmake-build-debug/CMakeFiles/source.dir/subject.cc.obj"
+  "C:/Users/pipli/OneDrive/Documents/sorcery/source/textdisplay.cc" "C:/Users/pipli/OneDrive/Documents/sorcery/source/cmake-build-debug/CMakeFiles/source.dir/textdisplay.cc.obj"
   "C:/Users/pipli/OneDrive/Documents/sorcery/source/triggered.cc" "C:/Users/pipli/OneDrive/Documents/sorcery/source/cmake-build-debug/CMakeFiles/source.dir/triggered.cc.obj"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")

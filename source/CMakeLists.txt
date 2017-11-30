@@ -11,6 +11,7 @@ set(SOURCE_FILES
         AddMinionRitual.cc
         ability.h
         ability.cc
+        activated.cc
         activated.h
         boardcontroller.cc
         boardcontroller.h
@@ -28,12 +29,16 @@ set(SOURCE_FILES
         MoveSpell.cc
         MoveRitual.cc
         nonplayer.h
+        observer.cc
         observer.h
         player.cc
         player.h
         ritual.h
         spell.h
+        subject.cc
         subject.h
+        SummonActive.cc
+        textdisplay.cc
         textdisplay.h
         triggered.cc
         triggered.h

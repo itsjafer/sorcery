@@ -112,10 +112,16 @@
 		<Unit filename="C:/Users/pipli/OneDrive/Documents/sorcery/source/MoveSpell.cc">
 			<Option target="source"/>
 		</Unit>
+		<Unit filename="C:/Users/pipli/OneDrive/Documents/sorcery/source/SummonActive.cc">
+			<Option target="source"/>
+		</Unit>
 		<Unit filename="C:/Users/pipli/OneDrive/Documents/sorcery/source/ability.cc">
 			<Option target="source"/>
 		</Unit>
 		<Unit filename="C:/Users/pipli/OneDrive/Documents/sorcery/source/ability.h">
+			<Option target="source"/>
+		</Unit>
+		<Unit filename="C:/Users/pipli/OneDrive/Documents/sorcery/source/activated.cc">
 			<Option target="source"/>
 		</Unit>
 		<Unit filename="C:/Users/pipli/OneDrive/Documents/sorcery/source/activated.h">
@@ -160,6 +166,9 @@
 		<Unit filename="C:/Users/pipli/OneDrive/Documents/sorcery/source/nonplayer.h">
 			<Option target="source"/>
 		</Unit>
+		<Unit filename="C:/Users/pipli/OneDrive/Documents/sorcery/source/observer.cc">
+			<Option target="source"/>
+		</Unit>
 		<Unit filename="C:/Users/pipli/OneDrive/Documents/sorcery/source/observer.h">
 			<Option target="source"/>
 		</Unit>
@@ -175,7 +184,13 @@
 		<Unit filename="C:/Users/pipli/OneDrive/Documents/sorcery/source/spell.h">
 			<Option target="source"/>
 		</Unit>
+		<Unit filename="C:/Users/pipli/OneDrive/Documents/sorcery/source/subject.cc">
+			<Option target="source"/>
+		</Unit>
 		<Unit filename="C:/Users/pipli/OneDrive/Documents/sorcery/source/subject.h">
+			<Option target="source"/>
+		</Unit>
+		<Unit filename="C:/Users/pipli/OneDrive/Documents/sorcery/source/textdisplay.cc">
 			<Option target="source"/>
 		</Unit>
 		<Unit filename="C:/Users/pipli/OneDrive/Documents/sorcery/source/textdisplay.h">

@@ -20,4 +20,11 @@ public:
     AdderActive(std::string &name, int cost, int owner, std::string &description, int attMod, int defMod, std::string &target);
 };
 
+class SummonActive: public  Activated {
+    int summonAmount;
+    std::string summonMinion;
+public:
+    SummonActive(std::string &name, int cost, int owner, std::string &description, int summonAmount, std::string &summonMinion);
+};
+
 #endif
