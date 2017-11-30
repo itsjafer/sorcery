@@ -5,15 +5,15 @@
 #include <vector>
 #include <memory>
 
-class Player;
-
 struct Info {
-  std::vector<std::string> name;
-  std::vector<int> health;
-  std::vector<int> magic;
-  std::vector<std::string> ritual;
-  std::vector<std::vector<std::string>> minions;
-  std::vector<std::string> graveyard;
+  std::string name;
+  int health;
+  int magic;
+
+  std::shared_ptr<Ritual> ritual;
+  std::shared_ptr<NonPlayer> graveyard;
+  std::vector<std::shared_ptr<Minion>> minions; // stores ALL information about minions
+  std::vector<std::shared_ptr<NonPlayer>> hand;
 };
 
 #endif

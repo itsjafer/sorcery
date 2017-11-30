@@ -2,7 +2,10 @@
 #include "ascii_graphics.h"
 #include "subject.h"
 #include "player.h"
+#include "nonplayer.h"
 #include "info.h"
+#include "minion.h"
+#include "enchantment.h"
 #include <iostream>
 
 // constructor
@@ -18,8 +21,8 @@ TextDisplay::TextDisplay() {
     for (int j = 0; j < cardsPerRow; ++j) {
       temp.emplace_back(CARD_TEMPLATE_EMPTY);
     }
-    fields.emplace_back(temp);
-    hands.emplace_back(temp);
+    minionRow.emplace_back(temp);
+    playerRow.emplace_back(temp);
   }
 }
 
@@ -27,104 +30,143 @@ TextDisplay::~TextDisplay() {
 
 }
 
-void TextDisplay::notifyDisplay(Subject &whoNotified, State command) {
+void TextDisplay::notifyDisplay(Subject &whoNotified, State command, int minion) {
   std::cout << "textdisplay.cc: I have been notified." << std::endl;
-  // what to do when I'm notified
-  // im thinking that a subject might give me info (as to what has been requested)
+  // update the board when I'm notified
+  std::cout << "textdisplay.cc: Updating myself with players information." << std::endl;
+  update(whoNotified);
 
-  // notified of printBoard
-  if (command == State::printBoard) {
-    printBoard(whoNotified);
-  }
+  // let the display know what command was sent
+  currentCommand = command;
 }
 
-
-// needs all information about a player
-void TextDisplay::printBoard (Subject &whoNotified) {
+// updates all information about a board based on who we were notified by
+void TextDisplay::update (Subject &whoNotified) {
   std::cout << "textdisplay.cc: I'm going to print now." << std::endl;
-  Info boardInfo = whoNotified.getInfo();
+  std::vector<Info> boardInfos = whoNotified.getInfo();
 
   // loop through each player
-  for (int i = 0; i < 2; ++i) { // consider replacing 2 with a variable
+  for (unsigned int i = 0; i < boardInfos.size(); ++i) {
     
-    // update player one's hand
+    // update the player row
 
     // the first card is the ritual
     // check if player one has a ritual
     // this code is not yet implemented so for now we have an empty card
-    if (boardInfo.ritual[i] == "") {
-      hands[i][0] = CARD_TEMPLATE_BORDER;
+    if (boardInfos[i].ritual == nullptr) {
+      playerRow[i][0] = CARD_TEMPLATE_BORDER;
     }
     
-    // note that the second and fourth cards of a hand are always empty
+    // note that the second and fourth cards of the player row are always empty
     // this is due to the graphics described in project requirements
 
     // the third card is the player card
-    hands[i][2] = display_player_card(1, boardInfo.name[i], boardInfo.health[i], boardInfo.magic[i]);
+    playerRow[i][2] = display_player_card(1, boardInfos[i].name, boardInfos[i].health, boardInfos[i].magic);
 
     // the last card is the top of the graveyard
     // this code is not yet implemented so for now we have an empty card
-    if (boardInfo.graveyard[i] == "") {
-      hands[i][4] = CARD_TEMPLATE_BORDER;    
+    if (boardInfos[i].graveyard == nullptr) {
+      playerRow[i][4] = CARD_TEMPLATE_BORDER;    
     }
+
+    // update the hands of the players
+    for (unsigned int j = 0; j < boardInfos[i].hand.size(); j++) {
+      // get the name of the card
+      std::string name = boardInfos[i].hand[j]->getName();
+
+      // get the cost of the card
+      int cost = boardInfos[i].hand[j]->getCost();
+
+      // get the description of the card
+      std::string description = boardInfos[i].hand[j]->getDescription();
+
+      // check if its a minion
+      if (boardInfos[i].hand[j]->getType() == Type::Minion) {
+        // dynamically cast this as a minion pointer
+        std::shared_ptr<Minion> m = std::dynamic_pointer_cast<Minion>(boardInfos[i].hand[j]);
+        
+        // get attack and defense
+        //int attack = m->getAttack();
+        //int defence = m->getDefence();
+        
+        // UNCOMMENT THIS WHEN ABILITIES ARE IMPLEMENTED
+        /*
+        // check if theres an ability
+        if (m->hasAbility()) {
+
+          // check the type of ability
+          if (m->getAbilityType(0) == Type::ActivatedAbility) {
+            // check the cost of the activated ability
+            int abilityCost = m->getAbilityCost();
+            hands[i][j] + (display_minion_activated_ability(name, cost, attack, defence, abilityCost, description));
+          } else {
+            hands[i][j] = (display_minion_triggered_ability(name, cost, attack, defence, description));
+          }
+        } else {
+          hands[i][j] = (display_minion_no_ability(name, cost, attack, defence));
+        }*/
+
+      }
+
+      // check if its a ritual
+      else if (boardInfos[i].hand[j]->getType() == Type::Ritual) {
+        //std::shared_ptr<Ritual> r = std::dynamic_pointer_cast<Ritual>(boardInfos[i].hand[j]);
+        // UNCOMMENT THIS WHEN RITUALS ARE IMPLEMENTED
+        // hands[i][j] = (display_ritual(name, cost, r->getCost(), r->getDescription(), r->getCharges()));
+
+      }
+
+      // check if its a spell
+      else if (boardInfos[i].hand[j]->getType() == Type::Spell) {
+        hands[i][j] = (display_spell(name, cost, description));
+      }
+
+      // check if its an enchantment
+      else if (boardInfos[i].hand[j]->getType() == Type::Enchantment) {
+        //std::shared_ptr<Enchantment> e = std::dynamic_pointer_cast<Enchantment>(boardInfos[i].hand[j]);
+
+        // UNCOMMENT THIS WHEN ENCHANTMENTS ARE IMPLEMENTED
+        /*
+        Type enchantmentType = e->getType();
+
+        std::string attack = e->getAttackOperator() + e->getAttackModifier();
+        std::string defence = e->getDefenceOperator() + e->getDefenceModifier();
+        hands[i][j] = display_enchantment_attack_defence(name, cost, description, attack, defence));
+        */
+      }
+
+    }
+    // update the minion row
 
     // we're going to fill our minion spots with an empty template
     for (int j = 0; j < 5; ++j) {
-      fields[i][j] = CARD_TEMPLATE_BORDER;
+      minionRow[i][j] = CARD_TEMPLATE_BORDER;
     }
 
     // if neither players have any minions, we're done
-    if (boardInfo.minions.empty() || boardInfo.minions[i].empty()) {
+    if (boardInfos[i].minions.empty() || boardInfos[i].minions.empty()) {
       continue;
     }
 
     // if we have minions, let's populate our field
-    for (unsigned int j = 0; j < boardInfo.minions[i].size(); ++j) {
-      // print out the minions here./sor
-      // minions haven't been implemented yet so nothing is here yet
+    for (unsigned int j = 0; j < boardInfos[i].minions.size(); ++j) {
+      // print out the minions here.
+      // need to figure out a way to determine activated vs triggered
     }
   }
 }
-void TextDisplay::printHand(int currentPlayer, std::ostream &out, const TextDisplay &td) const {
-  // print out the hand by printing from top to bottom of each card
-  for (unsigned int i = 0; i < CARD_TEMPLATE_BORDER.size(); ++i) {
-    
-    // draw the left-hand side vertical border
-    out << EXTERNAL_BORDER_CHAR_UP_DOWN;
-    // go through each card
-    for (unsigned int j = 0; j < td.hands[currentPlayer].size(); ++j) {
-      // print the i'th line of each of the cards in the hand
-      out << td.hands[currentPlayer][j][i];
-    }
-    // draw the right-hand side vertical border
-    out << EXTERNAL_BORDER_CHAR_UP_DOWN;
-    out << std::endl;
-  }
+
+void TextDisplay::printHand(std::ostream &out) const {
+
 }
 
-void TextDisplay::printField(int currentPlayer, std::ostream &out, const TextDisplay &td) const {
-  // print out the field by printing from top to bottom of each card
-  for (unsigned int i = 0; i < CARD_TEMPLATE_BORDER.size(); ++i) {
-    // draw the left-hand side vertical border
-    out << EXTERNAL_BORDER_CHAR_UP_DOWN;
-    // go through each card
-    for (unsigned int j = 0; j < td.fields[currentPlayer].size(); ++j) {
-      out << td.fields[currentPlayer][j][i];
-    }
-    // draw the right-hand side vertical border
-    out << EXTERNAL_BORDER_CHAR_UP_DOWN;
-    out << std::endl;
-  }
-}
-
-std::ostream &operator<<(std::ostream &out, const TextDisplay &td) {
-
+void TextDisplay::printBoard(std::ostream &out) const {
   int currentPlayer = 0;
   int cardWidth = 33; // change this later maybe
 
   // draw the top left border
   out << EXTERNAL_BORDER_CHAR_TOP_LEFT;
-  unsigned int width = cardWidth * td.hands[currentPlayer].size();
+  unsigned int width = cardWidth * playerRow[currentPlayer].size();
   for (unsigned int j = 0; j < width; ++j) {
     // drawing the horizontal top border
     out << EXTERNAL_BORDER_CHAR_LEFT_RIGHT;
@@ -132,8 +174,8 @@ std::ostream &operator<<(std::ostream &out, const TextDisplay &td) {
   // draw the horizontal top right border
   out << EXTERNAL_BORDER_CHAR_TOP_RIGHT << std::endl;
 
-  td.printHand(currentPlayer, out, td);
-  td.printField(currentPlayer, out, td);
+  printPlayerRow(currentPlayer, out);
+  printMinionRow(currentPlayer, out);
   
 
   // print out the logo
@@ -144,8 +186,8 @@ std::ostream &operator<<(std::ostream &out, const TextDisplay &td) {
   // increment to the next player
   currentPlayer++;
 
-  td.printField(currentPlayer, out, td);
-  td.printHand(currentPlayer, out, td);
+  printMinionRow(currentPlayer, out);
+  printPlayerRow(currentPlayer, out);
 
   // draw the bottom left border
   out << EXTERNAL_BORDER_CHAR_BOTTOM_LEFT;
@@ -156,33 +198,75 @@ std::ostream &operator<<(std::ostream &out, const TextDisplay &td) {
   // draw the horizontal top right border
   out << EXTERNAL_BORDER_CHAR_BOTTOM_RIGHT << std::endl;
 
+}
+
+void TextDisplay::printPlayerRow(int currentPlayer, std::ostream &out) const {
+  // print out the hand by printing from top to bottom of each card
+  for (unsigned int i = 0; i < CARD_TEMPLATE_BORDER.size(); ++i) {
+    
+    // draw the left-hand side vertical border
+    out << EXTERNAL_BORDER_CHAR_UP_DOWN;
+    // go through each card
+    for (unsigned int j = 0; j < playerRow[currentPlayer].size(); ++j) {
+      // print the i'th line of each of the cards in the hand
+      out << playerRow[currentPlayer][j][i];
+    }
+    // draw the right-hand side vertical border
+    out << EXTERNAL_BORDER_CHAR_UP_DOWN;
+    out << std::endl;
+  }
+}
+
+void TextDisplay::printMinionRow(int currentPlayer, std::ostream &out) const {
+  // print out the field by printing from top to bottom of each card
+  for (unsigned int i = 0; i < CARD_TEMPLATE_BORDER.size(); ++i) {
+    // draw the left-hand side vertical border
+    out << EXTERNAL_BORDER_CHAR_UP_DOWN;
+    // go through each card
+    for (unsigned int j = 0; j < minionRow[currentPlayer].size(); ++j) {
+      out << minionRow[currentPlayer][j][i];
+    }
+    // draw the right-hand side vertical border
+    out << EXTERNAL_BORDER_CHAR_UP_DOWN;
+    out << std::endl;
+  }
+}
+
+void TextDisplay::printMinion(std::ostream &out) const {
+  // we need to get the name, cost, description, attack, defence
+  // if it has an ability, we need the name and cost of that too
+  // we need to check if a minion has an enchantment on it
+  // we need to figure out what kind of enchantment it is
+  // we need the name, cost, description of it
+
+}
+
+void TextDisplay::printHelp(std::ostream &out) const {
+  out <<
+	"help -- Display this message." << std::endl <<
+	"end -- End the current player's turn." << std::endl <<
+	"quit -- End the game." << std::endl <<
+	"attack minion other-minion -- Orders minion to attack other-minion." << std::endl <<
+	"attack minion -- Orders minion to attack opponent." << std::endl <<
+	"play card [target-player target-card] -- Play card, optionally targeting target-card owned by target-player." << std::endl <<
+	"use minion [target-player target-card] -- Use minion's special ability, optionally targeting target-card owned by target-player." << std::endl <<
+	"inspect minion -- View a minion's card and all enchantments on that minion." << std::endl <<
+	"hand -- Describe all cards in your hand." << std::endl <<
+	"board -- Describe all cards on the board." << std::endl;
+}
+
+std::ostream &operator<<(std::ostream &out, const TextDisplay &td) {
+
+  if (td.currentCommand == State::printBoard) {
+    td.printBoard(out);
+  } else if (td.currentCommand == State::printMinion) {
+    td.printMinion(out);
+  } else if (td.currentCommand == State::printHand) {
+    //td.printHand(out);
+  } else if (td.currentCommand == State::printHelp) {
+    td.printHelp(out);
+  }
+ 
   return out;
 }
-// display the board
-// operator overload with board
-
-// display the hand
-// operator overload with a vector of non-players
-
-// inspect a minion
-// - show the minion then show his enchantments
-// operator overload with minion
-
-// display a single card
-// operator overload with a card
-
-// display a minion
-// operator overload with a minion
-
-// display an enchantment
-// operator overload with an enchantment
-
-// display a ritual
-// operator overload with a ritual
-
-// help command
-
-// display a hand
-
-//
 

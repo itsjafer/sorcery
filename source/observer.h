@@ -5,9 +5,9 @@
 class Subject;
 
 class Observer {
-    virtual void notifyDisplay(Subject &whoNotified, State command) = 0;
+    virtual void notifyDisplay(Subject &whoNotified, State command, int minion = 0) = 0;
 public:
-    void notify(Subject &whoNotified, State command); // created to avoid public virtual function
+    void notify(Subject &whoNotified, State command, int minion = 0); // created to avoid public virtual function
     virtual ~Observer() = default;
 };
 

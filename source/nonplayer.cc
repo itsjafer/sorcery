@@ -4,6 +4,14 @@ using namespace std;
 
 NonPlayer::NonPlayer(string &name, int cost, int owner, string description): Card{name}, cost{cost}, owner{owner}, description{description} { }
 
+std::string NonPlayer::getDescription() {
+  return description;
+}
+
+int NonPlayer::getCost() {
+  return cost;
+}
+
 void NonPlayer::cast() {
 
 }

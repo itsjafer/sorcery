@@ -18,6 +18,7 @@ BoardModel::BoardModel(std::vector<std::string> players, std::vector<std::unique
 void BoardModel::displayBoard() {
   notifyObservers(State::printBoard);
 }
+
 bool BoardModel::isDeckEmpty(int player) {
   return (players[player])->deck.size();
 }
@@ -48,32 +49,34 @@ BoardModel::~BoardModel() {
   
 }
 
-Info BoardModel::getInfo() const {
-  Info myInfo;
+std::vector<Info> BoardModel::getInfo() const {
+  std::vector<Info> playerInfos;
   for (unsigned int i = 0; i < players.size(); ++i) {
+    Info myInfo;
     // add the name, magic, and health of the player
-    myInfo.name.emplace_back(players[i]->getName());
-    myInfo.magic.emplace_back(players[i]->magic);
-    myInfo.health.emplace_back(players[i]->health);
+    myInfo.name = players[i]->getName();
+    myInfo.magic = players[i]->magic;
+    myInfo.health = players[i]->health;
 
     // add the name of the player's ritual
     // if the player has a ritual:
-    //  myInfo.ritual.emplace_back(players[i]->ritual);
-    // else
-    myInfo.ritual.emplace_back("");
+    // myInfo.ritual = players[i].ritual;
 
-    // add the name of the player's minions
-    for (int j = 0; j < players[i]->minions.size(); ++i) {
-      // if the player has a minion:
-      //  myInfo.minions[i].emplace_back(players[i]->minions[j]->getName());
-      // else
-      myInfo.minions[i].emplace_back("");
+    // add the player's minions
+    for (unsigned int j = 0; j < players[i]->minions.size(); ++j) {
+      myInfo.minions.emplace_back(players[i]->minions[j]);
     }
 
-    // if the player has a graveyard:
-    //  myInfo.graveYard.emplace_back(players[i]->graveyard.top().getName());
-    // else
-    myInfo.graveyard.emplace_back("");
+    // add the player's hands
+    for (unsigned int j = 0; j < players[i]->hand.size(); ++j) {
+      myInfo.hand.emplace_back(players[i]->hand[j]);
+    }
+
+    if (!players[i]->graveyard.empty()) {
+      myInfo.graveyard = players[i]->graveyard.front();
+    }
+    
+    playerInfos.emplace_back(myInfo);
   }
-  return myInfo;
+  return playerInfos;
 }
