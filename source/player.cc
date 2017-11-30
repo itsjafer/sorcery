@@ -66,6 +66,37 @@ void Player::addCard(ifstream &cardData) {
             //Create card
             AddSpell newSpell(cardName, cardCost, playerNumber, cardDscr, attMod, defMod, target);
             deck.emplace_back(newSpell);
+        } else if (spellType == "moveAdd") {
+            //Get move source
+            string moveSrc; getline(cardData, moveSrc);
+            //Get move destination
+            string moveDest; getline(cardData, moveDest);
+            //Get Target
+            string target; getline(cardData, target);
+
+            //Get Target and modifiers
+            int attMod; cardData >> attMod;
+            int defMod; cardData >> defMod;
+
+            //Name and Cost and decsription
+            string cardName; getline(cardData, cardName);
+            int cardCost; cardData >> cardCost;
+            string cardDscr; getline(cardData, cardDscr);
+            //Create card
+            MoveAddSpell newSpell(cardName, cardCost, playerNumber, cardDscr, attMod, defMod, moveSrc, moveDest, target);
+            deck.emplace_back(newSpell);
+
+        } else if (spellType == "ritualMod") {
+            //Get Target and modifiers
+            int chargeMod; cardData >> chargeMod;
+            int costMod; cardData >> costMod;
+            //Name and Cost and decsription
+            string cardName; getline(cardData, cardName);
+            int cardCost; cardData >> cardCost;
+            string cardDscr; getline(cardData, cardDscr);
+            //Create card
+            AddRitualSpell newSpell(cardName, cardCost, playerNumber, cardDscr, chargeMod, costMod);
+            deck.emplace_back(newSpell);
         }
     }
     else if (cardType == "Ritual") {

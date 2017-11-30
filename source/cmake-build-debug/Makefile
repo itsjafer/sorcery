@@ -203,6 +203,33 @@ AddPlayerRitual.cc.s:
 	$(MAKE) -f CMakeFiles\source.dir\build.make CMakeFiles/source.dir/AddPlayerRitual.cc.s
 .PHONY : AddPlayerRitual.cc.s
 
+AddRitualSpell.obj: AddRitualSpell.cc.obj
+
+.PHONY : AddRitualSpell.obj
+
+# target to build an object file
+AddRitualSpell.cc.obj:
+	$(MAKE) -f CMakeFiles\source.dir\build.make CMakeFiles/source.dir/AddRitualSpell.cc.obj
+.PHONY : AddRitualSpell.cc.obj
+
+AddRitualSpell.i: AddRitualSpell.cc.i
+
+.PHONY : AddRitualSpell.i
+
+# target to preprocess a source file
+AddRitualSpell.cc.i:
+	$(MAKE) -f CMakeFiles\source.dir\build.make CMakeFiles/source.dir/AddRitualSpell.cc.i
+.PHONY : AddRitualSpell.cc.i
+
+AddRitualSpell.s: AddRitualSpell.cc.s
+
+.PHONY : AddRitualSpell.s
+
+# target to generate assembly for a file
+AddRitualSpell.cc.s:
+	$(MAKE) -f CMakeFiles\source.dir\build.make CMakeFiles/source.dir/AddRitualSpell.cc.s
+.PHONY : AddRitualSpell.cc.s
+
 AddSpell.obj: AddSpell.cc.obj
 
 .PHONY : AddSpell.obj
@@ -283,6 +310,33 @@ AdderTriggered.s: AdderTriggered.cc.s
 AdderTriggered.cc.s:
 	$(MAKE) -f CMakeFiles\source.dir\build.make CMakeFiles/source.dir/AdderTriggered.cc.s
 .PHONY : AdderTriggered.cc.s
+
+MoveAddSpell.obj: MoveAddSpell.cc.obj
+
+.PHONY : MoveAddSpell.obj
+
+# target to build an object file
+MoveAddSpell.cc.obj:
+	$(MAKE) -f CMakeFiles\source.dir\build.make CMakeFiles/source.dir/MoveAddSpell.cc.obj
+.PHONY : MoveAddSpell.cc.obj
+
+MoveAddSpell.i: MoveAddSpell.cc.i
+
+.PHONY : MoveAddSpell.i
+
+# target to preprocess a source file
+MoveAddSpell.cc.i:
+	$(MAKE) -f CMakeFiles\source.dir\build.make CMakeFiles/source.dir/MoveAddSpell.cc.i
+.PHONY : MoveAddSpell.cc.i
+
+MoveAddSpell.s: MoveAddSpell.cc.s
+
+.PHONY : MoveAddSpell.s
+
+# target to generate assembly for a file
+MoveAddSpell.cc.s:
+	$(MAKE) -f CMakeFiles\source.dir\build.make CMakeFiles/source.dir/MoveAddSpell.cc.s
+.PHONY : MoveAddSpell.cc.s
 
 MoveRitual.obj: MoveRitual.cc.obj
 
@@ -572,6 +626,9 @@ help:
 	@echo ... AddPlayerRitual.obj
 	@echo ... AddPlayerRitual.i
 	@echo ... AddPlayerRitual.s
+	@echo ... AddRitualSpell.obj
+	@echo ... AddRitualSpell.i
+	@echo ... AddRitualSpell.s
 	@echo ... AddSpell.obj
 	@echo ... AddSpell.i
 	@echo ... AddSpell.s
@@ -581,6 +638,9 @@ help:
 	@echo ... AdderTriggered.obj
 	@echo ... AdderTriggered.i
 	@echo ... AdderTriggered.s
+	@echo ... MoveAddSpell.obj
+	@echo ... MoveAddSpell.i
+	@echo ... MoveAddSpell.s
 	@echo ... MoveRitual.obj
 	@echo ... MoveRitual.i
 	@echo ... MoveRitual.s

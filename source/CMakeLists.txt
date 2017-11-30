@@ -4,6 +4,7 @@ project(source)
 set(CMAKE_CXX_STANDARD 11)
 
 set(SOURCE_FILES
+        AddRitualSpell.cc
         AddSpell.cc
         AddEnchant.cc
         AddPlayerRitual.cc
@@ -23,6 +24,7 @@ set(SOURCE_FILES
         main.cc
         minion.cc
         minion.h
+        MoveAddSpell.cc
         MoveSpell.cc
         MoveRitual.cc
         nonplayer.h

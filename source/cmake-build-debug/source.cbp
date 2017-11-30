@@ -91,6 +91,9 @@
 		<Unit filename="C:/Users/pipli/OneDrive/Documents/sorcery/source/AddPlayerRitual.cc">
 			<Option target="source"/>
 		</Unit>
+		<Unit filename="C:/Users/pipli/OneDrive/Documents/sorcery/source/AddRitualSpell.cc">
+			<Option target="source"/>
+		</Unit>
 		<Unit filename="C:/Users/pipli/OneDrive/Documents/sorcery/source/AddSpell.cc">
 			<Option target="source"/>
 		</Unit>
@@ -98,6 +101,9 @@
 			<Option target="source"/>
 		</Unit>
 		<Unit filename="C:/Users/pipli/OneDrive/Documents/sorcery/source/AdderTriggered.cc">
+			<Option target="source"/>
+		</Unit>
+		<Unit filename="C:/Users/pipli/OneDrive/Documents/sorcery/source/MoveAddSpell.cc">
 			<Option target="source"/>
 		</Unit>
 		<Unit filename="C:/Users/pipli/OneDrive/Documents/sorcery/source/MoveRitual.cc">

@@ -24,5 +24,21 @@ class AddSpell: public Spell {
 public:
     AddSpell(std::string &cardName, int cost, int owner, std::string &description, int attMod, int defMod, std::string &Target);
 };
+class MoveAddSpell: public Spell {
+    int attMod;
+    int defMod;
+    std::string moveSource;
+    std::string moveDestination;
+    std::string Target;
+public:
+    MoveAddSpell(std::string &cardName, int cost, int owner, std::string &description, int attMod, int defMod, std::string &moveSource, std::string &moveDestination,  std::string &Target);
+};
+
+class AddRitualSpell: public Spell {
+    int chargeMod;
+    int costMod;
+public:
+    AddRitualSpell(std::string &cardName, int cost, int owner, std::string &description, int chargeMod, int costMod);
+};
 
 #endif
