@@ -12,3 +12,15 @@ AddEnchant::AddEnchant(std::string &cardName, int cardCost, int owner, std::stri
         this->silence = true;
     }
 }
+
+void AddEnchant::updateState(vector<Event> &events) {
+
+}
+
+void AddEnchant::castCard() {
+
+}
+
+void AddEnchant::castCard(int p, char t = 'r') {
+
+}

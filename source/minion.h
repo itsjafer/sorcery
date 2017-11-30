@@ -7,6 +7,9 @@ class Ability;
 class Enchantment;
 
 class Minion: public NonPlayer {
+    void updateState(std::vector<Event> &events) override;
+    void castCard() override;
+    void castCard(int p, char t = 'r') override;
 public:
     int att;
     int def;

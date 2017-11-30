@@ -14,6 +14,9 @@ class AdderTriggered: public Triggered {
     int attMod;
     int defMod;
     std::string target;
+    void updateState(std::vector<Event> &events) override;
+    void castCard() override;
+    void castCard(int p, char t = 'r') override;
 public:
     AdderTriggered(Event trigger, int attMod, int defMod, std::string &target, std::string &description);
 };

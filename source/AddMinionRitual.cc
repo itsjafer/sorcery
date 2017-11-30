@@ -12,3 +12,15 @@ Ritual(cardName, cost, owner, description, charges, activationCost, trigger), at
         silence = true;
     }
 }
+
+void AddMinionRitual::updateState(vector<Event> &events) {
+
+}
+
+void AddMinionRitual::castCard() {
+
+}
+
+void AddMinionRitual::castCard(int p, char t = 'r') {
+
+}

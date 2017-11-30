@@ -10,8 +10,9 @@ using namespace std;
 
 
 Minion::Minion(string &name, int cost, int owner, int attack, int defence, vector<ifstream> &abilities):
-        NonPlayer(name, cost, owner), att(attack), def(defence), type(Type::Minion) {
-
+        NonPlayer(name, cost, owner), att(attack), def(defence) {
+    
+    type = Type::Minion;
     std::string tempLine;
     //Goes through all ability files and instantiates abilities
     for (unsigned int i = 0; i < abilities.size(); i++) {
@@ -90,7 +91,21 @@ Minion::Minion(string &name, int cost, int owner, int attack, int defence, vecto
     //Construct concrete abilities here
 };
 
-void Minion::attack(int i = 0);
+void Minion::updateState(vector<Event> &events) {
+
+}
+
+void Minion::castCard() {
+
+}
+
+void Minion::castCard(int p, char t = 'r') {
+
+}
+
+void Minion::attack(int i = 0) {
+    
+}
 
 Minion::~Minion(){
 
