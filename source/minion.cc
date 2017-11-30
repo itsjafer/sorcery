@@ -1,6 +1,7 @@
 #include "minion.h"
 #include "triggered.h"
 #include <fstream>
+#include <iostream>
 #include "activated.h"
 
 using namespace std;
@@ -9,6 +10,7 @@ Minion::Minion(string &name, int cost, int owner, int attack, int defence, vecto
         NonPlayer(name, cost, owner), att(attack), def(defence) {
     
     type = Type::Minion;
+    cout << "Minion.cc: Initializing minion, " << name << endl;
     std::string tempLine;
     //Goes through all ability files and instantiates abilities
     for (unsigned int i = 0; i < abilities.size(); i++) {
