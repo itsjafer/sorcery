@@ -1,6 +1,18 @@
 #include "activated.h"
 
+using namespace std;
 
-AdderActive::AdderActive(std::string &name, int cost, int owner, std::string &description, int attMod, int defMod, std::string &target):
+AdderActive::AdderActive(string &name, int cost, int owner, string &description, int attMod, int defMod, string &target):
         Activated(name, cost, owner, description), attMod(attMod), defMod(defMod), target(target) {}
 
+void AdderActive::updateState(vector<Event> &events) {
+
+}
+
+void AdderActive::castCard() {
+
+}
+
+void AdderActive::castCard(int p, char t) {
+
+}
