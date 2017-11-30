@@ -7,7 +7,7 @@ class Triggered: public Ability {
     Event trigger;
 public:
     Triggered(std::string &name, int cost, int owner, std::string &description, Event trigger);
-    virtual ~Triggered() = 0;
+    virtual ~Triggered() = default;
 };
 
 class AdderTriggered: public Triggered {
@@ -19,6 +19,7 @@ class AdderTriggered: public Triggered {
     void castCard(int p, char t = 'r') override;
 public:
     AdderTriggered(Event trigger, int attMod, int defMod, std::string &target, std::string &description);
+    ~AdderTriggered() { }
 };
 
 #endif

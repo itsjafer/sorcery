@@ -16,7 +16,7 @@ public:
     void setBoard(BoardModel *board);
     std::string &getName();
     void update(std::vector<Event> &events);
-    //virtual ~Card() = 0;
+    virtual ~Card() = default;
 };
 
 #endif

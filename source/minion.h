@@ -16,11 +16,11 @@ public:
     int def;
     int action = 0;
     std::vector<std::shared_ptr<Ability>> abilities;
-    std::vector<Enchantment *> enchantments;
+    std::vector<std::shared_ptr<Enchantment>> enchantments;
 
     Minion(std::string &name, int cost, int owner, int attack, int defence, std::vector<std::ifstream> &abilities);
     void attack(int i = 0);
-    virtual ~Minion() = 0;
+    ~Minion();
 };
 
 #endif

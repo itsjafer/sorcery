@@ -6,7 +6,7 @@
 class Activated: public Ability {
 public:
     Activated(std::string &name, int cost, int owner, std::string &description);
-    virtual ~Activated() = 0;
+    virtual ~Activated() = default;
 };
 
 class AdderActive: public Activated {
@@ -18,6 +18,7 @@ class AdderActive: public Activated {
     void castCard(int p, char t = 'r') override;
 public:
     AdderActive(std::string &name, int cost, int owner, std::string &description, int attMod, int defMod, std::string &target);
+    ~AdderActive() { }
 };
 
 #endif
