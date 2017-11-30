@@ -80,6 +80,9 @@ Minion::Minion(string &name, int cost, int owner, int attack, int defence, vecto
                 } else if (tempLine == "summon") {
                     //Instantiate concrete activateSummonAbility object
                     //Do later
+                    //Instantiate concrete activateAddAbility object
+                    int summonAmount;
+                    abilities[i] >> costAmount;
                 }
             }
         }

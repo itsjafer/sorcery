@@ -15,11 +15,13 @@ class AddEnchant: public Enchantment {
     int actPerTurn;
     int AbilityCost;
     bool silence;
+    std::string attFier;
+    std::string defFier;
     void updateState(std::vector<Event> &events) override;
     void castCard() override;
     void castCard(int p, char t = 'r') override;
 public:
-    AddEnchant(std::string &cardName, int cardCost, int owner, std::string &description, int attMod, int defMod, int actPerTurn, int AbilityCost, int silencer);
+    AddEnchant(std::string &cardName, int cardCost, int owner, std::string &description, int attMod, int defMod, int actPerTurn, int AbilityCost, std::string attFier, std::string defFier, int silencer);
 };
 
 #endif

@@ -23,21 +23,25 @@ public:
 class AddSpell: public Spell {
     int attMod;
     int defMod;
+    std::string attFier;
+    std::string defFier;
     std::string Target;
     void updateState(std::vector<Event> &events) override;
     void castCard() override;
     void castCard(int p, char t = 'r') override;
 public:
-    AddSpell(std::string &cardName, int cost, int owner, std::string &description, int attMod, int defMod, std::string &Target);
+    AddSpell(std::string &cardName, int cost, int owner, std::string &description, int attMod, int defMod, std::string attFier, std::string defFier, std::string &Target);
 };
 class MoveAddSpell: public Spell {
     int attMod;
     int defMod;
+    std::string attFier;
+    std::string defFier;
     std::string moveSource;
     std::string moveDestination;
     std::string Target;
 public:
-    MoveAddSpell(std::string &cardName, int cost, int owner, std::string &description, int attMod, int defMod, std::string &moveSource, std::string &moveDestination,  std::string &Target);
+    MoveAddSpell(std::string &cardName, int cost, int owner, std::string &description, int attMod, int defMod, std::string attFier, std::string defFier, std::string &moveSource, std::string &moveDestination,  std::string &Target);
 };
 
 class AddRitualSpell: public Spell {
