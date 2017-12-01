@@ -74,16 +74,14 @@ void TextDisplay::update (Subject &whoNotified) {
     }
 
     // update the hands of the players
-    for (unsigned int j = 0; j < boardInfos[i].hand.size(); j++) {
+    for (unsigned int j = 0; j < boardInfos[i].hand.size(); j++) { 
       // get the name of the card
       std::string name = boardInfos[i].hand[j]->getName();
-
+      std::cout << name << std::endl;
       // get the cost of the card
       int cost = boardInfos[i].hand[j]->getCost();
-
       // get the description of the card
       std::string description = boardInfos[i].hand[j]->getDescription();
-
       // check if its a minion
       if (boardInfos[i].hand[j]->getType() == Type::Minion) {
         // dynamically cast this as a minion pointer
@@ -92,10 +90,10 @@ void TextDisplay::update (Subject &whoNotified) {
         // get attack and defense
         int attack = m->getAttack();
         int defence = m->getDefence();
-        
+        std::cout << "attack: " << attack << " defense: " << defence << std::endl;
         // check if theres an ability
         if (m->hasAbility()) {
-
+          return;
           // check the type of ability
           if (m->getAbilityType(0) == Type::ActivatedAbility) {
             // check the cost of the activated ability
@@ -107,19 +105,19 @@ void TextDisplay::update (Subject &whoNotified) {
         } else {
           hands[i][j] = (display_minion_no_ability(name, cost, attack, defence));
         }
-
+        //std::cout << hands[i][j] << std::endl;
       }
 
       // check if its a ritual
       else if (boardInfos[i].hand[j]->getType() == Type::Ritual) {
         std::shared_ptr<Ritual> r = std::dynamic_pointer_cast<Ritual>(boardInfos[i].hand[j]);
-        hands[i][j] = (display_ritual(name, cost, r->getCost(), r->getDescription(), r->getCharges()));
+        //hands[i][j] = (display_ritual(name, cost, r->getCost(), r->getDescription(), r->getCharges()));
 
       }
 
       // check if its a spell
       else if (boardInfos[i].hand[j]->getType() == Type::Spell) {
-        hands[i][j] = (display_spell(name, cost, description));
+        //hands[i][j] = (display_spell(name, cost, description));
       }
 
       // check if its an enchantment
@@ -160,7 +158,7 @@ void TextDisplay::update (Subject &whoNotified) {
 void TextDisplay::printHand(std::ostream &out) const {
   // we have a vector, hands
   // we go through hands[player] because we only care about the current player
-  // since we only display 
+  
 }
 
 void TextDisplay::printBoard(std::ostream &out) const {
@@ -265,7 +263,7 @@ std::ostream &operator<<(std::ostream &out, const TextDisplay &td) {
   } else if (td.currentCommand == State::printMinion) {
     td.printMinion(out);
   } else if (td.currentCommand == State::printHand) {
-    //td.printHand(out);
+    td.printHand(out);
   } else if (td.currentCommand == State::printHelp) {
     td.printHelp(out);
   }

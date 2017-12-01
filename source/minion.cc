@@ -11,6 +11,7 @@ Minion::Minion(string &name, int cost, int owner, int attack, int defence, vecto
     
     type = Type::Minion;
     cout << "Minion.cc: Initializing minion, " << name << endl;
+    cout << "minion.cc: This minion has " << abilities.size() << " abilities" << endl;
     std::string tempLine;
     //Goes through all ability files and instantiates abilities
     for (unsigned int i = 0; i < abilities.size(); i++) {
@@ -115,7 +116,7 @@ int Minion::getDefence() {
 }
 
 bool Minion::hasAbility() {
-    return !abilities.empty();
+    return !(abilities.empty());
 }
 
 Type Minion::getAbilityType(int i) {
