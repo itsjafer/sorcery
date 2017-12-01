@@ -34,7 +34,7 @@ void Player::addCard(ifstream &cardData) {
 
         vector<ifstream> cardAbilityFiles;
         string ability;
-        while (cardData >> ability) {
+        while (getline(cardData, ability)) {
             cardAbilityFiles.emplace_back(move(ability));
         }
 

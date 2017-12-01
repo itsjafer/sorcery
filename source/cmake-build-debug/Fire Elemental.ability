@@ -1,0 +1,8 @@
+triggered
+add
+enemy enters play
+0
+-1
+trigger target
+Whenever an opponent's minion enters play, deal 1 damage to it
+
