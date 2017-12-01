@@ -4,6 +4,7 @@
 #include "enchantment.h"
 #include "ritual.h"
 #include <fstream>
+#include <iostream>
 #include <sstream>
 #include <iostream>
 #include <stdexcept>
@@ -27,7 +28,7 @@ void Player::addCard(ifstream &cardData) {
     if (cardType == "Minion") {
         //Adding a minion type
         string cardName; getline(cardData, cardName);
-        int cardCost; cardData >> cardCost; 
+        int cardCost; cardData >> cardCost;
         int cardAttack; cardData >> cardAttack;
         int cardDefense; cardData >> cardDefense;
         
