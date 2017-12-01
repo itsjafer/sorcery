@@ -20,6 +20,7 @@ public:
     void setCost(int cost);
     int getOwner();
     void setOwner(int owner);
+    std::string getDescription();
     const Type getType() const;
     virtual ~NonPlayer() = default;
 };

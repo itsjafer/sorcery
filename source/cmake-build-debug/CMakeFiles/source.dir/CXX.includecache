@@ -18,6 +18,10 @@ C:/Users/pipli/OneDrive/Documents/sorcery/source/AddPlayerRitual.cc
 ritual.h
 C:/Users/pipli/OneDrive/Documents/sorcery/source/ritual.h
 
+C:/Users/pipli/OneDrive/Documents/sorcery/source/AddRitualSpell.cc
+spell.h
+C:/Users/pipli/OneDrive/Documents/sorcery/source/spell.h
+
 C:/Users/pipli/OneDrive/Documents/sorcery/source/AddSpell.cc
 spell.h
 C:/Users/pipli/OneDrive/Documents/sorcery/source/spell.h
@@ -30,6 +34,10 @@ C:/Users/pipli/OneDrive/Documents/sorcery/source/AdderTriggered.cc
 triggered.h
 C:/Users/pipli/OneDrive/Documents/sorcery/source/triggered.h
 
+C:/Users/pipli/OneDrive/Documents/sorcery/source/MoveAddSpell.cc
+spell.h
+C:/Users/pipli/OneDrive/Documents/sorcery/source/spell.h
+
 C:/Users/pipli/OneDrive/Documents/sorcery/source/MoveRitual.cc
 ritual.h
 C:/Users/pipli/OneDrive/Documents/sorcery/source/ritual.h
@@ -38,6 +46,10 @@ C:/Users/pipli/OneDrive/Documents/sorcery/source/MoveSpell.cc
 spell.h
 C:/Users/pipli/OneDrive/Documents/sorcery/source/spell.h
 
+C:/Users/pipli/OneDrive/Documents/sorcery/source/SummonActive.cc
+activated.h
+C:/Users/pipli/OneDrive/Documents/sorcery/source/activated.h
+
 C:/Users/pipli/OneDrive/Documents/sorcery/source/ability.cc
 ability.h
 C:/Users/pipli/OneDrive/Documents/sorcery/source/ability.h
@@ -45,6 +57,10 @@ C:/Users/pipli/OneDrive/Documents/sorcery/source/ability.h
 C:/Users/pipli/OneDrive/Documents/sorcery/source/ability.h
 nonplayer.h
 C:/Users/pipli/OneDrive/Documents/sorcery/source/nonplayer.h
+
+C:/Users/pipli/OneDrive/Documents/sorcery/source/activated.cc
+activated.h
+C:/Users/pipli/OneDrive/Documents/sorcery/source/activated.h
 
 C:/Users/pipli/OneDrive/Documents/sorcery/source/activated.h
 ability.h
@@ -135,10 +151,20 @@ triggered.h
 C:/Users/pipli/OneDrive/Documents/sorcery/source/triggered.h
 fstream
 -
+sstream
+-
+iostream
+-
 activated.h
 C:/Users/pipli/OneDrive/Documents/sorcery/source/activated.h
 
 C:/Users/pipli/OneDrive/Documents/sorcery/source/minion.h
+nonplayer.h
+C:/Users/pipli/OneDrive/Documents/sorcery/source/nonplayer.h
+memory
+-
+
+C:/Users/pipli/OneDrive/Documents/sorcery/source/nonplayer.cc
 nonplayer.h
 C:/Users/pipli/OneDrive/Documents/sorcery/source/nonplayer.h
 
@@ -147,6 +173,10 @@ card.h
 C:/Users/pipli/OneDrive/Documents/sorcery/source/card.h
 type.h
 C:/Users/pipli/OneDrive/Documents/sorcery/source/type.h
+
+C:/Users/pipli/OneDrive/Documents/sorcery/source/observer.cc
+observer.h
+C:/Users/pipli/OneDrive/Documents/sorcery/source/observer.h
 
 C:/Users/pipli/OneDrive/Documents/sorcery/source/observer.h
 
@@ -165,6 +195,8 @@ fstream
 -
 sstream
 -
+iostream
+-
 stdexcept
 -
 
@@ -181,6 +213,12 @@ C:/Users/pipli/OneDrive/Documents/sorcery/source/nonplayer.h
 C:/Users/pipli/OneDrive/Documents/sorcery/source/spell.h
 nonplayer.h
 C:/Users/pipli/OneDrive/Documents/sorcery/source/nonplayer.h
+
+C:/Users/pipli/OneDrive/Documents/sorcery/source/subject.cc
+subject.h
+C:/Users/pipli/OneDrive/Documents/sorcery/source/subject.h
+observer.h
+C:/Users/pipli/OneDrive/Documents/sorcery/source/observer.h
 
 C:/Users/pipli/OneDrive/Documents/sorcery/source/subject.h
 vector

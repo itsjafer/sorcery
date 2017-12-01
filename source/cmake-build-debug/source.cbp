@@ -91,6 +91,9 @@
 		<Unit filename="C:/Users/pipli/OneDrive/Documents/sorcery/source/AddPlayerRitual.cc">
 			<Option target="source"/>
 		</Unit>
+		<Unit filename="C:/Users/pipli/OneDrive/Documents/sorcery/source/AddRitualSpell.cc">
+			<Option target="source"/>
+		</Unit>
 		<Unit filename="C:/Users/pipli/OneDrive/Documents/sorcery/source/AddSpell.cc">
 			<Option target="source"/>
 		</Unit>
@@ -100,16 +103,25 @@
 		<Unit filename="C:/Users/pipli/OneDrive/Documents/sorcery/source/AdderTriggered.cc">
 			<Option target="source"/>
 		</Unit>
+		<Unit filename="C:/Users/pipli/OneDrive/Documents/sorcery/source/MoveAddSpell.cc">
+			<Option target="source"/>
+		</Unit>
 		<Unit filename="C:/Users/pipli/OneDrive/Documents/sorcery/source/MoveRitual.cc">
 			<Option target="source"/>
 		</Unit>
 		<Unit filename="C:/Users/pipli/OneDrive/Documents/sorcery/source/MoveSpell.cc">
 			<Option target="source"/>
 		</Unit>
+		<Unit filename="C:/Users/pipli/OneDrive/Documents/sorcery/source/SummonActive.cc">
+			<Option target="source"/>
+		</Unit>
 		<Unit filename="C:/Users/pipli/OneDrive/Documents/sorcery/source/ability.cc">
 			<Option target="source"/>
 		</Unit>
 		<Unit filename="C:/Users/pipli/OneDrive/Documents/sorcery/source/ability.h">
+			<Option target="source"/>
+		</Unit>
+		<Unit filename="C:/Users/pipli/OneDrive/Documents/sorcery/source/activated.cc">
 			<Option target="source"/>
 		</Unit>
 		<Unit filename="C:/Users/pipli/OneDrive/Documents/sorcery/source/activated.h">
@@ -151,7 +163,13 @@
 		<Unit filename="C:/Users/pipli/OneDrive/Documents/sorcery/source/minion.h">
 			<Option target="source"/>
 		</Unit>
+		<Unit filename="C:/Users/pipli/OneDrive/Documents/sorcery/source/nonplayer.cc">
+			<Option target="source"/>
+		</Unit>
 		<Unit filename="C:/Users/pipli/OneDrive/Documents/sorcery/source/nonplayer.h">
+			<Option target="source"/>
+		</Unit>
+		<Unit filename="C:/Users/pipli/OneDrive/Documents/sorcery/source/observer.cc">
 			<Option target="source"/>
 		</Unit>
 		<Unit filename="C:/Users/pipli/OneDrive/Documents/sorcery/source/observer.h">
@@ -167,6 +185,9 @@
 			<Option target="source"/>
 		</Unit>
 		<Unit filename="C:/Users/pipli/OneDrive/Documents/sorcery/source/spell.h">
+			<Option target="source"/>
+		</Unit>
+		<Unit filename="C:/Users/pipli/OneDrive/Documents/sorcery/source/subject.cc">
 			<Option target="source"/>
 		</Unit>
 		<Unit filename="C:/Users/pipli/OneDrive/Documents/sorcery/source/subject.h">

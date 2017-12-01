@@ -5,6 +5,7 @@
 #include "ritual.h"
 #include <fstream>
 #include <sstream>
+#include <iostream>
 #include <stdexcept>
 
 using namespace std;
@@ -12,6 +13,7 @@ using namespace std;
 Player::Player(string &name, unique_ptr<ifstream> &deck): Card{name} {
     string cardFile;
     while (getline(*deck, cardFile)) {
+        cardFile += ".card"; // adding the card extension
         ifstream cardData{cardFile};
         addCard(cardData);
     }
@@ -28,6 +30,8 @@ void Player::addCard(ifstream &cardData) {
         int cardCost; cardData >> cardCost;
         int cardAttack; cardData >> cardAttack;
         int cardDefense; cardData >> cardDefense;
+
+
         vector<ifstream> cardAbilityFiles;
         string ability;
         while (getline(cardData, ability)) {
@@ -42,30 +46,76 @@ void Player::addCard(ifstream &cardData) {
         //Get spell type
         string spellType; getline(cardData, spellType);
         if (spellType == "move") {
+
+            //Get move source
+            string moveSrc; getline(cardData, moveSrc);
+
+            //Get move destination
+            string moveDest; getline(cardData, moveDest);
+
+            //Get Target
+            string target; getline(cardData, target);
+
+            //Name and Cost and decsription
+            string cardName; getline(cardData, cardName);
+            int cardCost; cardData >> cardCost;
+            string cardDscr; getline(cardData, cardDscr);
+
+            //Create card
+            shared_ptr<Spell> newSpell(new MoveSpell(cardName, cardCost, playerNumber, cardDscr, moveSrc, moveDest, target));
+            deck.emplace_back(newSpell);
+        } else if (spellType == "add") {
+
+            //Get Target and modifiers
+            string target; getline(cardData, target);
+            int attMod; cardData >> attMod;
+            int defMod; cardData >> defMod;
+            string attFier; getline(cardData, attFier);
+            string defFier; getline(cardData, defFier);
+
+            //Name and Cost and decsription
+            string cardName; getline(cardData, cardName);
+            int cardCost; cardData >> cardCost;
+            string cardDscr; getline(cardData, cardDscr);
+
+            //Create card
+            shared_ptr<Spell> newSpell(new AddSpell(cardName, cardCost, playerNumber, cardDscr, attMod, defMod, attFier, defFier, target));
+            deck.emplace_back(newSpell);
+        } else if (spellType == "moveAdd") {
             //Get move source
             string moveSrc; getline(cardData, moveSrc);
             //Get move destination
             string moveDest; getline(cardData, moveDest);
             //Get Target
             string target; getline(cardData, target);
-            //Name and Cost and decsription
-            string cardName; getline(cardData, cardName);
-            int cardCost; cardData >> cardCost;
-            string cardDscr; getline(cardData, cardDscr);
-            //Create card
-            shared_ptr<Spell> newSpell(new MoveSpell(cardName, cardCost, playerNumber, cardDscr, moveSrc, moveDest, target));
-            deck.emplace_back(newSpell);
-        } else if (spellType == "add") {
+
             //Get Target and modifiers
-            string target; getline(cardData, target);
             int attMod; cardData >> attMod;
             int defMod; cardData >> defMod;
+            string attFier; getline(cardData, attFier);
+            string defFier; getline(cardData, defFier);
+
             //Name and Cost and decsription
             string cardName; getline(cardData, cardName);
             int cardCost; cardData >> cardCost;
             string cardDscr; getline(cardData, cardDscr);
             //Create card
-            shared_ptr<Spell> newSpell(new AddSpell(cardName, cardCost, playerNumber, cardDscr, attMod, defMod, target));
+            shared_ptr<Spell> newSpell(new MoveAddSpell(cardName, cardCost, playerNumber, cardDscr, attMod, defMod, attFier, defFier, moveSrc, moveDest, target));
+            deck.emplace_back(newSpell);
+
+        } else if (spellType == "ritualMod") {
+
+            //Get Target and modifiers
+            int chargeMod; cardData >> chargeMod;
+            int costMod; cardData >> costMod;
+
+            //Name and Cost and decsription
+            string cardName; getline(cardData, cardName);
+            int cardCost; cardData >> cardCost;
+            string cardDscr; getline(cardData, cardDscr);
+
+            //Create card
+            shared_ptr<Spell> newSpell(new AddRitualSpell(cardName, cardCost, playerNumber, cardDscr, chargeMod, costMod));
             deck.emplace_back(newSpell);
         }
     }
@@ -75,6 +125,7 @@ void Player::addCard(ifstream &cardData) {
         if (ritualType == "add") {
             string target; getline(cardData, target);
             if (target == "player") {
+
                 //Get Ritual basics
                 int activeCost; cardData >> activeCost;
                 int charges; cardData >> charges;
@@ -87,22 +138,27 @@ void Player::addCard(ifstream &cardData) {
                 } else if (trigger == "Enter any") {
                     cardTrigger = Event::minionEnteredPlay;
                 }
+
                 //Get player modifiers
                 int healthMod; cardData >> healthMod;
-                int magicMod; cardData >> healthMod;
+                int magicMod; cardData >> magicMod;
                 string targets; getline(cardData, targets);
+
                 //Name and Cost and decsription
                 string cardName; getline(cardData, cardName);
                 int cardCost; cardData >> cardCost;
                 string cardDscr; getline(cardData, cardDscr);
+
                 //Create card
                 shared_ptr<Ritual> newRitual(new AddPlayerRitual(cardName, cardCost, playerNumber, cardDscr, charges, activeCost, healthMod, magicMod, cardTrigger, targets));
                 deck.emplace_back(newRitual);
             } else if (target == "minion") {
+
                 //Get modifiers
                 //Get Ritual basics
                 int activeCost; cardData >> activeCost;
                 int charges; cardData >> charges;
+
                 Event cardTrigger;
                 string trigger; getline(cardData, trigger);
                 if (trigger == "Beginning of turn") {
@@ -118,10 +174,12 @@ void Player::addCard(ifstream &cardData) {
                 int abilityCost; cardData >> abilityCost;
                 int silenced; cardData >> silenced;
                 string target; getline(cardData, target);
+
                 //Name and Cost and decsription
                 string cardName; getline(cardData, cardName);
                 int cardCost; cardData >> cardCost;
                 string cardDscr; getline(cardData, cardDscr);
+
                 //Create card
                 shared_ptr<Ritual> newRitual(new AddMinionRitual(cardName, cardCost, playerNumber, cardDscr, charges, activeCost, attMod, defMod,actPerTurn, abilityCost, silenced, cardTrigger, target));
                 deck.emplace_back(newRitual);
@@ -130,6 +188,7 @@ void Player::addCard(ifstream &cardData) {
             //Get Ritual basics
             int activeCost; cardData >> activeCost;
             int charges; cardData >> charges;
+
             Event cardTrigger;
             string trigger; getline(cardData, trigger);
             if (trigger == "Beginning of turn") {
@@ -139,13 +198,16 @@ void Player::addCard(ifstream &cardData) {
             } else if (trigger == "Enter any") {
                 cardTrigger = Event::minionEnteredPlay;
             }
+
             //Move data
             string target; getline(cardData, target);
             string destination; getline(cardData, destination);
+
             //Name and Cost and decsription
             string cardName; getline(cardData, cardName);
             int cardCost; cardData >> cardCost;
             string cardDscr; getline(cardData, cardDscr);
+
             //Create card
             shared_ptr<Ritual> newRitual(new MoveRitual(cardName, cardCost, playerNumber, cardDscr, charges, activeCost, cardTrigger, target, destination));
             deck.emplace_back(newRitual);
@@ -155,18 +217,23 @@ void Player::addCard(ifstream &cardData) {
         //Get ritual type
         string enchantType; getline(cardData, enchantType);
         if (enchantType == "add") {
+
             //Get modifiers
             int attMod; cardData >> attMod;
             int defMod; cardData >> defMod;
             int actPerTurn; cardData >> actPerTurn;
             int abilityCost; cardData >> abilityCost;
             int silenced; cardData >> silenced;
+            string attFier; getline(cardData, attFier);
+            string defFier; getline(cardData, defFier);
+
             //Name and Cost and decsription
             string cardName; getline(cardData, cardName);
             int cardCost; cardData >> cardCost;
             string cardDscr; getline(cardData, cardDscr);
+
             //Create card
-            shared_ptr<Enchantment> newEnchantment(new AddEnchant(cardName, cardCost, playerNumber, cardDscr, attMod, defMod, actPerTurn, abilityCost, silenced));
+            shared_ptr<Enchantment> newEnchantment(new AddEnchant(cardName, cardCost, playerNumber, cardDscr, attMod, defMod, actPerTurn, abilityCost, attFier, defFier, silenced));
             deck.emplace_back(newEnchantment);
         }
     }
@@ -179,8 +246,11 @@ void Player::updateState(vector<Event> &events) {
 
 void Player::drawCard(int numCards) {
     if (deck.size() > 0) {
-        hand.emplace_back(deck.back());    //not sure if this actually works...
-        deck.pop_back();
+        for (int i = 0; i < numCards; ++i)
+        {
+            hand.emplace_back(deck.back());    //not sure if this actually works...
+            deck.pop_back();
+        }
     }
     else throw out_of_range(getName());
 }

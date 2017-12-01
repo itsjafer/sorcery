@@ -31,3 +31,7 @@ void NonPlayer::setOwner(int owner) {
 const Type NonPlayer::getType() const {
 
 }
+
+std::string NonPlayer::getDescription() {
+  return description;
+}
