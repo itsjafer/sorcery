@@ -46,8 +46,6 @@ Minion::Minion(string &name, int cost, int owner, int attack, int defence, vecto
                     //Get target
                     std::string target;
                     getline(abilities[i], target);
-
-                    cout << "Minion.cc: I have the target: " << target << endl;
                     
                     //Get description
                     std::string descriptor;
@@ -120,7 +118,7 @@ Minion::Minion(string &name, int cost, int owner, int attack, int defence, vecto
 
     //Construct concrete abilities here
     cout << "Minion.cc: Found the minion, " << name << " with cost, " << cost 
-        << " and attack/defense of " << att << "/" << def  << " and " << abilities.size() << " abilities" << endl;
+        << " and attack/defense of " << att << "/" << def  << " and " << this->abilities.size() << " abilities" << endl;
     for (int i = 0; i < this->abilities.size(); ++i) {
         cout << "Ability " << i << ": " << this->abilities[i]->getDescription() << endl;
     }
