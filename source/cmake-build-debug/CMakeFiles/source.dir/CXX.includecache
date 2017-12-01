@@ -151,6 +151,8 @@ triggered.h
 C:/Users/pipli/OneDrive/Documents/sorcery/source/triggered.h
 fstream
 -
+iostream
+-
 activated.h
 C:/Users/pipli/OneDrive/Documents/sorcery/source/activated.h
 
@@ -190,6 +192,8 @@ C:/Users/pipli/OneDrive/Documents/sorcery/source/ritual.h
 fstream
 -
 sstream
+-
+iostream
 -
 stdexcept
 -

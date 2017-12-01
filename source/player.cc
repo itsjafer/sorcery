@@ -5,6 +5,7 @@
 #include "ritual.h"
 #include <fstream>
 #include <sstream>
+#include <iostream>
 #include <stdexcept>
 
 using namespace std;
@@ -12,6 +13,7 @@ using namespace std;
 Player::Player(string &name, unique_ptr<ifstream> &deck): Card{name} {
     string cardFile;
     while (getline(*deck, cardFile)) {
+        cardFile += ".card"; // adding the card extension
         ifstream cardData{cardFile};
         addCard(cardData);
     }
@@ -32,9 +34,12 @@ void Player::addCard(ifstream &cardData) {
 
         vector<ifstream> cardAbilityFiles;
         string ability;
-        while (getline(cardData, ability)) {
+        while (cardData >> ability) {
             cardAbilityFiles.emplace_back(move(ability));
         }
+
+                cout << "Player.cc: Found the minion, " << cardName << " with cost, " << cardCost 
+        << " and attack/defense of " << cardAttack << "/" << cardDefense  << " and " << cardAbilityFiles.size() << " abilities" << endl;
 
         deck.emplace_back(make_shared<Minion>(cardName, cardCost, playerNumber, cardAttack, cardDefense, cardAbilityFiles));
         //deck.emplace_back(make_unique<Minion>(cardName, cardCost, playerNumber, cardAttack, cardDefense, cardAbilityFiles));
@@ -244,8 +249,11 @@ void Player::updateState(vector<Event> &events) {
 
 void Player::drawCard(int numCards) {
     if (deck.size() > 0) {
-        hand.emplace_back(deck.back());    //not sure if this actually works...
-        deck.pop_back();
+        for (int i = 0; i < numCards; ++i)
+        {
+            hand.emplace_back(deck.back());    //not sure if this actually works...
+            deck.pop_back();
+        }
     }
     else throw out_of_range(getName());
 }

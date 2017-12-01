@@ -19,6 +19,7 @@
         "memory": "cpp",
         "stdexcept": "cpp",
         "tuple": "cpp",
-        "utility": "cpp"
+        "utility": "cpp",
+        "iostream": "cpp"
     }
 }

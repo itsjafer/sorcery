@@ -7,13 +7,14 @@
 BoardModel::BoardModel(std::vector<std::string> players, std::vector<std::unique_ptr<std::ifstream>> &data) {
   std::cout << "BoardModel.cc: Players are being initialized in the constructor." << std::endl;
   for (unsigned int i = 0; i < players.size(); ++i) {
-    std::cout << "BoardModel.cc: Player " << i << " has been created (as a unique pointer: this might need to change)" << std::endl;
+    std::cout << "BoardModel.cc: Player " << i << " has been created." << std::endl;
     this->players.emplace_back(std::unique_ptr<Player>(new Player(players[i], data[i])));
+    std::cout << "BoardModel.cc: Player " << i << " has " << this->players[i]->deck.size() << " cards in their deck." << std::endl;   
   }
 }
 
 bool BoardModel::isDeckEmpty(int player) {
-  return (players[player])->deck.size();
+  return (players[player])->deck.empty();
 }
 
 void BoardModel::updateBoard(std::vector<Event> events) {

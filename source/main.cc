@@ -14,6 +14,14 @@ int main(int argc, char * argv[]) {
   vector<string> names; // this vector is a list of names (used for player construction)ma
   vector<unique_ptr<ifstream>> deckFiles;
 
+  ifstream deck("default.deck");
+  if (!deck) {
+    cerr << "Unable to open default.deck" << endl;
+    exit (1);
+  }
+  
+  cout << "Main.cc: Found and opened default.deck" << endl;
+
   for (int i = 0; i < numPlayers; ++i) {
     // get the names for each player
     string name;
