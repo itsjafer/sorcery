@@ -24,6 +24,7 @@ TextDisplay::TextDisplay() {
     }
     minionRow.emplace_back(temp);
     playerRow.emplace_back(temp);
+    hands.emplace_back(temp);
   }
 }
 
@@ -91,9 +92,10 @@ void TextDisplay::update (Subject &whoNotified) {
         int attack = m->getAttack();
         int defence = m->getDefence();
         std::cout << "attack: " << attack << " defense: " << defence << std::endl;
+        
         // check if theres an ability
         if (m->hasAbility()) {
-          return;
+          std::cout << "I have been asked if I have an ability" << std::endl;
           // check the type of ability
           if (m->getAbilityType(0) == Type::ActivatedAbility) {
             // check the cost of the activated ability
@@ -105,19 +107,20 @@ void TextDisplay::update (Subject &whoNotified) {
         } else {
           hands[i][j] = (display_minion_no_ability(name, cost, attack, defence));
         }
+        
         //std::cout << hands[i][j] << std::endl;
       }
 
       // check if its a ritual
       else if (boardInfos[i].hand[j]->getType() == Type::Ritual) {
         std::shared_ptr<Ritual> r = std::dynamic_pointer_cast<Ritual>(boardInfos[i].hand[j]);
-        //hands[i][j] = (display_ritual(name, cost, r->getCost(), r->getDescription(), r->getCharges()));
+        hands[i][j] = (display_ritual(name, cost, r->getCost(), r->getDescription(), r->getCharges()));
 
       }
 
       // check if its a spell
       else if (boardInfos[i].hand[j]->getType() == Type::Spell) {
-        //hands[i][j] = (display_spell(name, cost, description));
+        hands[i][j] = (display_spell(name, cost, description));
       }
 
       // check if its an enchantment
