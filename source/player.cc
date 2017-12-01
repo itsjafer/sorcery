@@ -38,9 +38,6 @@ void Player::addCard(ifstream &cardData) {
             cardAbilityFiles.emplace_back(move(ability));
         }
 
-                cout << "Player.cc: Found the minion, " << cardName << " with cost, " << cardCost 
-        << " and attack/defense of " << cardAttack << "/" << cardDefense  << " and " << cardAbilityFiles.size() << " abilities" << endl;
-
         deck.emplace_back(make_shared<Minion>(cardName, cardCost, playerNumber, cardAttack, cardDefense, cardAbilityFiles));
         //deck.emplace_back(make_unique<Minion>(cardName, cardCost, playerNumber, cardAttack, cardDefense, cardAbilityFiles));
     }
