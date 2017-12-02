@@ -6,6 +6,7 @@
 #include "minion.h"
 #include "ritual.h"
 #include "enchantment.h"
+#include "ability.h"
 #include <iostream>
 
 // constructor
@@ -73,6 +74,13 @@ card_template_t TextDisplay::cardTemplate(std::shared_ptr<NonPlayer> card) {
     // check if theres an ability
     if (m->hasAbility()) {
       std::cout << "I have been asked if I have an ability" << std::endl;
+
+      // get the description of the abilities
+      description = "";
+      for (auto ability : m->abilities) {
+        description = ability->getDescription();
+      }
+      
       // check the type of ability
       if (m->getAbilityType(0) == Type::ActivatedAbility) {
         // check the cost of the activated ability
@@ -232,6 +240,9 @@ void TextDisplay::printBoard(std::ostream &out) const {
 
 // prints a given row of cardss
 void TextDisplay::printRow(row_template_r row, std::ostream &out, bool border) const {
+  if (row.size() == 0) {
+    return;
+  }
   // print out the hand by printing from top to bottom of each card
   for (unsigned int i = 0; i < CARD_TEMPLATE_BORDER.size(); ++i) {
     
@@ -254,11 +265,6 @@ void TextDisplay::printRow(row_template_r row, std::ostream &out, bool border) c
 
 // inspects a minion
 void TextDisplay::inspectMinion(std::ostream &out) const {
-  // we need to get the name, cost, description, attack, defence
-  // if it has an ability, we need the name and cost of that too
-  // we need to check if a minion has an enchantment on it
-  // we need to figure out what kind of enchantment it is
-  // we need the name, cost, description of it
   
   // print our minion
   for (unsigned int i = 0; i < CARD_TEMPLATE_BORDER.size(); ++i) {
