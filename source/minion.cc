@@ -1,6 +1,7 @@
 #include "minion.h"
 #include "triggered.h"
 #include <fstream>
+#include <sstream>
 #include <iostream>
 #include "activated.h"
 
@@ -8,11 +9,11 @@ using namespace std;
 
 Minion::Minion(string &name, int cost, int owner, int attack, int defence, vector<ifstream> &abilities):
         NonPlayer(name, cost, owner), att(attack), def(defence) {
-    
+
     type = Type::Minion;
-    cout << "Minion.cc: Initializing minion, " << name << endl;
-    cout << "minion.cc: This minion has " << abilities.size() << " abilities" << endl;
+    // cout << "Minion.cc: Initializing minion, " << name << endl;
     std::string tempLine;
+
     //Goes through all ability files and instantiates abilities
     for (unsigned int i = 0; i < abilities.size(); i++) {
 
@@ -39,6 +40,9 @@ Minion::Minion(string &name, int cost, int owner, int attack, int defence, vecto
                     abilities[i] >> modAtt;
                     abilities[i] >> modDef;
 
+                    // skip to the next line
+                    abilities[i].ignore(10000, '\n');
+
                     //Get target
                     std::string target;
                     getline(abilities[i], target);
@@ -61,11 +65,17 @@ Minion::Minion(string &name, int cost, int owner, int attack, int defence, vecto
                     int costAmount;
                     abilities[i] >> costAmount;
 
+                    // skip to the next line
+                    abilities[i].ignore(10000, '\n');
+
                     //Get modifiers
                     int modAtt;
                     int modDef;
                     abilities[i] >> modAtt;
                     abilities[i] >> modDef;
+
+                    // skip to the next line
+                    abilities[i].ignore(10000, '\n');
 
                     //Get target
                     std::string target;
@@ -79,7 +89,7 @@ Minion::Minion(string &name, int cost, int owner, int attack, int defence, vecto
                     //Create ability, add it to the back
                     shared_ptr<Ability> newAddAct{new AdderActive(name, costAmount, -1, descriptor, modAtt, modDef, target)};
                     this->abilities.emplace_back(newAddAct);
-                    
+
                 } else if (tempLine == "summon") {
                     //Instantiate concrete activateSummonAbility object
                     //Do later
@@ -88,6 +98,10 @@ Minion::Minion(string &name, int cost, int owner, int attack, int defence, vecto
                     abilities[i] >> costAmount;
                     int summonAmount;
                     abilities[i] >> summonAmount;
+
+                    // skip to the next line
+                    abilities[i].ignore(10000, '\n');
+
                     std::string summonMinion;
                     getline(abilities[i], summonMinion);
 
@@ -104,7 +118,15 @@ Minion::Minion(string &name, int cost, int owner, int attack, int defence, vecto
             }
         }
     }
+
     //Construct concrete abilities here
+    // cout << "Minion.cc: Found the minion, " << name << " with cost, " << cost
+    //     << " and attack/defense of " << att << "/" << def  << " and " << this->abilities.size() << " abilities" << endl;
+    // for (int i = 0; i < this->abilities.size(); ++i) {
+    //     cout << "Ability " << i << ": " << this->abilities[i]->getDescription() << endl;
+    // }
+    // cout << endl;
+    // cout << endl;
 };
 
 int Minion::getAttack() {
@@ -141,7 +163,7 @@ void Minion::castCard(int p, char t) {
 }
 
 void Minion::attack(int i) {
-    
+
 }
 
 Minion::~Minion(){
