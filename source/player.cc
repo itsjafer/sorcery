@@ -8,6 +8,7 @@
 #include <sstream>
 #include <iostream>
 #include <stdexcept>
+#include <algorithm>
 
 using namespace std;
 
@@ -18,6 +19,11 @@ Player::Player(string &name, unique_ptr<ifstream> &deck): Card{name} {
         ifstream cardData{cardFile};
         addCard(cardData);
     }
+    shuffleDeck();
+}
+
+void Player::shuffleDeck() {
+    std::random_shuffle(deck.begin(), deck.end());
 }
 
 void Player::addCard(ifstream &cardData) {
