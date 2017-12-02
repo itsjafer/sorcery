@@ -131,15 +131,17 @@ Minion::Minion(string &name, int cost, int owner, int attack, int defence, vecto
 };
 
 void Minion::updateState(vector<Event> &events) {
-
+  for (int i = 0; i < abilities.size(); ++i) {
+    abilities[i]->update(events);
+  }
 }
 
 void Minion::castCard() {
-
+  abilities[0]->cast();
 }
 
 void Minion::castCard(int p, char t) {
-
+  abilities[0]->cast(p, t);
 }
 
 void Minion::attack(int i, int me) {

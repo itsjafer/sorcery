@@ -31,17 +31,17 @@ void BoardController::preTurn() {
   // increase the magic by 1
   int currentMagic = boardData.getMagic(currentPlayer);
   boardData.setMagic(currentPlayer, currentMagic + 1);
-  
+
   std::cout << "BoardController.cc: Player " << currentPlayer << " magic increased by 1." << std::endl;
   std::cout << "BoardController.cc: Player " << currentPlayer << " magic is now " << boardData.getMagic(currentPlayer) << std::endl;
-  
+
   // draw a card (if deck is non empty)
   // check if the deck is non-empty
   if (!boardData.isDeckEmpty(currentPlayer)) {
     // draw a card
     boardData.players[currentPlayer]->drawCard();
     std::cout << "BoardController.cc: Player " << currentPlayer << " has drawn a card." << std::endl;
-    std::cout << "BoardController.cc: Player " << currentPlayer << " now has " << boardData.players[currentPlayer]->getHand().size() << " cards in their hand." << std::endl;    
+    std::cout << "BoardController.cc: Player " << currentPlayer << " now has " << boardData.players[currentPlayer]->getHand().size() << " cards in their hand." << std::endl;
   }
 
   // check for start-of-turn effects:
@@ -50,24 +50,24 @@ void BoardController::preTurn() {
   events.emplace_back(Event::startTurn);
   boardData.updateBoard(events);
   std::cout << "BoardController.cc: Checking for start of turn effects." << std::endl;
-  
+
 }
 
 void BoardController::execute() {
   // this is the full command line
   std::string cmd;
-  std::cout << "BoardController.cc: Listening for commands." << std::endl;  
+  std::cout << "BoardController.cc: Listening for commands." << std::endl;
   while (getline(std::cin, cmd)) {
     std::string s;
     std::stringstream ss(cmd);
     ss >> s;
     if (s == "end") {
-      std::cout << "BoardController.cc: Player " << currentPlayer << " has ended their turn." << std::endl;  
-      
+      std::cout << "BoardController.cc: Player " << currentPlayer << " has ended their turn." << std::endl;
+
       // ends the current player's turn
       break;
     } else if (s == "quit") {
-        std::cout << "BoardController.cc: Player " << currentPlayer << " has ended the game." << std::endl;        
+        std::cout << "BoardController.cc: Player " << currentPlayer << " has ended the game." << std::endl;
         gameOver = true;
         break;
     } else if (s == "attack") {
@@ -82,7 +82,7 @@ void BoardController::execute() {
           ss >> j;
         }
 
-        std::cout << "BoardController.cc: Player " << currentPlayer << " has attacked using minion " << i << " on " << j << std::endl;          
+        std::cout << "BoardController.cc: Player " << currentPlayer << " has attacked using minion " << i << " on " << j << std::endl;
         // call the attack
         boardData.players[currentPlayer]->attack(i, j);
 
@@ -92,18 +92,18 @@ void BoardController::execute() {
         int t;
 
         ss >> i; // i'th card
-  
+
         if (ss.good()) { // the p'th player
           ss >> p;
           ss >> t; // the t'th minion to affect
-          std::cout << "BoardController.cc: Player " << currentPlayer << " has used card " << i << " on player " << p << "'s minion " << t << std::endl;                    
+          std::cout << "BoardController.cc: Player " << currentPlayer << " has used card " << i << " on player " << p << "'s minion " << t << std::endl;
           // call the play
           boardData.players[currentPlayer]->play(i, p, t);
           continue;
         }
 
         // call the play
-        std::cout << "BoardController.cc: Player " << currentPlayer << " has used card " << i << std::endl;                          
+        std::cout << "BoardController.cc: Player " << currentPlayer << " has used card " << i << std::endl;
         boardData.players[currentPlayer]->play(i);
     } else if (s == "use") {
         // important note: i and j are in the domain [1,5], where 1 is the leftmost minion
@@ -113,18 +113,19 @@ void BoardController::execute() {
         int t;
 
         ss >> i; // i'th minion to use
-  
+
         if (ss.good()) { // the p'th player
           ss >> p;
           ss >> t; // the t'th minion to affect
 
-          std::cout << "BoardController.cc: Player " << currentPlayer << " has used minion " << i << "'s ability on player " << p << "'s minion " << t << std::endl;                              
+          std::cout << "BoardController.cc: Player " << currentPlayer << " has used minion " << i << "'s ability on player " << p << "'s minion " << t << std::endl;
           // call the use
+          std::cout << t << std::endl;
           boardData.players[currentPlayer]->use(i, p, t);
           continue;
         }
 
-        std::cout << "BoardController.cc: Player " << currentPlayer << " has used the ability of minion " << i << std::endl;                                  
+        std::cout << "BoardController.cc: Player " << currentPlayer << " has used the ability of minion " << i << std::endl;
         // call the use
         boardData.players[currentPlayer]->use(i);
     } else if (s == "inspect") {
@@ -141,20 +142,20 @@ void BoardController::execute() {
     } else if (s == "discard") {
       // this is only available in testing mode
       // TODO: ADD TO PLAYER.H
-    } 
+    }
   }
 
 }
 
 void BoardController::postTurn() {
 
-  std::cout << "BoardController.cc: Checking for end of turn effects." << std::endl;  
+  std::cout << "BoardController.cc: Checking for end of turn effects." << std::endl;
   // check for end-of-turn effects:
   // gonna create a vector for consistency-sake
   std::vector<Event> events;
   events.emplace_back(Event::endTurn);
   boardData.updateBoard(events);
-  
+
   // check if anyone is dead
   for (unsigned int i = 0; i < boardData.players.size(); ++i) {
     if (boardData.getHealth(i) <= 0) {
