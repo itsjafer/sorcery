@@ -27,6 +27,10 @@ void BoardModel::updateBoard(std::vector<Event> events) {
 
 }
 
+int BoardModel::getFieldSize() {
+  return fieldSize;
+}
+
 int BoardModel::getMagic(int player) {
   return players[player]->magic;
 }

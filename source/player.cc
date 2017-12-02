@@ -3,6 +3,7 @@
 #include "spell.h"
 #include "enchantment.h"
 #include "ritual.h"
+#include "boardmodel.h"
 #include <fstream>
 #include <sstream>
 #include <iostream>
@@ -332,12 +333,19 @@ void Player::play(int i) {
         graveyard.emplace_back(card);
     }
     else if (card->getType() == Type::Ritual) {
+        if (ritual) {
+            graveyard.emplace_back(ritual);
+            ritual = nullptr;
+        }
         ritual = dynamic_pointer_cast<Ritual>(card);
     }
     else if (card->getType() == Type::Minion) {
+        if (minions.size() >= board->getFieldSize()) throw InvalidMoveException(InvalidMove::FieldFull);
         minions.emplace_back(dynamic_pointer_cast<Minion>(card));
     }
-    else { }    //handle exception
+    else { 
+        throw InvalidMoveException(InvalidMove::BadPlay);
+    }    //handle exception
 
     hand.erase(hand.begin() + (i - 1));     //remove card from hand
 }
@@ -353,7 +361,9 @@ void Player::play(int i, int p, char t) {
         card->cast(p, t);
         minions.at((int)(t - 1))->enchantments.emplace_back(dynamic_pointer_cast<Enchantment>(card));
     }
-    else { }    //handle exception
+    else { 
+        throw InvalidMoveException(InvalidMove::BadPlay);
+    }    //handle exception
 
     hand.erase(hand.begin() + (i - 1));     //remove card from hand
 }

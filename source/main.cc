@@ -17,7 +17,7 @@ int main(int argc, char * argv[]) {
   ifstream deck("default.deck");
   if (!deck) {
     cerr << "Unable to open default.deck" << endl;
-    exit (1);
+    return 1;
   }
   
   cout << "Main.cc: Found and opened default.deck" << endl;
@@ -45,6 +45,7 @@ int main(int argc, char * argv[]) {
     board.preTurn();
     cout << "main.cc: Board is now going to go through execute." << endl;    
     board.execute();
+    if (board.gameEnded()) return 0;
     cout << "main.cc: Board is now going to go through postTurn." << endl;    
     board.postTurn();
     

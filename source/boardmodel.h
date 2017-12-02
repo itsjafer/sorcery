@@ -10,7 +10,9 @@
 class Player;
 
 class BoardModel {
+    const int fieldSize = 5;
 public:
+    int getFieldSize();
     int getMagic(int player); // returns the magic of the given player
     void setMagic(int player, int newValue); 
     int getHealth(int player); // returns the health of the given player

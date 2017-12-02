@@ -3,6 +3,7 @@
 
 #include "subject.h"
 #include "boardmodel.h"
+#include "invalidmove.h"
 
 class Player;
 
@@ -10,6 +11,9 @@ class BoardController: public Subject {
     BoardModel boardData;
     unsigned int currentPlayer;
     bool gameOver;
+    void attack(std::stringstream &ss);
+    void play(std::stringstream &ss);
+    void use(std::stringstream &ss);
 public:
     BoardController(std::vector<std::string> players, std::vector<std::unique_ptr<std::ifstream>> &data);
     void preTurn();

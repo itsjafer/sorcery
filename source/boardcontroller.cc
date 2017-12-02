@@ -2,6 +2,7 @@
 #include "boardmodel.h"
 #include "event.h"
 #include "player.h"
+#include <stdexcept>
 #include <iostream>
 #include <sstream>
 #include <vector>
@@ -26,6 +27,67 @@ BoardController::BoardController(std::vector<std::string> players, std::vector<s
   }
 }
 
+void BoardController::attack(std::stringstream &ss) {
+  // important note: i and j are in the domain [1,5], where 1 is the leftmost minion
+  // j = 0 is the special case where the i'th minion attacks the inactive player himself
+  int i;
+  ss >> i; // i'th minion
+  int j = 0;
+
+  if (ss.good()) {
+    ss >> j;
+  }
+
+  std::cout << "BoardController.cc: Player " << currentPlayer << " has attacked using minion " << i << " on " << j << std::endl;          
+  // call the attack
+  boardData.players[currentPlayer]->attack(i, j);
+}
+
+void BoardController::play(std::stringstream &ss) {
+  int i;
+  int p;
+  int t;
+
+  ss >> i; // i'th card
+
+  if (ss.good()) { // the p'th player
+    ss >> p;
+    ss >> t; // the t'th minion to affect
+    std::cout << "BoardController.cc: Player " << currentPlayer << " has used card " << i << " on player " << p << "'s minion " << t << std::endl;                    
+    // call the play
+    boardData.players[currentPlayer]->play(i, p, t);
+  }
+  else {
+    // call the play
+    std::cout << "BoardController.cc: Player " << currentPlayer << " has used card " << i << std::endl;                          
+    boardData.players[currentPlayer]->play(i);
+  }
+}
+
+void BoardController::use(std::stringstream &ss) {
+  // important note: i and j are in the domain [1,5], where 1 is the leftmost minion
+  // j = 0 is the special case where the i'th minion attacks the inactive player himself
+  int i;
+  int p;
+  int t;
+
+  ss >> i; // i'th minion to use
+
+  if (ss.good()) { // the p'th player
+    ss >> p;
+    ss >> t; // the t'th minion to affect
+
+    std::cout << "BoardController.cc: Player " << currentPlayer << " has used minion " << i << "'s ability on player " << p << "'s minion " << t << std::endl;                              
+    // call the use
+    boardData.players[currentPlayer]->use(i, p, t);
+  }
+  else {
+    std::cout << "BoardController.cc: Player " << currentPlayer << " has used the ability of minion " << i << std::endl;                                  
+    // call the use
+    boardData.players[currentPlayer]->use(i);
+  }
+}
+
 void BoardController::preTurn() {
   std::cout << "BoardController.cc: preTurn starting now." << std::endl;
   // increase the magic by 1
@@ -46,8 +108,7 @@ void BoardController::preTurn() {
 
   // check for start-of-turn effects:
   // gonna create a vector for consistency-sake
-  std::vector<Event> events;
-  events.emplace_back(Event::startTurn);
+  std::vector<Event> events {Event::startTurn};
   boardData.updateBoard(events);
   std::cout << "BoardController.cc: Checking for start of turn effects." << std::endl;
   
@@ -71,62 +132,32 @@ void BoardController::execute() {
         gameOver = true;
         break;
     } else if (s == "attack") {
-
-        // important note: i and j are in the domain [1,5], where 1 is the leftmost minion
-        // j = 0 is the special case where the i'th minion attacks the inactive player himself
-        int i;
-        ss >> i; // i'th minion
-        int j = 0;
-
-        if (ss.good()) {
-          ss >> j;
+        try {
+          attack(ss);
         }
-
-        std::cout << "BoardController.cc: Player " << currentPlayer << " has attacked using minion " << i << " on " << j << std::endl;          
-        // call the attack
-        boardData.players[currentPlayer]->attack(i, j);
-
+        catch(const std::out_of_range &e) {
+          std::cout << "The minion you are trying to attack (or use to attack) does not exist!" << std::endl;
+        }
     } else if (s == "play") {
-        int i;
-        int p;
-        int t;
-
-        ss >> i; // i'th card
-  
-        if (ss.good()) { // the p'th player
-          ss >> p;
-          ss >> t; // the t'th minion to affect
-          std::cout << "BoardController.cc: Player " << currentPlayer << " has used card " << i << " on player " << p << "'s minion " << t << std::endl;                    
-          // call the play
-          boardData.players[currentPlayer]->play(i, p, t);
-          continue;
+        try {
+          play(ss);
         }
-
-        // call the play
-        std::cout << "BoardController.cc: Player " << currentPlayer << " has used card " << i << std::endl;                          
-        boardData.players[currentPlayer]->play(i);
+        catch(const std::out_of_range &e) {
+          std::cout << "The card you are trying to play does not exist!" << std::endl;
+        }
+        catch(const InvalidMoveException &e) {
+          std::cout << e.what() << std::endl;
+        }
     } else if (s == "use") {
-        // important note: i and j are in the domain [1,5], where 1 is the leftmost minion
-        // j = 0 is the special case where the i'th minion attacks the inactive player himself
-        int i;
-        int p;
-        int t;
-
-        ss >> i; // i'th minion to use
-  
-        if (ss.good()) { // the p'th player
-          ss >> p;
-          ss >> t; // the t'th minion to affect
-
-          std::cout << "BoardController.cc: Player " << currentPlayer << " has used minion " << i << "'s ability on player " << p << "'s minion " << t << std::endl;                              
-          // call the use
-          boardData.players[currentPlayer]->use(i, p, t);
-          continue;
+        try {
+          use(ss);
         }
-
-        std::cout << "BoardController.cc: Player " << currentPlayer << " has used the ability of minion " << i << std::endl;                                  
-        // call the use
-        boardData.players[currentPlayer]->use(i);
+        catch(const std::out_of_range &e) {
+          std::cout << "The card you are trying to use (or use on) does not exist!" << std::endl;
+        }
+        catch(const InvalidMoveException &e) {
+          std::cout << e.what() << std::endl;
+        }
     } else if (s == "inspect") {
       // textDisplay
     } else if (s == "hand") {
@@ -141,6 +172,8 @@ void BoardController::execute() {
     } else if (s == "discard") {
       // this is only available in testing mode
       // TODO: ADD TO PLAYER.H
+    } else {
+      std::cout << "Invalid command!" << std::endl;
     } 
   }
 
