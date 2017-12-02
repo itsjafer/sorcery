@@ -39,6 +39,10 @@ int BoardModel::getHealth(int player) {
   return players[player]->health;
 }
 
+void BoardModel::setHealth(int player, int newValue) {
+  players[player]->health = newValue;
+}
+
 BoardModel::~BoardModel() {
   players.clear();
 }

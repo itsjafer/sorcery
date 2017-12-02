@@ -157,6 +157,23 @@ void Minion::attack(int i) {
     //Attack functionality
     if (i == 0) {
       //Attack a person
+      vector<Event> EventsForA;
+      vector<Event> AllEvents;
+
+      //Damage target player
+      board->players.setHealth(opponent, board->players.getHealth(opponent) - this->att);
+
+      //Set the events only if damage was dealth ( > 0)
+      if (this->att > 0) {
+        EventsForA.emplace_back(Event::minionDealtDamage);
+        AllEvents.emplace_back(Event::playerTookDamage);
+      }
+
+      //Update minion sates
+      this->updateState(EventsForA);
+      board->updateBoard(AllEvents);
+
+
     }
     else {
       //Attack the ith minions
