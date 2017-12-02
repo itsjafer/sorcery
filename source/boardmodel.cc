@@ -33,7 +33,7 @@ int BoardModel::getMagic(int player) {
 
 void BoardModel::setMagic(int player, int newValue) {
   players[player]->magic = newValue;
-}
+} 
 
 int BoardModel::getHealth(int player) {
   return players[player]->health;

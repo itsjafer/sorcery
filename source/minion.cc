@@ -142,7 +142,7 @@ void Minion::castCard(int p, char t) {
 
 }
 
-void Minion::attack(int i) {
+void Minion::attack(int i, int me) {
   //If the minion can attack
   if (canAttack) {
 
@@ -161,7 +161,7 @@ void Minion::attack(int i) {
       vector<Event> AllEvents;
 
       //Damage target player
-      board->players.setHealth(opponent, board->players.getHealth(opponent) - this->att);
+      board->setHealth(opponent, board->getHealth(opponent) - this->att);
 
       //Set the events only if damage was dealth ( > 0)
       if (this->att > 0) {
@@ -215,6 +215,7 @@ void Minion::attack(int i) {
       if (this->def <= 0) {
         //Move to graveyard
         EventsForA.emplace_back(Event::minionDied);
+        board->players[this->getOwner()]->toGrave(false, me);
       }
 
       //Update this minion with EventsForA
@@ -224,6 +225,7 @@ void Minion::attack(int i) {
       if (board->players[opponent]->minion(i - 1).def <= 0)  {
         //Move to graveyard
         EventsForB.emplace_back(Event::minionDied);
+        board->players[opponent]->toGrave(false, i - 1);
       }
 
       //Update other minion with EventsForB

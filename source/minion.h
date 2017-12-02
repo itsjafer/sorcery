@@ -20,7 +20,7 @@ public:
     std::vector<std::shared_ptr<Enchantment>> enchantments;
 
     Minion(std::string &name, int cost, int owner, int attack, int defence, std::vector<std::ifstream> &abilities);
-    void attack(int i = 0);
+    void attack(int i = 0, int me = 0);
     ~Minion();
 };
 

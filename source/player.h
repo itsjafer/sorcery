@@ -26,10 +26,11 @@ public:
     Minion &minion(int i);                                  //to be used by displays (i.e. Observers)
     const std::vector<std::shared_ptr<NonPlayer>> &getHand() const;     //same here
     void play(int i);                                                   //non-targetted spells & rituals, as well as placing minions on the field
-    void play(int i, int p, char t = 'r');                              //spells (w/ target) & enchantments 
+    void play(int i, int p, char t = 'r');                              //spells (w/ target) & enchantments
     void use(int i);                                                    //untargetted activated ability of ith minion
     void use(int i, int p, char t = 'r');                               //targetted activated ability of ith minion
     void attack(int i, int j = 0);
+    void toGrave(bool Ritual, int minionIndex);
     ~Player();
 };
 

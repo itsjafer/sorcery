@@ -371,7 +371,17 @@ void Player::use(int i, int p, char t) {
 }
 
 void Player::attack(int i, int j) {
-    minions.at(i - 1)->attack(j);
+    minions.at(i - 1)->attack(j, (i - 1));
+}
+
+void Player::toGrave(bool Ritual, int minionIndex) {
+  if (Ritual) {
+    graveyard.emplace_back(ritual);
+    ritual = nullptr;
+  } else {
+    graveyard.emplace_back(minions[minionIndex]);
+    minions.erase(minions.begin() + minionIndex);
+  }
 }
 
 Player::~Player() {
