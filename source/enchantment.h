@@ -5,7 +5,7 @@
 
 class Enchantment: public NonPlayer {
 public:
-    Enchantment(std::string &name, int cost, int owner, std::string &description): NonPlayer{name, cost, owner, description} {type = Type::Enchantment;}
+    Enchantment(std::string &name, int cost, int owner, std::string &description): NonPlayer{name, cost, owner, description} {}
     virtual ~Enchantment() = default;
 };
 
@@ -22,6 +22,10 @@ class AddEnchant: public Enchantment {
     void castCard(int p, char t = 'r') override;
 public:
     AddEnchant(std::string &cardName, int cardCost, int owner, std::string &description, int attMod, int defMod, int actPerTurn, int AbilityCost, std::string attOperation, std::string defOperation, int silencer);
+    int getAttackModifier();
+    int getDefenceModifier();
+    std::string getAttackOperator();
+    std::string getDefenceOperator();
     ~AddEnchant() { }
 };
 

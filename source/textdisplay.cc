@@ -69,7 +69,6 @@ card_template_t TextDisplay::cardTemplate(std::shared_ptr<NonPlayer> card) {
     // get attack and defense
     int attack = m->getAttack();
     int defence = m->getDefence();
-    std::cout << "attack: " << attack << " defense: " << defence << std::endl;
     
     // check if theres an ability
     if (m->hasAbility()) {
@@ -99,17 +98,17 @@ card_template_t TextDisplay::cardTemplate(std::shared_ptr<NonPlayer> card) {
   }
 
   // check if its an enchantment
-  else if (card->getType() == Type::Enchantment) {
-    std::shared_ptr<Enchantment> e = std::dynamic_pointer_cast<Enchantment>(card);
+  else if (card->getType() == Type::AddEnchantment) {
+    std::shared_ptr<AddEnchant> e = std::dynamic_pointer_cast<AddEnchant>(card);
 
-    // UNCOMMENT THIS WHEN ENCHANTMENTS ARE IMPLEMENTED
-    
-    Type enchantmentType = e->getType();
-    /*
-    std::string attack = e->getAttackOperator() + e->getAttackModifier();
-    std::string defence = e->getDefenceOperator() + e->getDefenceModifier();
-    hands[i][j] = display_enchantment_attack_defence(name, cost, description, attack, defence));
-    */
+    if (e->getAttackModifier() == 0 && e->getDefenceModifier() == 0) {
+      return display_enchantment(name, cost, description);
+    }
+
+    std::string attack = e->getAttackOperator() + std::to_string(e->getAttackModifier());
+    std::string defence = e->getDefenceOperator() + std::to_string(e->getDefenceModifier());
+    return display_enchantment_attack_defence(name, cost, description, attack, defence);
+
   }
 
   // if its not any of the known card types, print a basic card

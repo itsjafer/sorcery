@@ -138,7 +138,6 @@ int Minion::getDefence() {
 }
 
 bool Minion::hasAbility() {
-    cout << "minion.cc: I have " << abilities.size() << " abilities" << endl;
     return (abilities.size() != 0);
 }
 
