@@ -1,27 +1,45 @@
 #ifndef TEXTDISPLAY_H
 #define TEXTDISPLAY_H
 
-#include "observer.h"
 #include "ascii_graphics.h"
+#include "observer.h"
 #include <string>
 #include <vector>
+#include <memory>
+
+class Info;
+class NonPlayer;
+
+typedef std::vector<card_template_t> row_template_r;
+typedef std::pair<card_template_t, row_template_r> minion_template_m;
 
 class TextDisplay: public Observer {
+    int cardsPerRow = 5; // the number of cards we want displayed per row
     State currentCommand; // holds the enumeration of the current command
-    int player; // the current player
-    int minion; // the minion that needs to be displayed
+    int currentPlayer; // the player who issued the most recent command
+    int minionIndex; // the minion that needs to be displayed
+
+    // converts a NonPlayer object into a displayable card
+    card_template_t cardTemplate(std::shared_ptr<NonPlayer> card);
+
+    std::vector<row_template_r> minions; // holds the minion display cards
+    std::vector<std::vector<row_template_r>> enchantments; // holds the players' minions' enchantments
+    std::vector<row_template_r> players; // holds both players' row of player information
+    std::vector<row_template_r> hands; // holds both players' hands
     
-    std::vector<std::vector<card_template_t>> minionRow; // holds both players' row of minions
-    std::vector<std::vector<card_template_t>> playerRow; // holds both players' row of player information
-    std::vector<std::vector<card_template_t>> hands; // holds both players' hands
-    
-    void update(Subject &whoNotified); // updates the board with information from whoever notified me
-    void printBoard(std::ostream &out) const; // prints the whole board to an ostream
-    void printMinionRow(int currentPlayer, std::ostream &out) const;
-    void printPlayerRow(int currentPlayer, std::ostream &out) const;
-    void printMinion(std::ostream &out) const;
-    void printHelp(std::ostream &out) const;
-    void printHand(std::ostream &out) const;    
+    // these functions update the display with information about the board
+    void updatePlayers(std::vector<Info> boardInfos);
+    void updateMinions(std::vector<Info> boardInfos);
+    void updateHands(std::vector<Info> boardInfos);
+
+    // these functions print out the board itself
+    void printBoard(std::ostream &out) const;
+    void printRow(row_template_r row, std::ostream &out, bool border = false) const;
+
+
+    void printHelp(std::ostream &out) const; // prints the help message
+    void printHand(std::ostream &out) const; // prints the hand
+    void inspectMinion(std::ostream &out) const;  // prints the i'th minion
 public: 
     TextDisplay();
     ~TextDisplay();
