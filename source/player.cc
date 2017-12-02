@@ -82,6 +82,28 @@ void Player::addCard(ifstream &cardData) {
             //Name and Cost and decsription
             string cardName; getline(cardData, cardName);
             int cardCost; cardData >> cardCost;
+            string cardDscr; getline(cardData, cardDscr);
+
+            //Create card
+            shared_ptr<Spell> newSpell(new AddSpell(cardName, cardCost, playerNumber, cardDscr, attMod, defMod, attFier, defFier, target));
+            deck.emplace_back(newSpell);
+        } else if (spellType == "moveAdd") {
+            //Get move source
+            string moveSrc; getline(cardData, moveSrc);
+            //Get move destination
+            string moveDest; getline(cardData, moveDest);
+            //Get Target
+            string target; getline(cardData, target);
+
+            //Get Target and modifiers
+            int attMod; cardData >> attMod;
+            int defMod; cardData >> defMod;
+            string attFier; getline(cardData, attFier);
+            string defFier; getline(cardData, defFier);
+
+            //Name and Cost and decsription
+            string cardName; getline(cardData, cardName);
+            int cardCost; cardData >> cardCost;
             // skip to the next line
             cardData.ignore(10000, '\n');
             string cardDscr; getline(cardData, cardDscr);
