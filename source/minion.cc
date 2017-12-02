@@ -4,6 +4,7 @@
 #include <sstream>
 #include <iostream>
 #include "activated.h"
+#include "player.h"
 
 using namespace std;
 
@@ -142,7 +143,76 @@ void Minion::castCard(int p, char t) {
 }
 
 void Minion::attack(int i) {
+  //If the minion can attack
+  if (canAttack) {
 
+    //Find oponent value
+    int opponent;
+    if (this->getOwner() == 0) {
+      opponent = 1;
+    } else if (this->getOwner() == 1) {
+      opponent = 0;
+    }
+
+    //Attack functionality
+    if (i == 0) {
+      //Attack a person
+    }
+    else {
+      //Attack the ith minions
+      vector<Event> EventsForA;
+      vector<Event> EventsForB;
+      vector<Event> AllEvents;
+
+      //Damage target minion
+      board->players[opponent]->minion(i-1).def -= this->att;
+
+      //Set the events only if damage was dealth ( > 0)
+      if (this->att > 0) {
+        EventsForA.emplace_back(Event::minionDealtDamage);
+        EventsForB.emplace_back(Event::minionTookDamage);
+      }
+
+      //Damage current minion
+      this->def -= board->players[opponent]->minion(i - 1).att;
+
+      //Set the events only if damage was dealth ( > 0)
+      if (board->players[opponent]->minion(i - 1).att > 0) {
+        EventsForB.emplace_back(Event::minionDealtDamage);
+        EventsForA.emplace_back(Event::minionTookDamage);
+      }
+
+      //Create unique vector for all events
+      if ((this->att > 0) || (board->players[opponent]->minion(i - 1).att > 0)) {
+        AllEvents.emplace_back(Event::minionDealtDamage);
+        AllEvents.emplace_back(Event::minionTookDamage);
+      }
+
+      //Create unique vector for all events
+      if ((this->def <= 0) || (board->players[opponent]->minion(i - 1).def <= 0)) {
+        AllEvents.emplace_back(Event::minionDied);
+        board->updateBoard(AllEvents);
+      }
+
+      //If this minion died
+      if (this->def <= 0) {
+        //Move to graveyard
+        EventsForA.emplace_back(Event::minionDied);
+      }
+
+      //Update this minion with EventsForA
+      this->updateState(EventsForA);
+
+      //If other minion died
+      if (board->players[opponent]->minion(i - 1).def <= 0)  {
+        //Move to graveyard
+        EventsForB.emplace_back(Event::minionDied);
+      }
+
+      //Update other minion with EventsForB
+      board->players[opponent]->minion(i - 1).updateState(EventsForB);
+    }
+  }
 }
 
 Minion::~Minion(){

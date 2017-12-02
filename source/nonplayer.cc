@@ -21,7 +21,7 @@ void NonPlayer::setCost(int cost) {
 }
 
 int NonPlayer::getOwner() {
-
+  return owner;
 }
 
 void NonPlayer::setOwner(int owner) {

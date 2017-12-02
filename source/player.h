@@ -23,7 +23,7 @@ class Player: public Card {
 public:
     Player(std::string &name, std::unique_ptr<std::ifstream> &deck);
     void drawCard(int numCards = 1);
-    const Minion &minion(int i) const;                                  //to be used by displays (i.e. Observers)
+    Minion &minion(int i);                                  //to be used by displays (i.e. Observers)
     const std::vector<std::shared_ptr<NonPlayer>> &getHand() const;     //same here
     void play(int i);                                                   //non-targetted spells & rituals, as well as placing minions on the field
     void play(int i, int p, char t = 'r');                              //spells (w/ target) & enchantments 

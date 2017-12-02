@@ -301,8 +301,12 @@ void Player::addCard(ifstream &cardData) {
 }
 
 void Player::updateState(vector<Event> &events) {
-    for (int i = 0; i < minions.size(); ++i) minions.at(i)->update(events);
-    ritual->update(events);
+    for (int i = 0; i < minions.size(); ++i) {
+      minions[i]->update(events);
+    }
+    if (ritual != nullptr) {
+      ritual->update(events);
+    }
 }
 
 void Player::drawCard(int numCards) {
@@ -316,7 +320,7 @@ void Player::drawCard(int numCards) {
     else throw out_of_range(getName());
 }
 
-const Minion &Player::minion(int i) const {
+Minion &Player::minion(int i) {
     return *(minions.at(i - 1));
 }
 

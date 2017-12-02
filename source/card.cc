@@ -1,6 +1,9 @@
 #include "card.h"
+#include <iostream>
 
 Card::Card(std::string &name): name{name} { }
+
+BoardModel *Card::board;
 
 void Card::setBoard(BoardModel *board) {
 
@@ -10,5 +13,5 @@ std::string & Card::getName() {
 }
 
 void Card::update(std::vector<Event> &events) {
-  // implementation needed!!!!
+  updateState(events);
 }

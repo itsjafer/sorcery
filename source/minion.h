@@ -15,6 +15,7 @@ public:
     int att;
     int def;
     int action = 0;
+    bool canAttack = true;
     std::vector<std::shared_ptr<Ability>> abilities;
     std::vector<std::shared_ptr<Enchantment>> enchantments;
 
