@@ -2,6 +2,9 @@
 #include "minion.h"
 #include "nonplayer.h"
 #include "player.h"
+#include "subject.h"
+#include "state.h"
+#include "info.h"
 #include <iostream>
 
 BoardModel::BoardModel(std::vector<std::string> players, std::vector<std::unique_ptr<std::ifstream>> &data) {
@@ -33,7 +36,7 @@ int BoardModel::getMagic(int player) {
 
 void BoardModel::setMagic(int player, int newValue) {
   players[player]->magic = newValue;
-} 
+}
 
 int BoardModel::getHealth(int player) {
   return players[player]->health;
@@ -45,4 +48,35 @@ void BoardModel::setHealth(int player, int newValue) {
 
 BoardModel::~BoardModel() {
   players.clear();
+}
+
+std::vector<Info> BoardModel::getInfo() const {
+  std::vector<Info> playerInfos;
+  for (unsigned int i = 0; i < players.size(); ++i) {
+    Info myInfo;
+    // add the name, magic, and health of the player
+    myInfo.name = players[i]->getName();
+    myInfo.magic = players[i]->magic;
+    myInfo.health = players[i]->health;
+
+    // add the name of the player's ritual
+    myInfo.ritual = players[i]->ritual;
+
+    // add the player's minions
+    for (unsigned int j = 0; j < players[i]->minions.size(); ++j) {
+      myInfo.minions.emplace_back(players[i]->minions[j]);
+    }
+
+    // add the player's hands
+    for (unsigned int j = 0; j < players[i]->hand.size(); ++j) {
+      myInfo.hand.emplace_back(players[i]->hand[j]);
+    }
+
+    if (!players[i]->graveyard.empty()) {
+      myInfo.graveyard = players[i]->graveyard.front();
+    }
+
+    playerInfos.emplace_back(myInfo);
+  }
+  return playerInfos;
 }

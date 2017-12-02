@@ -4,9 +4,13 @@
 #include "enchantment.h"
 #include "ritual.h"
 #include <fstream>
+#include <iostream>
 #include <sstream>
 #include <iostream>
 #include <stdexcept>
+#include <algorithm>
+#include <random>
+#include <cstdlib>
 
 using namespace std;
 
@@ -17,13 +21,21 @@ Player::Player(string &name, unique_ptr<ifstream> &deck): Card{name} {
         ifstream cardData{cardFile};
         addCard(cardData);
     }
+
+    // set the random number generator to the current time
+    srand (time (0));
+    shuffleDeck();
+}
+
+void Player::shuffleDeck() {
+    // using this to get a random num gen
+    std::random_shuffle(deck.begin(), deck.end());   
 }
 
 void Player::addCard(ifstream &cardData) {
 
     //Get card type {spell, minion, enchantment, ritual}
     string cardType; getline(cardData, cardType);
-
     if (cardType == "Minion") {
         //Adding a minion type
         string cardName; getline(cardData, cardName);
@@ -44,7 +56,10 @@ void Player::addCard(ifstream &cardData) {
     else if (cardType == "Spell") {
         //Adding a spell card
         //Get spell type
+        
         string spellType; getline(cardData, spellType);
+
+        cout << "Player.cc: Im making a " << spellType << " spell!" << endl;
         if (spellType == "move") {
 
             //Get move source
@@ -82,12 +97,14 @@ void Player::addCard(ifstream &cardData) {
             //Name and Cost and decsription
             string cardName; getline(cardData, cardName);
             int cardCost; cardData >> cardCost;
+
+            cardData.ignore(10000, '\n');
             string cardDscr; getline(cardData, cardDscr);
 
             //Create card
             shared_ptr<Spell> newSpell(new AddSpell(cardName, cardCost, playerNumber, cardDscr, attMod, defMod, attOperation, defOperation, target));
             deck.emplace_back(newSpell);
-        } else if (spellType == "moveAdd") {
+        } else if (spellType == "moveAdsd") {
             //Get move source
             string moveSrc; getline(cardData, moveSrc);
             //Get move destination
@@ -126,7 +143,7 @@ void Player::addCard(ifstream &cardData) {
             cardData.ignore(10000, '\n');
             string attOperation; getline(cardData, attOperation);
             string defOperation; getline(cardData, defOperation);
-
+            
             //Name and Cost and decsription
             string cardName; getline(cardData, cardName);
             int cardCost; cardData >> cardCost;

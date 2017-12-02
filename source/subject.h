@@ -2,14 +2,18 @@
 #define SUBJECT_H
 
 #include <vector>
+#include <memory>
+#include "state.h"
+#include "observer.h"
 
-class Observer;
+struct Info;
 
 class Subject {
-    std::vector<Observer *> observers;
+    std::vector<std::shared_ptr<Observer>> observers;
 public:
-    void attach(Observer *ob); // attaches an observer to this subject
-    void notifyObservers(); // alerts all observers
+    void attach(std::shared_ptr<Observer> o);  
+    void notifyObservers(State command, int player, int minion = 0);
+    virtual std::vector<Info> getInfo() const = 0;
     virtual ~Subject() = 0;
 };
 
