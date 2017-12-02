@@ -59,6 +59,10 @@ void Player::addCard(ifstream &cardData) {
             //Name and Cost and decsription
             string cardName; getline(cardData, cardName);
             int cardCost; cardData >> cardCost;
+
+            // skip to the next line
+            cardData.ignore(10000, '\n');
+
             string cardDscr; getline(cardData, cardDscr);
 
             //Create card
@@ -70,8 +74,10 @@ void Player::addCard(ifstream &cardData) {
             string target; getline(cardData, target);
             int attMod; cardData >> attMod;
             int defMod; cardData >> defMod;
-            string attFier; getline(cardData, attFier);
-            string defFier; getline(cardData, defFier);
+            // skip to the next line
+            cardData.ignore(10000, '\n');
+            string attOperation; getline(cardData, attOperation);
+            string defOperation; getline(cardData, defOperation);
 
             //Name and Cost and decsription
             string cardName; getline(cardData, cardName);
@@ -79,7 +85,7 @@ void Player::addCard(ifstream &cardData) {
             string cardDscr; getline(cardData, cardDscr);
 
             //Create card
-            shared_ptr<Spell> newSpell(new AddSpell(cardName, cardCost, playerNumber, cardDscr, attMod, defMod, attFier, defFier, target));
+            shared_ptr<Spell> newSpell(new AddSpell(cardName, cardCost, playerNumber, cardDscr, attMod, defMod, attOperation, defOperation, target));
             deck.emplace_back(newSpell);
         } else if (spellType == "moveAdd") {
             //Get move source
@@ -92,15 +98,44 @@ void Player::addCard(ifstream &cardData) {
             //Get Target and modifiers
             int attMod; cardData >> attMod;
             int defMod; cardData >> defMod;
-            string attFier; getline(cardData, attFier);
-            string defFier; getline(cardData, defFier);
+            string attOperation; getline(cardData, attOperation);
+            string defOperation; getline(cardData, defOperation);
 
             //Name and Cost and decsription
             string cardName; getline(cardData, cardName);
             int cardCost; cardData >> cardCost;
+            // skip to the next line
+            cardData.ignore(10000, '\n');
             string cardDscr; getline(cardData, cardDscr);
+
             //Create card
-            shared_ptr<Spell> newSpell(new MoveAddSpell(cardName, cardCost, playerNumber, cardDscr, attMod, defMod, attFier, defFier, moveSrc, moveDest, target));
+            shared_ptr<Spell> newSpell(new AddSpell(cardName, cardCost, playerNumber, cardDscr, attMod, defMod, attOperation, defOperation, target));
+            deck.emplace_back(newSpell);
+        } else if (spellType == "moveAdd") {
+            //Get move source
+            string moveSrc; getline(cardData, moveSrc);
+            //Get move destination
+            string moveDest; getline(cardData, moveDest);
+            //Get Target
+            string target; getline(cardData, target);
+
+            //Get Target and modifiers
+            int attMod; cardData >> attMod;
+            int defMod; cardData >> defMod;
+            // skip to the next line
+            cardData.ignore(10000, '\n');
+            string attOperation; getline(cardData, attOperation);
+            string defOperation; getline(cardData, defOperation);
+
+            //Name and Cost and decsription
+            string cardName; getline(cardData, cardName);
+            int cardCost; cardData >> cardCost;
+            // skip to the next line
+            cardData.ignore(10000, '\n');
+            string cardDscr; getline(cardData, cardDscr);
+
+            //Create card
+            shared_ptr<Spell> newSpell(new MoveAddSpell(cardName, cardCost, playerNumber, cardDscr, attMod, defMod, attOperation, defOperation, moveSrc, moveDest, target));
             deck.emplace_back(newSpell);
 
         } else if (spellType == "ritualMod") {
@@ -109,9 +144,14 @@ void Player::addCard(ifstream &cardData) {
             int chargeMod; cardData >> chargeMod;
             int costMod; cardData >> costMod;
 
+            // skip to the next line
+            cardData.ignore(10000, '\n');
+
             //Name and Cost and decsription
             string cardName; getline(cardData, cardName);
             int cardCost; cardData >> cardCost;
+            // skip to the next line
+            cardData.ignore(10000, '\n');
             string cardDscr; getline(cardData, cardDscr);
 
             //Create card
@@ -129,6 +169,8 @@ void Player::addCard(ifstream &cardData) {
                 //Get Ritual basics
                 int activeCost; cardData >> activeCost;
                 int charges; cardData >> charges;
+                // skip to the next line
+                cardData.ignore(10000, '\n');
                 Event cardTrigger;
                 string trigger; getline(cardData, trigger);
                 if (trigger == "Beginning of turn") {
@@ -142,11 +184,15 @@ void Player::addCard(ifstream &cardData) {
                 //Get player modifiers
                 int healthMod; cardData >> healthMod;
                 int magicMod; cardData >> magicMod;
+                // skip to the next line
+                cardData.ignore(10000, '\n');
                 string targets; getline(cardData, targets);
 
                 //Name and Cost and decsription
                 string cardName; getline(cardData, cardName);
                 int cardCost; cardData >> cardCost;
+                // skip to the next line
+                cardData.ignore(10000, '\n');
                 string cardDscr; getline(cardData, cardDscr);
 
                 //Create card
@@ -158,6 +204,8 @@ void Player::addCard(ifstream &cardData) {
                 //Get Ritual basics
                 int activeCost; cardData >> activeCost;
                 int charges; cardData >> charges;
+                // skip to the next line
+                cardData.ignore(10000, '\n');
 
                 Event cardTrigger;
                 string trigger; getline(cardData, trigger);
@@ -173,12 +221,16 @@ void Player::addCard(ifstream &cardData) {
                 int actPerTurn; cardData >> actPerTurn;
                 int abilityCost; cardData >> abilityCost;
                 int silenced; cardData >> silenced;
+                // skip to the next line
+                cardData.ignore(10000, '\n');
                 string target; getline(cardData, target);
 
                 //Name and Cost and decsription
                 string cardName; getline(cardData, cardName);
                 int cardCost; cardData >> cardCost;
-                string cardDscr; getline(cardData, cardDscr);
+                // skip to the next line
+                cardData.ignore(10000, '\n');
+                string cardDscr; getline(cardData, cardDscr);;
 
                 //Create card
                 shared_ptr<Ritual> newRitual(new AddMinionRitual(cardName, cardCost, playerNumber, cardDscr, charges, activeCost, attMod, defMod,actPerTurn, abilityCost, silenced, cardTrigger, target));
@@ -188,6 +240,9 @@ void Player::addCard(ifstream &cardData) {
             //Get Ritual basics
             int activeCost; cardData >> activeCost;
             int charges; cardData >> charges;
+
+            // skip to the next line
+            cardData.ignore(10000, '\n');
 
             Event cardTrigger;
             string trigger; getline(cardData, trigger);
@@ -206,6 +261,8 @@ void Player::addCard(ifstream &cardData) {
             //Name and Cost and decsription
             string cardName; getline(cardData, cardName);
             int cardCost; cardData >> cardCost;
+            // skip to the next line
+            cardData.ignore(10000, '\n');
             string cardDscr; getline(cardData, cardDscr);
 
             //Create card
@@ -224,16 +281,20 @@ void Player::addCard(ifstream &cardData) {
             int actPerTurn; cardData >> actPerTurn;
             int abilityCost; cardData >> abilityCost;
             int silenced; cardData >> silenced;
-            string attFier; getline(cardData, attFier);
-            string defFier; getline(cardData, defFier);
+            // skip to the next line
+            cardData.ignore(10000, '\n');
+            string attOperation; getline(cardData, attOperation);
+            string defOperation; getline(cardData, defOperation);
 
             //Name and Cost and decsription
             string cardName; getline(cardData, cardName);
             int cardCost; cardData >> cardCost;
+            // skip to the next line
+            cardData.ignore(10000, '\n');
             string cardDscr; getline(cardData, cardDscr);
 
             //Create card
-            shared_ptr<Enchantment> newEnchantment(new AddEnchant(cardName, cardCost, playerNumber, cardDscr, attMod, defMod, actPerTurn, abilityCost, attFier, defFier, silenced));
+            shared_ptr<Enchantment> newEnchantment(new AddEnchant(cardName, cardCost, playerNumber, cardDscr, attMod, defMod, actPerTurn, abilityCost, attOperation, defOperation, silenced));
             deck.emplace_back(newEnchantment);
         }
     }
@@ -300,7 +361,7 @@ void Player::play(int i, int p, char t) {
 void Player::use(int i) {
     minions.at(i - 1)->cast();
 }
-    
+
 void Player::use(int i, int p, char t) {
     minions.at(i - 1)->cast(p, t);
 }
