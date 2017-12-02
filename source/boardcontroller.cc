@@ -31,11 +31,11 @@ void BoardController::attack(std::stringstream &ss) {
   // important note: i and j are in the domain [1,5], where 1 is the leftmost minion
   // j = 0 is the special case where the i'th minion attacks the inactive player himself
   int i;
-  ss >> i; // i'th minion
+  if (!(ss >> i)) throw std::invalid_argument("Invalid use of attack! Type 'help' for more info."); // i'th minion
   int j = 0;
 
   if (ss.good()) {
-    ss >> j;
+    if (!(ss >> j)) throw std::invalid_argument("Invalid use of attack! Type 'help' for more info."); // i'th minion
   }
 
   std::cout << "BoardController.cc: Player " << currentPlayer << " has attacked using minion " << i << " on " << j << std::endl;          
@@ -48,11 +48,11 @@ void BoardController::play(std::stringstream &ss) {
   int p;
   int t;
 
-  ss >> i; // i'th card
+  if (!(ss >> i)) throw std::invalid_argument("Invalid use of play! Type 'help' for more info.");  // i'th card
 
   if (ss.good()) { // the p'th player
-    ss >> p;
-    ss >> t; // the t'th minion to affect
+    if (!(ss >> p)) throw std::invalid_argument("Invalid use of play! Type 'help' for more info.");
+    if (!(ss >> t)) throw std::invalid_argument("Invalid use of play! Type 'help' for more info."); // the t'th minion to affect
     std::cout << "BoardController.cc: Player " << currentPlayer << " has used card " << i << " on player " << p << "'s minion " << t << std::endl;                    
     // call the play
     boardData.players[currentPlayer]->play(i, p, t);
@@ -71,11 +71,11 @@ void BoardController::use(std::stringstream &ss) {
   int p;
   int t;
 
-  ss >> i; // i'th minion to use
+  if (!(ss >> i)) throw std::invalid_argument("Invalid use! Type 'help' for more info."); // i'th minion to use
 
   if (ss.good()) { // the p'th player
-    ss >> p;
-    ss >> t; // the t'th minion to affect
+    if (!(ss >> p)) throw std::invalid_argument("Invalid use! Type 'help' for more info.");
+    if (!(ss >> t)) throw std::invalid_argument("Invalid use! Type 'help' for more info."); // the t'th minion to affect
 
     std::cout << "BoardController.cc: Player " << currentPlayer << " has used minion " << i << "'s ability on player " << p << "'s minion " << t << std::endl;                              
     // call the use
@@ -138,6 +138,9 @@ void BoardController::execute() {
         catch(const std::out_of_range &e) {
           std::cout << "The minion you are trying to attack (or use to attack) does not exist!" << std::endl;
         }
+        catch(const std::invalid_argument &e) {
+          std::cout << e.what() << std::endl;
+        }
     } else if (s == "play") {
         try {
           play(ss);
@@ -148,6 +151,9 @@ void BoardController::execute() {
         catch(const InvalidMoveException &e) {
           std::cout << e.what() << std::endl;
         }
+        catch(const std::invalid_argument &e) {
+          std::cout << e.what() << std::endl;
+        }
     } else if (s == "use") {
         try {
           use(ss);
@@ -156,6 +162,9 @@ void BoardController::execute() {
           std::cout << "The card you are trying to use (or use on) does not exist!" << std::endl;
         }
         catch(const InvalidMoveException &e) {
+          std::cout << e.what() << std::endl;
+        }
+        catch(const std::invalid_argument &e) {
           std::cout << e.what() << std::endl;
         }
     } else if (s == "inspect") {
