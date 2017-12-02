@@ -76,8 +76,8 @@ void Player::addCard(ifstream &cardData) {
             int defMod; cardData >> defMod;
             // skip to the next line
             cardData.ignore(10000, '\n');
-            string attFier; getline(cardData, attFier);
-            string defFier; getline(cardData, defFier);
+            string attOperation; getline(cardData, attOperation);
+            string defOperation; getline(cardData, defOperation);
 
             //Name and Cost and decsription
             string cardName; getline(cardData, cardName);
@@ -85,7 +85,7 @@ void Player::addCard(ifstream &cardData) {
             string cardDscr; getline(cardData, cardDscr);
 
             //Create card
-            shared_ptr<Spell> newSpell(new AddSpell(cardName, cardCost, playerNumber, cardDscr, attMod, defMod, attFier, defFier, target));
+            shared_ptr<Spell> newSpell(new AddSpell(cardName, cardCost, playerNumber, cardDscr, attMod, defMod, attOperation, defOperation, target));
             deck.emplace_back(newSpell);
         } else if (spellType == "moveAdd") {
             //Get move source
@@ -98,8 +98,8 @@ void Player::addCard(ifstream &cardData) {
             //Get Target and modifiers
             int attMod; cardData >> attMod;
             int defMod; cardData >> defMod;
-            string attFier; getline(cardData, attFier);
-            string defFier; getline(cardData, defFier);
+            string attOperation; getline(cardData, attOperation);
+            string defOperation; getline(cardData, defOperation);
 
             //Name and Cost and decsription
             string cardName; getline(cardData, cardName);
@@ -109,7 +109,7 @@ void Player::addCard(ifstream &cardData) {
             string cardDscr; getline(cardData, cardDscr);
 
             //Create card
-            shared_ptr<Spell> newSpell(new AddSpell(cardName, cardCost, playerNumber, cardDscr, attMod, defMod, attFier, defFier, target));
+            shared_ptr<Spell> newSpell(new AddSpell(cardName, cardCost, playerNumber, cardDscr, attMod, defMod, attOperation, defOperation, target));
             deck.emplace_back(newSpell);
         } else if (spellType == "moveAdd") {
             //Get move source
@@ -124,8 +124,8 @@ void Player::addCard(ifstream &cardData) {
             int defMod; cardData >> defMod;
             // skip to the next line
             cardData.ignore(10000, '\n');
-            string attFier; getline(cardData, attFier);
-            string defFier; getline(cardData, defFier);
+            string attOperation; getline(cardData, attOperation);
+            string defOperation; getline(cardData, defOperation);
 
             //Name and Cost and decsription
             string cardName; getline(cardData, cardName);
@@ -135,7 +135,7 @@ void Player::addCard(ifstream &cardData) {
             string cardDscr; getline(cardData, cardDscr);
 
             //Create card
-            shared_ptr<Spell> newSpell(new MoveAddSpell(cardName, cardCost, playerNumber, cardDscr, attMod, defMod, attFier, defFier, moveSrc, moveDest, target));
+            shared_ptr<Spell> newSpell(new MoveAddSpell(cardName, cardCost, playerNumber, cardDscr, attMod, defMod, attOperation, defOperation, moveSrc, moveDest, target));
             deck.emplace_back(newSpell);
 
         } else if (spellType == "ritualMod") {
@@ -283,8 +283,8 @@ void Player::addCard(ifstream &cardData) {
             int silenced; cardData >> silenced;
             // skip to the next line
             cardData.ignore(10000, '\n');
-            string attFier; getline(cardData, attFier);
-            string defFier; getline(cardData, defFier);
+            string attOperation; getline(cardData, attOperation);
+            string defOperation; getline(cardData, defOperation);
 
             //Name and Cost and decsription
             string cardName; getline(cardData, cardName);
@@ -294,7 +294,7 @@ void Player::addCard(ifstream &cardData) {
             string cardDscr; getline(cardData, cardDscr);
 
             //Create card
-            shared_ptr<Enchantment> newEnchantment(new AddEnchant(cardName, cardCost, playerNumber, cardDscr, attMod, defMod, actPerTurn, abilityCost, attFier, defFier, silenced));
+            shared_ptr<Enchantment> newEnchantment(new AddEnchant(cardName, cardCost, playerNumber, cardDscr, attMod, defMod, actPerTurn, abilityCost, attOperation, defOperation, silenced));
             deck.emplace_back(newEnchantment);
         }
     }

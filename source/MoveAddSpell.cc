@@ -3,9 +3,9 @@
 using namespace std;
 
 
-MoveAddSpell::MoveAddSpell(string &cardName, int cost, int owner, string &description, int attMod, int defMod, string attFier, string defFier,
+MoveAddSpell::MoveAddSpell(string &cardName, int cost, int owner, string &description, int attMod, int defMod, string attOperation, string defOperation,
                            string &moveSource, string &moveDestination, string &Target):
-        Spell(cardName, cost, owner, description), attMod(attMod), defMod(defMod), moveSource(moveSource), moveDestination(moveDestination), attFier(attFier), defFier(defFier), Target(Target){}
+        Spell(cardName, cost, owner, description), attMod(attMod), defMod(defMod), moveSource(moveSource), moveDestination(moveDestination), attOperation(attOperation), defOperation(defOperation), Target(Target){}
 
 void MoveAddSpell::updateState(vector<Event> &events) {
 
