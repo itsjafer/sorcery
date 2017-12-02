@@ -16,7 +16,6 @@ public:
     void setMagic(int player, int newValue); 
     int getHealth(int player); // returns the health of the given player
     bool isDeckEmpty(int player); // returns if the deck is empty for the given player
-    void displayBoard();
     
     std::vector<std::shared_ptr<Player>> players;
     BoardModel(std::vector<std::string> players, std::vector<std::unique_ptr<std::ifstream>> &data);

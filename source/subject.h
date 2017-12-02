@@ -12,7 +12,7 @@ class Subject {
     std::vector<std::shared_ptr<Observer>> observers;
 public:
     void attach(std::shared_ptr<Observer> o);  
-    void notifyObservers(State command, int minion = 0);
+    void notifyObservers(State command, int player, int minion = 0);
     virtual std::vector<Info> getInfo() const = 0;
     virtual ~Subject() = 0;
 };

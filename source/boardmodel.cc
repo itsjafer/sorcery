@@ -16,10 +16,6 @@ BoardModel::BoardModel(std::vector<std::string> players, std::vector<std::unique
   }
 }
 
-void BoardModel::displayBoard() {
-  notifyObservers(State::printBoard);
-}
-
 bool BoardModel::isDeckEmpty(int player) {
   return (players[player])->deck.empty();
 }
