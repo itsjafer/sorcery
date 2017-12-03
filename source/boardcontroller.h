@@ -15,13 +15,14 @@ class BoardController {
     BoardModel boardData;
     unsigned int currentPlayer;
     bool gameOver;
+    std::stringstream &initss;
     void attack(std::stringstream &ss);
     void play(std::stringstream &ss);
     void use(std::stringstream &ss);
     void discard(std::stringstream &ss);
     void draw();
 public:
-    BoardController(std::vector<std::string> players, std::vector<std::unique_ptr<std::ifstream>> &data, std::vector<std::shared_ptr<Observer>> &observers, bool testingMode);
+    BoardController(std::vector<std::string> players, std::vector<std::unique_ptr<std::ifstream>> &data, std::vector<std::shared_ptr<Observer>> &observers, bool testingMode, std::stringstream &initss);
     void preTurn();
     void execute();
     void postTurn();

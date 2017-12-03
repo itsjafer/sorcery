@@ -11,6 +11,8 @@ int main(int argc, char * argv[]) {
 
   bool TestingMode = false;
   bool GraphicsMode = false;
+  ifstream init;
+  stringstream initss;
 
   if (argc >= 2) {
     for (int i = 1; i < argc; ++i) {
@@ -29,12 +31,20 @@ int main(int argc, char * argv[]) {
       else if (arg == "-init") {
         // Next arg is a filename--whatever commands are in this are the first commands to be used
         ++i;
+        init.open(argv[i]);
+        if (!init) {
+          cerr << "Unable to open init file" << endl;
+          return 1;
+        }
       }
       else if (arg == "-graphics") {
         GraphicsMode = true;
       }
     }
   }
+
+  if (init) initss << init.rdbuf();
+  init.close();
 
   // initialize each player
   int numPlayers = 2;
@@ -52,8 +62,10 @@ int main(int argc, char * argv[]) {
   for (int i = 0; i < numPlayers; ++i) {
     // get the names for each player
     string name;
-    cout << "Player " << i << ", what is your name?" << endl;
-    getline(cin, name);
+    if (!(initss >> name)) {
+      cout << "Player " << i << ", what is your name?" << endl;
+      getline(cin, name);
+    }
     names.emplace_back(name);
 
     // get the deckfiles for each player
@@ -69,7 +81,7 @@ int main(int argc, char * argv[]) {
 
   //cout << "main.cc: Board is now going to be initialized." << endl;
   // initialize the board
-  BoardController board(names, deckFiles, displays, TestingMode);
+  BoardController board(names, deckFiles, displays, TestingMode, initss);
 
   while (!board.gameEnded()) {
 

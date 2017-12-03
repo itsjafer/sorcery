@@ -1,8 +1,6 @@
 #include "card.h"
 #include <iostream>
 
-BoardModel *Card::board;
-
 Card::Card(std::string &name): name{name} { }
 
 BoardModel *Card::board;

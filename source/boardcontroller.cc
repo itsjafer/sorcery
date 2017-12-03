@@ -29,8 +29,8 @@ void BoardController::notifyObservers(State command, int minion) {
   }
 }
 
-BoardController::BoardController(std::vector<std::string> players, std::vector<std::unique_ptr<std::ifstream>> &data, std::vector<std::shared_ptr<Observer>> &displays, bool testingMode) : 
-boardData(players, data, testingMode), currentPlayer(0), gameOver(false) 
+BoardController::BoardController(std::vector<std::string> players, std::vector<std::unique_ptr<std::ifstream>> &data, std::vector<std::shared_ptr<Observer>> &displays, bool testingMode, std::stringstream &initss) : 
+boardData(players, data, testingMode), currentPlayer(0), gameOver(false), initss(initss) 
 {
 
   // set the BoardModel to be a subject of our textdisplay
@@ -135,7 +135,7 @@ void BoardController::preTurn() {
 
   // draw a card (if deck is non empty)
   // check if the deck is non-empty
-  if (!boardData.isDeckEmpty(currentPlayer) && boardData.players[currentPlayer]->getHand.size() < 5) {
+  if (!boardData.isDeckEmpty(currentPlayer) && boardData.players[currentPlayer]->getHand().size() < 5) {
     // draw a card
     draw();
     //std::cout << "BoardController.cc: Player " << currentPlayer << " has drawn a card." << std::endl;
@@ -154,7 +154,7 @@ void BoardController::execute() {
   // this is the full command line
   std::string cmd;
   std::cout << "BoardController.cc: Listening for commands." << std::endl;
-  while (getline(std::cin, cmd)) {
+  while (getline(initss, cmd) || getline(std::cin, cmd)) {
     std::string s;
     std::stringstream ss(cmd);
     ss >> s;
