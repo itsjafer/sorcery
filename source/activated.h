@@ -4,7 +4,6 @@
 #include "ability.h"
 
 class Activated: public Ability {
-    int cost;
 public:
     Activated(std::string &name, int cost, int owner, std::string &description, Minion *minion);
     virtual ~Activated() = default;

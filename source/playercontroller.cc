@@ -311,8 +311,7 @@ void PlayerController::addCard(ifstream &cardData) {
             string cardDscr; getline(cardData, cardDscr);
 
             //Create card
-            shared_ptr<Enchantment> newEnchantment(new AddEnchant(cardName, cardCost, playerModel.playerNumber, cardDscr, attMod, defMod, actPerTurn, abilityCost, attOperation, defOperation, silenced));
-            playerModel.deck.emplace_back(newEnchantment);
+            playerModel.deck.emplace_back(shared_ptr<Enchantment> (new AddEnchant(cardName, cardCost, playerModel.playerNumber, cardDscr, attMod, defMod, actPerTurn, abilityCost, attOperation, defOperation, silenced)));
         }
     }
 }
