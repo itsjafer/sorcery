@@ -21,7 +21,9 @@ void BoardController::attach(std::shared_ptr<Observer> o) {
 }
 
 void BoardController::notifyObservers(State command, int minion) {
+  std::cout << "There are " << observers.size() << " observers" << std::endl;
   for (unsigned int i = 0; i < observers.size(); i++) {
+    std::cout << i << std::endl;
     observers[i]->notify(*this, command, minion);
   }
 }
@@ -33,10 +35,6 @@ boardData(players, data), currentPlayer(0), gameOver(false)
   // set the BoardModel to be a subject of our textdisplay
   this->observers = displays;
   std::cout << "BoardController.cc: I have been given " << observers.size() << " observers!" << std::endl;
-  for (auto observer : observers) {
-    //std::cout << "BoardController.cc: An observer has been attached " << std::endl;
-    attach(observer);
-  }
 
   // checking if default.deck is still open
   if (!data[0]) {
