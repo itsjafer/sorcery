@@ -163,13 +163,18 @@ void Minion::updateState(vector<Event> &events) {
 }
 
 void Minion::castCard() {
-  if (board->players.at(this->getOwner())->getPlayerData().magic >= abilities[0]->getCost()){
-      board->players.at(this->getOwner())->getPlayerData().magic -= abilities[0]->getCost();
-      abilities[0]->cast();
-  }
+  if (abilities.empty() || abilities[0]->getType != Type::ActivatedAbility) throw InvalidMoveException(InvalidMove::NoActivatedAbility);
+  if (board->getMagic(this->getOwner()) < abilities[0]->getCost() && !(board->testingMode)) throw InvalidMoveException(InvalidMove::InsufficientMagic);
+  
+  board->setMagic(this->getOwner(), board->getMagic(this->getOwner()) - abilities[0]->getCost());
+  abilities[0]->cast();
 }
 
 void Minion::castCard(int p, char t) {
+  if (abilities.empty() || abilities[0]->getType != Type::ActivatedAbility) throw InvalidMoveException(InvalidMove::NoActivatedAbility);
+  if (board->getMagic(this->getOwner()) < abilities[0]->getCost() && !(board->testingMode)) throw InvalidMoveException(InvalidMove::InsufficientMagic);
+  
+  board->setMagic(this->getOwner(), board->getMagic(this->getOwner()) - abilities[0]->getCost());
   abilities[0]->cast(p, t);
 }
 

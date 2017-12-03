@@ -24,8 +24,10 @@ PlayerController::PlayerController(string &name, unique_ptr<ifstream> &deck, int
     }
 
     // set the random number generator to the current time
-    srand (time (0));
-    shuffleDeck();
+    if (!board->testingMode) {
+        srand (time (0));
+        shuffleDeck();
+    }
 }
 
 void PlayerController::shuffleDeck() {
@@ -334,7 +336,7 @@ void PlayerController::drawCard(int numCards) {
             playerModel.deck.pop_back();
         }
     }
-    else throw out_of_range(getName());
+    else throw out_of_range("Empty deck!");
 }
 Minion &PlayerController::minion(int i) {
     return *(playerModel.minions.at(i - 1));
@@ -355,8 +357,12 @@ const vector<shared_ptr<NonPlayer>> &PlayerController::getHand() const {
 void PlayerController::play(int i) {
     auto card = playerModel.hand.at(i - 1);
 
+    if (playerModel.magic < card->getCost() && !(board->testingMode)) throw InvalidMoveException(InvalidMove::InsufficientMagic);
+
     if (card->getType() == Type::Spell) {
         card->cast();               //will update the board: no need to do in here
+        playerModel.magic -= card->getCost();
+        if (playerModel.magic < 0) playerModel.magic = 0;
         playerModel.graveyard.emplace_back(card);
     }
     else if (card->getType() == Type::Ritual) {
@@ -365,10 +371,13 @@ void PlayerController::play(int i) {
             playerModel.ritual = nullptr;
         }
         playerModel.ritual = dynamic_pointer_cast<Ritual>(card);
+        playerModel.magic -= card->getCost();
+        if (playerModel.magic < 0) playerModel.magic = 0;
     }
-    else if (card->getType() == Type::Minion && playerModel.magic >= card->getCost()) {
+    else if (card->getType() == Type::Minion) {
         if (playerModel.minions.size() >= board->getFieldSize()) throw InvalidMoveException(InvalidMove::FieldFull);
         playerModel.magic -= card->getCost();
+        if (playerModel.magic < 0) playerModel.magic = 0;
         playerModel.minions.emplace_back(dynamic_pointer_cast<Minion>(card));
         std::vector<Event> events;
         events.emplace_back(Event::minionEnteredPlay);
@@ -385,13 +394,15 @@ void PlayerController::play(int i) {
     }
     else { 
         throw InvalidMoveException(InvalidMove::BadPlay);
-    }    //handle exception
+    }
 
     playerModel.hand.erase(playerModel.hand.begin() + (i - 1));     //remove card from hand
 }
 
 void PlayerController::play(int i, int p, char t) {
     auto card = playerModel.hand.at(i - 1);
+
+    if (playerModel.magic < card->getCost() && !(board->testingMode)) throw InvalidMoveException(InvalidMove::InsufficientMagic);
 
     if (card->getType() == Type::Spell) {
         card->cast(p, t);               //will update the board: no need to do in here

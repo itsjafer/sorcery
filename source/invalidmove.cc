@@ -10,6 +10,12 @@ InvalidMoveException::InvalidMoveException(InvalidMove im) {
         case InvalidMove::FieldFull:
             message = "Your field is already full!";
             break;
+        case InvalidMove::InsufficientMagic:
+            message = "You do not have enough magic to do this!";
+            break;
+        case InvalidMove::NoActivatedAbility:
+            message = "That minion does not have an activated ability!";
+            break;
     }
 }
 

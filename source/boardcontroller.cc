@@ -137,7 +137,7 @@ void BoardController::preTurn() {
   // check if the deck is non-empty
   if (!boardData.isDeckEmpty(currentPlayer) && boardData.players[currentPlayer]->getHand.size() < 5) {
     // draw a card
-    boardData.players[currentPlayer]->drawCard();
+    draw();
     //std::cout << "BoardController.cc: Player " << currentPlayer << " has drawn a card." << std::endl;
     //std::cout << "BoardController.cc: Player " << currentPlayer << " now has " << boardData.players[currentPlayer]->getHand().size() << " cards in their hand." << std::endl;
   }
@@ -158,82 +158,48 @@ void BoardController::execute() {
     std::string s;
     std::stringstream ss(cmd);
     ss >> s;
-    if (s == "end") {
-      std::cout << "BoardController.cc: Player " << currentPlayer << " has ended their turn." << std::endl;
-      // ends the current player's turn
-      break;
-    } else if (s == "quit") {
-        std::cout << "BoardController.cc: Player " << currentPlayer << " has ended the game." << std::endl;
-        gameOver = true;
+    try {
+      if (s == "end") {
+        std::cout << "BoardController.cc: Player " << currentPlayer << " has ended their turn." << std::endl;
+        // ends the current player's turn
         break;
-    } else if (s == "attack") {
-        try {
+      } else if (s == "quit") {
+          std::cout << "BoardController.cc: Player " << currentPlayer << " has ended the game." << std::endl;
+          gameOver = true;
+          break;
+      } else if (s == "attack") {
           attack(ss);
-        }
-        catch(const std::out_of_range &e) {
-          std::cout << "The minion you are trying to attack (or use to attack) does not exist!" << std::endl;
-        }
-        catch(const std::invalid_argument &e) {
-          std::cout << e.what() << std::endl;
-        }
-    } else if (s == "play") {
-        try {
+      } else if (s == "play") {
           play(ss);
-        }
-        catch(const std::out_of_range &e) {
-          std::cout << "The card you are trying to play does not exist!" << std::endl;
-        }
-        catch(const InvalidMoveException &e) {
-          std::cout << e.what() << std::endl;
-        }
-        catch(const std::invalid_argument &e) {
-          std::cout << e.what() << std::endl;
-        }
-    } else if (s == "use") {
-        try {
+      } else if (s == "use") {
           use(ss);
-        }
-        catch(const std::out_of_range &e) {
-          std::cout << "The card you are trying to use (or use on) does not exist!" << std::endl;
-        }
-        catch(const InvalidMoveException &e) {
-          std::cout << e.what() << std::endl;
-        }
-        catch(const std::invalid_argument &e) {
-          std::cout << e.what() << std::endl;
-        }
-    } else if (s == "discard" && boardData.testingMode) {
-      std::cout << "discard: TestingMode works!" << std::endl;
-      try {
-        discard(ss);
+      } else if (s == "discard" && boardData.testingMode) {
+          discard(ss);
+      } else if (s == "draw" && boardData.testingMode) {
+          draw();
+      } else if (s == "inspect") {
+          int i;
+          if (ss >> i) notifyObservers(State::printMinion, i); // the i'th minion to inspect
+          else throw std::invalid_argument("Invalid inspect! Type 'help' for more info.");
+      } else if (s == "hand") {
+          notifyObservers(State::printHand);
+      } else if (s == "board") {
+          notifyObservers(State::printBoard);
+      } else if (s == "help") {
+          notifyObservers(State::printHelp);
+      } else {
+          throw std::invalid_argument("Invalid command! Type 'help' for more info.");
       }
-      catch(const std::out_of_range &e) {
-        std::cout << e.what() << std::endl;
-      }
-      catch(const std::invalid_argument &e) {
-        std::cout << e.what() << std::endl;
-      }
-    } else if (s == "draw" && boardData.testingMode) {
-      std::cout << "draw: TestingMode works!" << std::endl;
-      try {
-        draw();
-      }
-      catch(const std::out_of_range &e) {
-        std::cout << e.what() << std::endl;
-      }
-    } else if (s == "inspect") {
-      int i;
-      if (ss >> i) notifyObservers(State::printMinion, i); // the i'th minion to inspect
-      else std::cout << "Improper usage of inspect! Type help for more info." << std::endl;
-    } else if (s == "hand") {
-      notifyObservers(State::printHand);
-    } else if (s == "board") {
-      notifyObservers(State::printBoard);
-    } else if (cmd == "help") {
-      notifyObservers(State::printHelp);
-    } else {
-      std::cout << "Invalid command!" << std::endl;
-    } 
+    }
+    catch(const std::out_of_range &e) {
+      std::cout << "The card you are trying to access or perform an action on does not exist!" << std::endl;
+    }
+    catch(const std::invalid_argument &e) {
+      std::cout << e.what() << std::endl;
+    }
+    catch(const InvalidMoveException &e) {
+      std::cout << e.what() << std::endl;
+    }
   }
 
 }

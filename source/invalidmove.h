@@ -5,7 +5,9 @@
 
 enum class InvalidMove {
     BadPlay,
-    FieldFull
+    FieldFull,
+    InsufficientMagic,
+    NoActivatedAbility
 };
 
 class InvalidMoveException {
