@@ -1,28 +1,53 @@
 #include "boardcontroller.h"
 #include "boardmodel.h"
+#include "textdisplay.h"
 #include "event.h"
-#include "player.h"
 #include <stdexcept>
+#include "playercontroller.h"
 #include <iostream>
 #include <sstream>
 #include <vector>
+#include "playermodel.h"
 
 void BoardController::switchPlayers() {
   if (currentPlayer == boardData.players.size() - 1) {
     currentPlayer = 0;
+    return;
   }
   currentPlayer++;
 }
 
-BoardController::BoardController(std::vector<std::string> players, std::vector<std::unique_ptr<std::ifstream>> &data, bool testingMode) : boardData(players, data, testingMode), currentPlayer(0), gameOver(false) {
-    // checking if default.deck is still open
+void BoardController::attach(std::shared_ptr<Observer> o) {
+  observers.push_back(o);
+}
+
+void BoardController::notifyObservers(State command, int minion) {
+  for (unsigned int i = 0; i < observers.size(); i++) {
+    observers[i]->notify(*this, command, minion);
+  }
+}
+
+BoardController::BoardController(std::vector<std::string> players, std::vector<std::unique_ptr<std::ifstream>> &data, std::vector<std::shared_ptr<Observer>> &displays, bool testingMode) : 
+boardData(players, data, testingMode), currentPlayer(0), gameOver(false) 
+{
+  
+  // set the BoardModel to be a subject of our textdisplay
+  this->observers = displays;
+  std::cout << "BoardController.cc: I have been given " << observers.size() << " observers!" << std::endl;  
+  for (auto observer : observers) {
+    //std::cout << "BoardController.cc: An observer has been attached " << std::endl;    
+    attach(observer);
+  }
+
+  // checking if default.deck is still open
   if (!data[0]) {
     std::cout << "BoardController.cc: default.deck was not found" << std::endl;
   }
+
   // have each of the players draw 3 cards
   for (unsigned int i = 0; i < players.size(); ++i) {
     std::cout << "BoardController.cc: Player " << i << " is drawing 3 cards" << std::endl;
-    boardData.players[i]->drawCard(3);  //maybe exception-handle this?
+    boardData.players[i]->drawCard(4);  //will draw 5th card in preTurn()
     std::cout << "BoardController.cc: Player " << i << " now has " << boardData.players[i]->getHand().size() << " cards in their hand." << std::endl;
   }
 }
@@ -112,7 +137,7 @@ void BoardController::preTurn() {
   
   // draw a card (if deck is non empty)
   // check if the deck is non-empty
-  if (!boardData.isDeckEmpty(currentPlayer)) {
+  if (!boardData.isDeckEmpty(currentPlayer) && boardData.players[currentPlayer]->getHand.size() < 5) {
     // draw a card
     boardData.players[currentPlayer]->drawCard();
     std::cout << "BoardController.cc: Player " << currentPlayer << " has drawn a card." << std::endl;
@@ -200,13 +225,15 @@ void BoardController::execute() {
         std::cout << e.what() << std::endl;
       }
     } else if (s == "inspect") {
-      // textDisplay
+      int i;
+      if (ss >> i) notifyObservers(State::printMinion, i); // the i'th minion to inspect
+      else std::cout << "Improper usage of inspect! Type help for more info." << std::endl;
     } else if (s == "hand") {
-      // textDisplay
+      notifyObservers(State::printHand);
     } else if (s == "board") {
-      // textDisplay
+      notifyObservers(State::printBoard);
     } else if (cmd == "help") {
-      // textDisplay
+      notifyObservers(State::printHelp);
     } else if (s == "draw") {
       // this is only available in testing mode
       boardData.players[currentPlayer]->drawCard();
@@ -253,4 +280,17 @@ int BoardController::whoWon() {
 
 BoardController::~BoardController() {
   // is this real life, or is this just fantasy?
+}
+
+std::vector<PlayerModel> BoardController::getPlayerInfos() const {
+  std::vector<PlayerModel> playerInfos;
+  for (unsigned int i = 0; i < boardData.players.size(); ++i) {
+    PlayerModel myInfo = boardData.players[i]->getPlayerData();
+    playerInfos.emplace_back(myInfo);    
+  }
+  return playerInfos;
+}
+
+int BoardController::getCurrentPlayer() {
+  return currentPlayer;
 }

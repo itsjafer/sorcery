@@ -129,6 +129,26 @@ Minion::Minion(string &name, int cost, int owner, int attack, int defence, vecto
     // cout << endl;
 };
 
+int Minion::getAttack() {
+    return att;
+}
+
+int Minion::getDefence() {
+    return def;
+}
+
+bool Minion::hasAbility() {
+    return (abilities.size() != 0);
+}
+
+Type Minion::getAbilityType(int i) {
+    return abilities[i]->getType();
+}
+
+int Minion::getAbilityCost(int i) {
+    return abilities[i]->getCost();
+}
+
 void Minion::updateState(vector<Event> &events) {
 
 }

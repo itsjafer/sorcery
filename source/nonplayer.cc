@@ -4,34 +4,34 @@ using namespace std;
 
 NonPlayer::NonPlayer(string &name, int cost, int owner, string description): Card{name}, cost{cost}, owner{owner}, description{description} { }
 
-void NonPlayer::cast() {
+int NonPlayer::getCost() {
+  return cost;
+}
 
+void NonPlayer::cast() {
+  castCard();
 }
 
 void NonPlayer::cast(int p, char t) {
-
-}
-
-int NonPlayer::getCost() {
-
+  castCard(p,t);
 }
 
 void NonPlayer::setCost(int cost) {
-
+  this->cost = cost;
 }
 
 int NonPlayer::getOwner() {
+  return owner;
+}
 
+string NonPlayer::getDescription() {
+  return description;
 }
 
 void NonPlayer::setOwner(int owner) {
-    
+  this->owner = owner;
 }
 
 const Type NonPlayer::getType() const {
-
-}
-
-std::string NonPlayer::getDescription() {
-  return description;
+  return type;
 }

@@ -7,7 +7,7 @@
 #include "event.h"
 #include <memory>
 
-class Player;
+class PlayerController;
 
 class BoardModel {
     const int fieldSize = 5;
@@ -18,7 +18,8 @@ public:
     void setMagic(int player, int newValue); 
     int getHealth(int player); // returns the health of the given player
     bool isDeckEmpty(int player); // returns if the deck is empty for the given player
-    std::vector<std::unique_ptr<Player>> players;
+    
+    std::vector<std::shared_ptr<PlayerController>> players;
     BoardModel(std::vector<std::string> players, std::vector<std::unique_ptr<std::ifstream>> &data, bool testingMode);
     void updateBoard(std::vector<Event> events);
     ~BoardModel();
