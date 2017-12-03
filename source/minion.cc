@@ -155,28 +155,38 @@ int Minion::getAbilityCost(int i) {
 }
 
 void Minion::updateState(vector<Event> &events) {
-  cout << this->getName() << " has been checked for a trigger" << endl;
-  cout << this->getName() << " has " << abilities.size() << " triggers" <<endl;
   for (int i = 0; i < abilities.size(); ++i) {
+    if (events[i] == Event::thisStartTurn) {
+      action = actionPerTurn;
+    }
     abilities[i]->update(events);
   }
 }
 
 void Minion::castCard() {
-  if (board->players.at(this->getOwner())->getPlayerData().magic >= abilities[0]->getCost()){
-      board->players.at(this->getOwner())->getPlayerData().magic -= abilities[0]->getCost();
-      abilities[0]->cast();
+  if (board->players.at(this->getOwner())->getPlayerData().magic >= abilities[0]->getCost() && canCast && action >= 1) {
+    action -= 1;
+    board->players.at(this->getOwner())->getPlayerData().magic -= abilities[0]->getCost();
+    abilities[0]->cast();
+  } else {
+    cout << "Cannot use this ability right now, this minion has " << action << " action(S)" << endl;
   }
 }
 
 void Minion::castCard(int p, char t) {
-  abilities[0]->cast(p, t);
+  if (board->players.at(this->getOwner())->getPlayerData().magic >= abilities[0]->getCost() && canCast && action >= 1) {
+    action -= 1;
+    board->players.at(this->getOwner())->getPlayerData().magic -= abilities[0]->getCost();
+    abilities[0]->cast(p, t);
+  } else {
+      cout << "Cannot use this ability right now, this minion has " << action << " action(S)" << endl;
+    }
 }
 
 void Minion::attack(int i, int me) {
-  //If the minion can attack
-  if (canAttack) {
-
+//If the minion can attack
+  if (action >= 1) {
+    action -= 1;
     //Find oponent value
     int opponent;
     if (this->getOwner() == 0) {

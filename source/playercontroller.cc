@@ -354,12 +354,14 @@ const vector<shared_ptr<NonPlayer>> &PlayerController::getHand() const {
 void PlayerController::play(int i) {
     auto card = playerModel.hand.at(i - 1);
 
-    if (card->getType() == Type::Spell) {
+    if (card->getType() == Type::Spell && playerModel.magic >= card->getCost()) {
         card->cast();               //will update the board: no need to do in here
         playerModel.graveyard.emplace_back(card);
+        playerModel.hand.erase(playerModel.hand.begin() + (i - 1));     //remove card from hand
     }
-    else if (card->getType() == Type::Ritual) {
+    else if (card->getType() == Type::Ritual && playerModel.magic >= card->getCost()) {
         playerModel.ritual = dynamic_pointer_cast<Ritual>(card);
+        playerModel.hand.erase(playerModel.hand.begin() + (i - 1));     //remove card from hand
     }
     else if (card->getType() == Type::Minion && playerModel.magic >= card->getCost()) {
         playerModel.magic -= card->getCost();
@@ -376,26 +378,30 @@ void PlayerController::play(int i) {
           enemy = 0;
         }
         board->updateBoard(personalEvents, enemy);
+        playerModel.hand.erase(playerModel.hand.begin() + (i - 1));     //remove card from hand
     }
     else { }    //handle exception
-
-    playerModel.hand.erase(playerModel.hand.begin() + (i - 1));     //remove card from hand
+    //remove card from hand
 }
 
 void PlayerController::play(int i, int p, char t) {
     auto card = playerModel.hand.at(i - 1);
 
-    if (card->getType() == Type::Spell) {
+    if (card->getType() == Type::Spell && playerModel.magic >= card->getCost()) {
         card->cast(p, t);               //will update the board: no need to do in here
         playerModel.graveyard.emplace_back(card);
+        playerModel.hand.erase(playerModel.hand.begin() + (i - 1));     //remove card from hand
     }
-    else if (card->getType() == Type::Enchantment) {
+    else if (card->getType() == Type::AddEnchantment && playerModel.magic >= card->getCost()) {
+        cout << "Casting enchantment: " << card->getName() << endl;
         card->cast(p, t);
         playerModel.minions.at((int)(t - 1))->enchantments.emplace_back(dynamic_pointer_cast<Enchantment>(card));
+        cout << playerModel.minions.at((int)(t - 1))->enchantments.back()->getDescription() << endl;;
+        cout << playerModel.minions.at((int)(t - 1))->enchantments.size() << endl;;
+        playerModel.hand.erase(playerModel.hand.begin() + (i - 1));     //remove card from hand
     }
     else { }    //handle exception
 
-    playerModel.hand.erase(playerModel.hand.begin() + (i - 1));     //remove card from hand
 }
 
 void PlayerController::use(int i) {

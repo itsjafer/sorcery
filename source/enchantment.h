@@ -2,6 +2,8 @@
 #define ENCHANTMENT_H
 
 #include "nonplayer.h"
+#include "minion.h"
+#include "playercontroller.h"
 
 class Enchantment: public NonPlayer {
 public:

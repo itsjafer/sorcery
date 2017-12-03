@@ -14,8 +14,9 @@ class Minion: public NonPlayer {
 public:
     int att;
     int def;
+    int actionPerTurn = 1;
     int action = 0;
-    bool canAttack = true;
+    bool canCast = true;
     std::vector<std::shared_ptr<Ability>> abilities;
     std::vector<std::shared_ptr<Enchantment>> enchantments;
 

@@ -24,6 +24,36 @@ void AddEnchant::castCard() {
 
 void AddEnchant::castCard(int p, char t) {
 
+  vector<Event> EventsForTarget;
+  int target = t;
+
+  if (defOperation == "+" ) {
+    board->players.at(p)->minion(target).def += defMod;
+  } else if (defOperation == "-") {
+    board->players.at(p)->minion(target).def -= defMod;
+  } else if (defOperation == "*") {
+    board->players.at(p)->minion(target).def *= defMod;
+  } else if (defOperation == "=") {
+    board->players.at(p)->minion(target).def = defMod;
+  }
+
+  if (attOperation == "+" ) {
+    board->players.at(p)->minion(target).att += attMod;
+  } else if (attOperation == "-") {
+    board->players.at(p)->minion(target).att -= attMod;
+  } else if (attOperation == "*") {
+    board->players.at(p)->minion(target).att *= attMod;
+  } else if (attOperation == "=") {
+    board->players.at(p)->minion(target).att = attMod;
+  }
+
+  board->players.at(p)->minion(target).actionPerTurn += actPerTurn;
+
+  if (silence) {
+    board->players.at(p)->minion(target).canCast = false;
+  }
+
+
 }
 
 int AddEnchant::getAttackModifier() {
