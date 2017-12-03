@@ -14,7 +14,7 @@ void BoardController::switchPlayers() {
   currentPlayer++;
 }
 
-BoardController::BoardController(std::vector<std::string> players, std::vector<std::unique_ptr<std::ifstream>> &data) : boardData(players, data), currentPlayer(0), gameOver(false) {
+BoardController::BoardController(std::vector<std::string> players, std::vector<std::unique_ptr<std::ifstream>> &data, bool testingMode) : boardData(players, data, testingMode), currentPlayer(0), gameOver(false) {
     // checking if default.deck is still open
   if (!data[0]) {
     std::cout << "BoardController.cc: default.deck was not found" << std::endl;
@@ -22,7 +22,7 @@ BoardController::BoardController(std::vector<std::string> players, std::vector<s
   // have each of the players draw 3 cards
   for (unsigned int i = 0; i < players.size(); ++i) {
     std::cout << "BoardController.cc: Player " << i << " is drawing 3 cards" << std::endl;
-    boardData.players[i]->drawCard(3);
+    boardData.players[i]->drawCard(3);  //maybe exception-handle this?
     std::cout << "BoardController.cc: Player " << i << " now has " << boardData.players[i]->getHand().size() << " cards in their hand." << std::endl;
   }
 }
@@ -86,6 +86,19 @@ void BoardController::use(std::stringstream &ss) {
     // call the use
     boardData.players[currentPlayer]->use(i);
   }
+}
+
+void BoardController::discard(std::stringstream &ss) {
+  int i;
+
+  if (!(ss >> i)) throw std::invalid_argument("Invalid use of discard!");
+
+  std::cout << "BoardController.cc: Player " << currentPlayer << " has discarded card " << i << std::endl;
+  boardData.players[currentPlayer]->discard(i);
+}
+
+void BoardController::draw() {
+  boardData.players[currentPlayer]->drawCard();
 }
 
 void BoardController::preTurn() {
@@ -167,6 +180,25 @@ void BoardController::execute() {
         catch(const std::invalid_argument &e) {
           std::cout << e.what() << std::endl;
         }
+    } else if (s == "discard" && boardData.testingMode) {
+      std::cout << "discard: TestingMode works!" << std::endl;
+      try {
+        discard(ss);
+      }
+      catch(const std::out_of_range &e) {
+        std::cout << e.what() << std::endl;
+      }
+      catch(const std::invalid_argument &e) {
+        std::cout << e.what() << std::endl;
+      }
+    } else if (s == "draw" && boardData.testingMode) {
+      std::cout << "draw: TestingMode works!" << std::endl;
+      try {
+        draw();
+      }
+      catch(const std::out_of_range &e) {
+        std::cout << e.what() << std::endl;
+      }
     } else if (s == "inspect") {
       // textDisplay
     } else if (s == "hand") {

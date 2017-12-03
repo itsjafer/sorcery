@@ -380,6 +380,11 @@ void Player::attack(int i, int j) {
     minions.at(i - 1)->attack(j);
 }
 
+void Player::discard(int i) {
+    graveyard.emplace_back(hand.at(i - 1));
+    hand.erase(hand.begin() + (i - 1));
+}
+
 Player::~Player() {
     deck.clear();
     graveyard.clear();

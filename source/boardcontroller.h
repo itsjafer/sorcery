@@ -14,8 +14,10 @@ class BoardController: public Subject {
     void attack(std::stringstream &ss);
     void play(std::stringstream &ss);
     void use(std::stringstream &ss);
+    void discard(std::stringstream &ss);
+    void draw();
 public:
-    BoardController(std::vector<std::string> players, std::vector<std::unique_ptr<std::ifstream>> &data);
+    BoardController(std::vector<std::string> players, std::vector<std::unique_ptr<std::ifstream>> &data, bool testingMode);
     void preTurn();
     void execute();
     void postTurn();

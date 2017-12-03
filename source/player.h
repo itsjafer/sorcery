@@ -30,6 +30,7 @@ public:
     void use(int i);                                                    //untargetted activated ability of ith minion
     void use(int i, int p, char t = 'r');                               //targetted activated ability of ith minion
     void attack(int i, int j = 0);
+    void discard(int i);                                                //-testing mode only
     ~Player();
 };
 

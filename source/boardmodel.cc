@@ -4,7 +4,7 @@
 #include "player.h"
 #include <iostream>
 
-BoardModel::BoardModel(std::vector<std::string> players, std::vector<std::unique_ptr<std::ifstream>> &data) {
+BoardModel::BoardModel(std::vector<std::string> players, std::vector<std::unique_ptr<std::ifstream>> &data, bool testingMode): testingMode{testingMode} {
   std::cout << "BoardModel.cc: Players are being initialized in the constructor." << std::endl;
   for (unsigned int i = 0; i < players.size(); ++i) {
     std::cout << "BoardModel.cc: Player " << i << " has been created." << std::endl;
