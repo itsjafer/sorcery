@@ -24,8 +24,8 @@ public:
     AddEnchant(std::string &cardName, int cardCost, int owner, std::string &description, int attMod, int defMod, int actPerTurn, int AbilityCost, std::string attOperation, std::string defOperation, int silencer);
     int getAttackModifier();
     int getDefenceModifier();
-    std::string getAttackOperator();
-    std::string getDefenceOperator();
+    std::string &getAttackOperator();
+    std::string &getDefenceOperator();
     ~AddEnchant() { }
 };
 
