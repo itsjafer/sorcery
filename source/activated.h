@@ -6,7 +6,7 @@
 class Activated: public Ability {
     int cost;
 public:
-    Activated(std::string &name, int cost, int owner, std::string &description);
+    Activated(std::string &name, int cost, int owner, std::string &description, Minion *minion);
     virtual ~Activated() = default;
 };
 
@@ -18,7 +18,7 @@ class AdderActive: public Activated {
     void castCard() override;
     void castCard(int p, char t = 'r') override;
 public:
-    AdderActive(std::string &name, int cost, int owner, std::string &description, int attMod, int defMod, std::string &target);
+    AdderActive(std::string &name, int cost, int owner, std::string &description, int attMod, int defMod, std::string &target, Minion *minion);
     ~AdderActive() { }
 };
 
@@ -29,7 +29,7 @@ class SummonActive: public  Activated {
     void castCard() override;
     void castCard(int p, char t = 'r') override;
 public:
-    SummonActive(std::string &name, int cost, int owner, std::string &description, int summonAmount, std::string &summonMinion);
+    SummonActive(std::string &name, int cost, int owner, std::string &description, int summonAmount, std::string &summonMinion, Minion *minion);
     ~SummonActive() { }
 };
 

@@ -2,7 +2,11 @@
 
 using namespace std;
 
-Triggered::Triggered(string &name, int cost, int owner, string &description, Event trigger) :
-        Ability(name, cost, owner, description) {
+Triggered::Triggered(string &name, int cost, int owner, string &description, Event trigger, Minion *minion) :
+        Ability(name, cost, owner, description, minion), trigger(trigger) {
                 type = Type::TriggeredAbility;
         }
+
+Event Triggered::getTrigger() {
+  return trigger;
+}

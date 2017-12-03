@@ -33,6 +33,10 @@ Minion::Minion(string &name, int cost, int owner, int attack, int defence, vecto
                     //Get the trigger event
                     if (tempLine == "any leave play") {
                         event = Event::minionDied;
+                    } else if (tempLine == "end of turn") {
+                      event = Event::thisEndTurn;
+                    } else if (tempLine == "enemy enters play") {
+                      event = Event::minionEnteredPlay;
                     }
 
                     //Get modifiers
@@ -53,7 +57,7 @@ Minion::Minion(string &name, int cost, int owner, int attack, int defence, vecto
                     getline(abilities[i], descriptor);
 
                     //Create ability, add it to the back
-                    shared_ptr<Ability> newAddTrig{new AdderTriggered(event, modAtt, modDef, target, descriptor)};
+                    shared_ptr<Ability> newAddTrig{new AdderTriggered(this->getOwner(), event, modAtt, modDef, target, descriptor, this)};
                     this->abilities.emplace_back(newAddTrig);
                 }
 
@@ -88,7 +92,7 @@ Minion::Minion(string &name, int cost, int owner, int attack, int defence, vecto
                     string name = "none";
 
                     //Create ability, add it to the back
-                    shared_ptr<Ability> newAddAct{new AdderActive(name, costAmount, -1, descriptor, modAtt, modDef, target)};
+                    shared_ptr<Ability> newAddAct{new AdderActive(name, costAmount, this->getOwner(), descriptor, modAtt, modDef, target, this)};
                     this->abilities.emplace_back(newAddAct);
 
                 } else if (tempLine == "summon") {
@@ -113,7 +117,7 @@ Minion::Minion(string &name, int cost, int owner, int attack, int defence, vecto
 
                     //Create ability, add it to the back
                     shared_ptr<Ability> newSumAct{
-                            new SummonActive(name, costAmount, -1, descriptor, summonAmount, summonMinion)};
+                            new SummonActive(name, costAmount, this->getOwner(), descriptor, summonAmount, summonMinion, this)};
                     this->abilities.emplace_back(newSumAct);
                 }
             }
@@ -151,6 +155,8 @@ int Minion::getAbilityCost(int i) {
 }
 
 void Minion::updateState(vector<Event> &events) {
+  cout << this->getName() << " has been checked for a trigger" << endl;
+  cout << this->getName() << " has " << abilities.size() << " triggers" <<endl;
   for (int i = 0; i < abilities.size(); ++i) {
     abilities[i]->update(events);
   }
@@ -178,7 +184,6 @@ void Minion::attack(int i, int me) {
 
     //Attack functionality
     if (i == 0) {
-      cout << "minion attacking player" << endl;
       //Attack a person
       vector<Event> EventsForA;
       vector<Event> AllEvents;

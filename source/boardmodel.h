@@ -16,10 +16,11 @@ public:
     int getHealth(int player); // returns the health of the given player
     void setHealth(int player, int newValue);
     bool isDeckEmpty(int player); // returns if the deck is empty for the given player
-    
+
     std::vector<std::shared_ptr<PlayerController>> players;
     BoardModel(std::vector<std::string> players, std::vector<std::unique_ptr<std::ifstream>> &data);
     void updateBoard(std::vector<Event> events);
+    void updateBoard(std::vector<Event> events, int player);
     ~BoardModel();
 };
 

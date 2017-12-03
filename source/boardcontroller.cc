@@ -21,7 +21,7 @@ void BoardController::attach(std::shared_ptr<Observer> o) {
 }
 
 void BoardController::notifyObservers(State command, int minion) {
-  std::cout << "There are " << observers.size() << " observers" << std::endl;
+  //std::cout << "There are " << observers.size() << " observers" << std::endl;
   for (unsigned int i = 0; i < observers.size(); i++) {
     std::cout << i << std::endl;
     observers[i]->notify(*this, command, minion);
@@ -34,7 +34,7 @@ boardData(players, data), currentPlayer(0), gameOver(false)
 
   // set the BoardModel to be a subject of our textdisplay
   this->observers = displays;
-  std::cout << "BoardController.cc: I have been given " << observers.size() << " observers!" << std::endl;
+  //std::cout << "BoardController.cc: I have been given " << observers.size() << " observers!" << std::endl;
 
   // checking if default.deck is still open
   if (!data[0]) {
@@ -43,9 +43,9 @@ boardData(players, data), currentPlayer(0), gameOver(false)
 
   // have each of the players draw 3 cards
   for (unsigned int i = 0; i < players.size(); ++i) {
-    std::cout << "BoardController.cc: Player " << i << " is drawing 3 cards" << std::endl;
+    //std::cout << "BoardController.cc: Player " << i << " is drawing 3 cards" << std::endl;
     boardData.players[i]->drawCard(3);
-    std::cout << "BoardController.cc: Player " << i << " now has " << boardData.players[i]->getHand().size() << " cards in their hand." << std::endl;
+    //std::cout << "BoardController.cc: Player " << i << " now has " << boardData.players[i]->getHand().size() << " cards in their hand." << std::endl;
   }
 }
 
@@ -55,16 +55,16 @@ void BoardController::preTurn() {
   int currentMagic = boardData.getMagic(currentPlayer);
   boardData.setMagic(currentPlayer, currentMagic + 1);
 
-  std::cout << "BoardController.cc: Player " << currentPlayer << " magic increased by 1." << std::endl;
-  std::cout << "BoardController.cc: Player " << currentPlayer << " magic is now " << boardData.getMagic(currentPlayer) << std::endl;
+  //std::cout << "BoardController.cc: Player " << currentPlayer << " magic increased by 1." << std::endl;
+  //std::cout << "BoardController.cc: Player " << currentPlayer << " magic is now " << boardData.getMagic(currentPlayer) << std::endl;
 
   // draw a card (if deck is non empty)
   // check if the deck is non-empty
   if (!boardData.isDeckEmpty(currentPlayer)) {
     // draw a card
     boardData.players[currentPlayer]->drawCard(1);
-    std::cout << "BoardController.cc: Player " << currentPlayer << " has drawn a card." << std::endl;
-    std::cout << "BoardController.cc: Player " << currentPlayer << " now has " << boardData.players[currentPlayer]->getHand().size() << " cards in their hand." << std::endl;
+    //std::cout << "BoardController.cc: Player " << currentPlayer << " has drawn a card." << std::endl;
+    //std::cout << "BoardController.cc: Player " << currentPlayer << " now has " << boardData.players[currentPlayer]->getHand().size() << " cards in their hand." << std::endl;
   }
 
   // check for start-of-turn effects:
@@ -86,7 +86,6 @@ void BoardController::execute() {
     ss >> s;
     if (s == "end") {
       std::cout << "BoardController.cc: Player " << currentPlayer << " has ended their turn." << std::endl;
-
       // ends the current player's turn
       break;
     } else if (s == "quit") {
@@ -143,6 +142,7 @@ void BoardController::execute() {
 
           std::cout << "BoardController.cc: Player " << currentPlayer << " has used minion " << i << "'s ability on player " << p << "'s minion " << t << std::endl;
           // call the use
+          std::cout << "hit" << std::endl;
           std::cout << t << std::endl;
           boardData.players[currentPlayer]->use(i, p, t);
           continue;
@@ -179,8 +179,11 @@ void BoardController::postTurn() {
   // check for end-of-turn effects:
   // gonna create a vector for consistency-sake
   std::vector<Event> events;
+  std::vector<Event> personalEvents;
   events.emplace_back(Event::endTurn);
+  personalEvents.emplace_back(Event::thisEndTurn);
   boardData.updateBoard(events);
+  boardData.updateBoard(personalEvents, currentPlayer);
 
   // check if anyone is dead
   for (unsigned int i = 0; i < boardData.players.size(); ++i) {

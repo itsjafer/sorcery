@@ -3,8 +3,8 @@
 using namespace std;
 
 SummonActive::SummonActive(string &name, int cost, int owner, string &description, int summonAmount,
-                           string &summonMinion):
-Activated(name, cost, owner, description), summonAmount(summonAmount), summonMinion(summonMinion){}
+                           string &summonMinion, Minion *minion):
+Activated(name, cost, owner, description, minion), summonAmount(summonAmount), summonMinion(summonMinion){}
 
 void SummonActive::updateState(vector<Event> &events) {
 

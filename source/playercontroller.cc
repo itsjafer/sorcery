@@ -59,7 +59,7 @@ void PlayerController::addCard(ifstream &cardData) {
 
         string spellType; getline(cardData, spellType);
 
-        cout << "Player.cc: Im making a " << spellType << " spell!" << endl;
+        //cout << "Player.cc: Im making a " << spellType << " spell!" << endl;
         if (spellType == "move") {
 
             //Get move source
@@ -340,6 +340,10 @@ Minion &PlayerController::minion(int i) {
     return *(playerModel.minions.at(i - 1));
 }
 
+int PlayerController::numMinions() {
+  return playerModel.minions.size();
+}
+
 const vector<shared_ptr<NonPlayer>> &PlayerController::getHand() const {
     return playerModel.hand;
 }
@@ -396,10 +400,14 @@ void PlayerController::toGrave(bool Ritual, int minionIndex) {
     playerModel.graveyard.emplace_back(playerModel.ritual);
     playerModel.ritual = nullptr;
   } else {
+    playerModel.minions.at(minionIndex)->def = 0;  
     playerModel.graveyard.emplace_back(playerModel.minions.at(minionIndex));
     cout << "Added to grave" << endl;
     playerModel.minions.erase(playerModel.minions.begin() + (minionIndex));
     cout << "Removed from board" << endl;
+    vector<Event> events;
+    events.emplace_back(Event::minionDied);
+    //board->updateBoard(events);
   }
 }
 
