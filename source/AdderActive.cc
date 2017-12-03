@@ -4,7 +4,9 @@
 using namespace std;
 
 AdderActive::AdderActive(string &name, int cost, int owner, string &description, int attMod, int defMod, string &target, Minion *minion):
-        Activated(name, cost, owner, description, minion), attMod(attMod), defMod(defMod), target(target) {}
+        Activated(name, cost, owner, description, minion), attMod(attMod), defMod(defMod), target(target) {
+          this->type = Type::ActivatedAbility;
+        }
 
 void AdderActive::updateState(vector<Event> &events) {
 

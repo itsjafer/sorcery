@@ -144,9 +144,7 @@ void BoardController::execute() {
           ss >> t; // the t'th minion to affect
 
           std::cout << "BoardController.cc: Player " << currentPlayer << " has used minion " << i << "'s ability on player " << p << "'s minion " << t << std::endl;
-          // call the use
-          std::cout << "hit" << std::endl;
-          std::cout << t << std::endl;
+
           boardData.players[currentPlayer]->use(i, p, t);
           continue;
         }

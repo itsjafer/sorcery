@@ -1,4 +1,5 @@
 #include "enchantment.h"
+#include "ability.h"
 
 using namespace std;
 
@@ -48,6 +49,10 @@ void AddEnchant::castCard(int p, char t) {
   }
 
   board->players.at(p)->minion(target).actionPerTurn += actPerTurn;
+
+  if (board->players.at(p)->minion(target).abilities.back()->getType() == Type::ActivatedAbility) {
+    board->players.at(p)->minion(target).abilities.back()->setCost(board->players.at(p)->minion(target).abilities.back()->getCost() + AbilityCost);
+  }
 
   if (silence) {
     board->players.at(p)->minion(target).canCast = false;

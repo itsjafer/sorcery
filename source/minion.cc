@@ -174,6 +174,7 @@ void Minion::castCard() {
 }
 
 void Minion::castCard(int p, char t) {
+  cout << "check conditions" << endl;
   if (board->players.at(this->getOwner())->getPlayerData().magic >= abilities[0]->getCost() && canCast && action >= 1) {
     action -= 1;
     board->players.at(this->getOwner())->getPlayerData().magic -= abilities[0]->getCost();
