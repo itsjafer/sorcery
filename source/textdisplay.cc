@@ -1,12 +1,11 @@
 #include "textdisplay.h"
 #include "ascii_graphics.h"
-#include "subject.h"
-#include "player.h"
-#include "info.h"
+#include "playercontroller.h"
 #include "minion.h"
 #include "ritual.h"
 #include "enchantment.h"
 #include "ability.h"
+#include "boardcontroller.h"
 #include <iostream>
 
 // constructor
@@ -39,14 +38,16 @@ TextDisplay::~TextDisplay() {
   hands.clear();
 }
 
-void TextDisplay::notifyDisplay(Subject &whoNotified, State command, int currentPlayer, int minionIndex) {
+void TextDisplay::notifyDisplay(BoardController &whoNotified, State command, int minionIndex) {
+  
+  currentPlayer = whoNotified.getCurrentPlayer();
   std::cout << "textdisplay.cc: I have been notified by player "<< currentPlayer << "." << std::endl;
+
   // update the board when I'm notified
-  this->currentPlayer = currentPlayer;
   this->minionIndex = minionIndex;
 
   std::cout << "textdisplay.cc: Updating myself with players information." << std::endl;
-  std::vector<Info> boardInfos = whoNotified.getInfo();
+  std::vector<PlayerModel> boardInfos = whoNotified.getPlayerInfos();
 
   updatePlayers(boardInfos);
   updateHands(boardInfos);
@@ -54,6 +55,17 @@ void TextDisplay::notifyDisplay(Subject &whoNotified, State command, int current
 
   // let the display know what command was sent
   currentCommand = command;
+
+  // print out accordingly
+  if (currentCommand == State::printBoard) {
+    printBoard(std::cout);
+  } else if (currentCommand == State::printMinion) {
+    inspectMinion(std::cout);
+  } else if (currentCommand == State::printHand) {
+    printHand(std::cout);
+  } else if (currentCommand == State::printHelp) {
+    printHelp(std::cout);
+  }
 }
 
 // returns the correct card template for a given NonPlayer
@@ -124,7 +136,7 @@ card_template_t TextDisplay::cardTemplate(std::shared_ptr<NonPlayer> card) {
 }
 
 // updates players information
-void TextDisplay::updatePlayers(std::vector<Info> boardInfos) {
+void TextDisplay::updatePlayers(std::vector<PlayerModel> boardInfos) {
   
   for (unsigned int i = 0; i < boardInfos.size(); ++i) {
     // the first card is the ritual
@@ -144,16 +156,16 @@ void TextDisplay::updatePlayers(std::vector<Info> boardInfos) {
 
     // the last card is the top of the graveyard
     // this code is not yet implemented so for now we have an empty card
-    if (boardInfos[i].graveyard == nullptr) {
+    if (boardInfos[i].graveyard.empty()) {
       players[i][4] = CARD_TEMPLATE_BORDER;    
     } else {
-      players[i][4] = cardTemplate(boardInfos[i].graveyard);
+      players[i][4] = cardTemplate(boardInfos[i].graveyard.back());
     }
   }
 }
 
 // update the players hands
-void TextDisplay::updateHands(std::vector<Info> boardInfos) {
+void TextDisplay::updateHands(std::vector<PlayerModel> boardInfos) {
 
   for (unsigned int i = 0; i < boardInfos.size(); ++i) {  
 
@@ -168,7 +180,7 @@ void TextDisplay::updateHands(std::vector<Info> boardInfos) {
 }
 
 // update the players minions
-void TextDisplay::updateMinions(std::vector<Info> boardInfos) {
+void TextDisplay::updateMinions(std::vector<PlayerModel> boardInfos) {
   for (unsigned int i = 0; i < boardInfos.size(); ++i) {
     // we're going to fill our minion spots with an empty template
     for (int j = 0; j < 5; ++j) {
@@ -300,18 +312,4 @@ void TextDisplay::printHelp(std::ostream &out) const {
 	"board -- Describe all cards on the board." << std::endl;
 }
 
-std::ostream &operator<<(std::ostream &out, const TextDisplay &td) {
-
-  if (td.currentCommand == State::printBoard) {
-    td.printBoard(out);
-  } else if (td.currentCommand == State::printMinion) {
-    td.inspectMinion(out);
-  } else if (td.currentCommand == State::printHand) {
-    td.printHand(out);
-  } else if (td.currentCommand == State::printHelp) {
-    td.printHelp(out);
-  }
- 
-  return out;
-}
 

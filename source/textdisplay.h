@@ -7,7 +7,7 @@
 #include <vector>
 #include <memory>
 
-class Info;
+class PlayerModel;
 class NonPlayer;
 
 typedef std::vector<card_template_t> row_template_r;
@@ -28,9 +28,9 @@ class TextDisplay: public Observer {
     std::vector<row_template_r> hands; // holds both players' hands
     
     // these functions update the display with information about the board
-    void updatePlayers(std::vector<Info> boardInfos);
-    void updateMinions(std::vector<Info> boardInfos);
-    void updateHands(std::vector<Info> boardInfos);
+    void updatePlayers(std::vector<PlayerModel> boardInfos);
+    void updateMinions(std::vector<PlayerModel> boardInfos);
+    void updateHands(std::vector<PlayerModel> boardInfos);
 
     // these functions print out the board itself
     void printBoard(std::ostream &out) const;
@@ -43,8 +43,8 @@ class TextDisplay: public Observer {
 public: 
     TextDisplay();
     ~TextDisplay();
-    void updateBoard(Subject &whoNotified); 
-    void notifyDisplay(Subject &whoNotified, State command, int player, int minion = 0) override;
+    void updateBoard(BoardController &whoNotified); 
+    void notifyDisplay(BoardController &whoNotified, State command, int minionIndex) override;
     friend std::ostream &operator<<(std::ostream &out, const TextDisplay &td);
 
 };

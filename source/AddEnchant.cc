@@ -34,10 +34,10 @@ int AddEnchant::getDefenceModifier() {
     return defMod;
 }
 
-std::string AddEnchant::getAttackOperator() {
+std::string &AddEnchant::getAttackOperator() {
     return attOperation;
 }
 
-std::string AddEnchant::getDefenceOperator() {
+std::string &AddEnchant::getDefenceOperator() {
     return defOperation;
 }
