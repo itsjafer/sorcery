@@ -283,6 +283,10 @@ void TextDisplay::inspectMinion(std::ostream &out) const {
     out << minions[currentPlayer][minionIndex][i] << std::endl;
   }
 
+  if (enchantments[currentPlayer][minionIndex].empty()) {
+    return;
+  }
+  
   row_template_r enchantmentRow;
   for (auto enchantment : enchantments[currentPlayer][minionIndex]) {
     // print out each row of enchantments

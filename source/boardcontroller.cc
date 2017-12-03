@@ -47,6 +47,8 @@ boardData(players, data), currentPlayer(0), gameOver(false)
     boardData.players[i]->drawCard(3);
     std::cout << "BoardController.cc: Player " << i << " now has " << boardData.players[i]->getHand().size() << " cards in their hand." << std::endl;
   }
+
+  notifyObservers(State::printBoard);
 }
 
 void BoardController::preTurn() {

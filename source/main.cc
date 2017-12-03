@@ -38,7 +38,7 @@ int main(int argc, char * argv[]) {
   // our vector of displays
   vector<shared_ptr<Observer>> displays;
   shared_ptr<TextDisplay> td(new TextDisplay);
-  shared_ptr<GraphicsDisplay> gd(new GraphicsDisplay(500));
+  shared_ptr<GraphicsDisplay> gd(new GraphicsDisplay(750));
 
   displays.emplace_back(td);
   displays.emplace_back(gd);
