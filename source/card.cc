@@ -6,7 +6,7 @@ Card::Card(std::string &name): name{name} { }
 BoardModel *Card::board;
 
 void Card::setBoard(BoardModel *board) {
-
+  this->board = board;
 }
 std::string & Card::getName() {
   return name;

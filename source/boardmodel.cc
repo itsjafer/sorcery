@@ -11,9 +11,10 @@ BoardModel::BoardModel(std::vector<std::string> players, std::vector<std::unique
   std::cout << "BoardModel.cc: Players are being initialized in the constructor." << std::endl;
   for (unsigned int i = 0; i < players.size(); ++i) {
     std::cout << "BoardModel.cc: Player " << i << " has been created." << std::endl;
-    this->players.emplace_back(std::unique_ptr<Player>(new Player(players[i], data[i])));
+    this->players.emplace_back(std::unique_ptr<Player>(new Player(players[i], data[i], i)));
     std::cout << "BoardModel.cc: Player " << i << " has " << this->players[i]->deck.size() << " cards in their deck." << std::endl;
   }
+  this->players.at(0)->setBoard(this);
 }
 
 bool BoardModel::isDeckEmpty(int player) {

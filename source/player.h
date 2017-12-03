@@ -21,7 +21,7 @@ class Player: public Card {
     void addCard(std::ifstream &cardData);
     void updateState(std::vector<Event> &events) override;
 public:
-    Player(std::string &name, std::unique_ptr<std::ifstream> &deck);
+    Player(std::string &name, std::unique_ptr<std::ifstream> &deck, int playerNumber);
     void drawCard(int numCards = 1);
     Minion &minion(int i);                                  //to be used by displays (i.e. Observers)
     void shuffleDeck();                                //to be used by displays (i.e. Observers)

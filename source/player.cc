@@ -14,7 +14,7 @@
 
 using namespace std;
 
-Player::Player(string &name, unique_ptr<ifstream> &deck): Card{name} {
+Player::Player(string &name, unique_ptr<ifstream> &deck, int playerNumber): Card{name}, playerNumber(playerNumber) {
     string cardFile;
     while (getline(*deck, cardFile)) {
         cardFile += ".card"; // adding the card extension
@@ -29,7 +29,7 @@ Player::Player(string &name, unique_ptr<ifstream> &deck): Card{name} {
 
 void Player::shuffleDeck() {
     // using this to get a random num gen
-    std::random_shuffle(deck.begin(), deck.end());   
+    std::random_shuffle(deck.begin(), deck.end());
 }
 
 void Player::addCard(ifstream &cardData) {
@@ -56,7 +56,7 @@ void Player::addCard(ifstream &cardData) {
     else if (cardType == "Spell") {
         //Adding a spell card
         //Get spell type
-        
+
         string spellType; getline(cardData, spellType);
 
         cout << "Player.cc: Im making a " << spellType << " spell!" << endl;
@@ -143,7 +143,7 @@ void Player::addCard(ifstream &cardData) {
             cardData.ignore(10000, '\n');
             string attOperation; getline(cardData, attOperation);
             string defOperation; getline(cardData, defOperation);
-            
+
             //Name and Cost and decsription
             string cardName; getline(cardData, cardName);
             int cardCost; cardData >> cardCost;
@@ -396,8 +396,8 @@ void Player::toGrave(bool Ritual, int minionIndex) {
     graveyard.emplace_back(ritual);
     ritual = nullptr;
   } else {
-    graveyard.emplace_back(minions[minionIndex]);
-    minions.erase(minions.begin() + minionIndex);
+    graveyard.emplace_back(minions[minionIndex - 1]);
+    minions.erase(minions.begin() + (minionIndex - 1));
   }
 }
 

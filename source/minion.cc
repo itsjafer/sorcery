@@ -195,16 +195,17 @@ void Minion::attack(int i, int me) {
       this->updateState(EventsForA);
       board->updateBoard(AllEvents);
 
-
     }
     else {
+
       //Attack the ith minions
       vector<Event> EventsForA;
       vector<Event> EventsForB;
       vector<Event> AllEvents;
 
       //Damage target minion
-      board->players[opponent]->minion(i-1).def -= this->att;
+      board->players.at(opponent)->minion(i).def -= this->att;
+      cout << "B damaged" << endl;
 
       //Set the events only if damage was dealth ( > 0)
       if (this->att > 0) {
@@ -213,28 +214,29 @@ void Minion::attack(int i, int me) {
       }
 
       //Damage current minion
-      this->def -= board->players[opponent]->minion(i - 1).att;
+      this->def -= board->players[opponent]->minion(i).att;
+      cout << "A damaged" << endl;
 
       //Set the events only if damage was dealth ( > 0)
-      if (board->players[opponent]->minion(i - 1).att > 0) {
+      if (board->players[opponent]->minion(i).att > 0) {
         EventsForB.emplace_back(Event::minionDealtDamage);
         EventsForA.emplace_back(Event::minionTookDamage);
       }
 
       //Create unique vector for all events
-      if ((this->att > 0) || (board->players[opponent]->minion(i - 1).att > 0)) {
+      if ((this->att > 0) || (board->players[opponent]->minion(i).att > 0)) {
         AllEvents.emplace_back(Event::minionDealtDamage);
         AllEvents.emplace_back(Event::minionTookDamage);
       }
 
       //Create unique vector for all events
-      if ((this->def <= 0) || (board->players[opponent]->minion(i - 1).def <= 0)) {
+      if ((this->def <= 0) || (board->players[opponent]->minion(i).def <= 0)) {
         AllEvents.emplace_back(Event::minionDied);
         board->updateBoard(AllEvents);
       }
 
       //If this minion died
-      if (this->def <= 0) {
+      if (this->def <=   0) {
         //Move to graveyard
         EventsForA.emplace_back(Event::minionDied);
         board->players[this->getOwner()]->toGrave(false, me);
@@ -244,14 +246,14 @@ void Minion::attack(int i, int me) {
       this->updateState(EventsForA);
 
       //If other minion died
-      if (board->players[opponent]->minion(i - 1).def <= 0)  {
+      if (board->players[opponent]->minion(i).def <= 0)  {
         //Move to graveyard
         EventsForB.emplace_back(Event::minionDied);
-        board->players[opponent]->toGrave(false, i - 1);
+        board->players[opponent]->toGrave(false, i);
       }
 
       //Update other minion with EventsForB
-      board->players[opponent]->minion(i - 1).updateState(EventsForB);
+      board->players[opponent]->minion(i).updateState(EventsForB);
     }
   }
 }
