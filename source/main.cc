@@ -1,6 +1,7 @@
 #include "observer.h"
 #include "boardcontroller.h"
 #include "textdisplay.h"
+#include "graphicsdisplay.h"
 #include <iostream>
 #include <sstream>
 #include <fstream>
@@ -9,7 +10,7 @@ using namespace std;
 
 int main(int argc, char * argv[]) {
 
-  // initialize each player
+  // initialize each playerck(td);
   int numPlayers = 2;
   vector<string> names; // this vector is a list of names (used for player construction)ma
   vector<unique_ptr<ifstream>> deckFiles;
@@ -37,8 +38,10 @@ int main(int argc, char * argv[]) {
   // our vector of displays
   vector<shared_ptr<Observer>> displays;
   shared_ptr<TextDisplay> td(new TextDisplay);
+  shared_ptr<GraphicsDisplay> gd(new GraphicsDisplay(500));
 
   displays.emplace_back(td);
+  displays.emplace_back(gd);
   
   cout << "main.cc: Board is now going to be initialized." << endl;
   // initialize the board  
