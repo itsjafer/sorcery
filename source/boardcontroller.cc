@@ -2,10 +2,11 @@
 #include "boardmodel.h"
 #include "textdisplay.h"
 #include "event.h"
-#include "player.h"
+#include "playercontroller.h"
 #include <iostream>
 #include <sstream>
 #include <vector>
+#include "playermodel.h"
 
 void BoardController::switchPlayers() {
   if (currentPlayer == boardData.players.size() - 1) {
@@ -15,12 +16,27 @@ void BoardController::switchPlayers() {
   currentPlayer++;
 }
 
-BoardController::BoardController(std::vector<std::string> players, std::vector<std::unique_ptr<std::ifstream>> &data) : boardData(players, data), currentPlayer(0), gameOver(false) {
+void BoardController::attach(std::shared_ptr<Observer> o) {
+  observers.push_back(o);
+}
+
+void BoardController::notifyObservers(State command, int minion) {
+  for (unsigned int i = 0; i < observers.size(); i++) {
+    observers[i]->notify(*this, command, minion);
+  }
+}
+
+BoardController::BoardController(std::vector<std::string> players, std::vector<std::unique_ptr<std::ifstream>> &data, std::vector<std::shared_ptr<Observer>> &displays) : 
+boardData(players, data), currentPlayer(0), gameOver(false) 
+{
   
   // set the BoardModel to be a subject of our textdisplay
-  td = std::unique_ptr<TextDisplay>(new TextDisplay());
-  boardData.attach(td);
-  std::cout << "BoardController.cc: TextDisplay has been attached as an observer of BoardData." << std::endl;
+  this->observers = displays;
+  std::cout << "BoardController.cc: I have been given " << observers.size() << " observers!" << std::endl;  
+  for (auto observer : observers) {
+    //std::cout << "BoardController.cc: An observer has been attached " << std::endl;    
+    attach(observer);
+  }
 
   // checking if default.deck is still open
   if (!data[0]) {
@@ -141,20 +157,16 @@ void BoardController::execute() {
       int i;
       ss >> i; // the i'th minion to inspect
 
-      boardData.notifyObservers(State::printMinion, currentPlayer, i);
-      std::cout << *td;
+      notifyObservers(State::printMinion, i);
     } else if (s == "hand") {
-      boardData.notifyObservers(State::printHand, currentPlayer);
-      std::cout << *td;
+      notifyObservers(State::printHand);
     } else if (s == "board") {
-      boardData.notifyObservers(State::printBoard, currentPlayer);
-      std::cout << *td;
+      notifyObservers(State::printBoard);
     } else if (cmd == "help") {
-      boardData.notifyObservers(State::printHelp, currentPlayer);      
-      std::cout << *td;
+      notifyObservers(State::printHelp);
     } else if (s == "draw") {
       // this is only available in testing mode
-      boardData.players[currentPlayer]->drawCard(1);
+      boardData.players[currentPlayer]->drawCard();
     } else if (s == "discard") {
       // this is only available in testing mode
       // TODO: ADD TO PLAYER.H
@@ -197,3 +209,19 @@ int BoardController::whoWon() {
 BoardController::~BoardController() {
   // is this real life, or is this just fantasy?
 }
+<<<<<<< HEAD
+=======
+
+std::vector<PlayerModel> BoardController::getPlayerInfos() const {
+  std::vector<PlayerModel> playerInfos;
+  for (unsigned int i = 0; i < boardData.players.size(); ++i) {
+    PlayerModel myInfo = boardData.players[i]->getPlayerData();
+    playerInfos.emplace_back(myInfo);    
+  }
+  return playerInfos;
+}
+
+int BoardController::getCurrentPlayer() {
+  return currentPlayer;
+}
+>>>>>>> master
