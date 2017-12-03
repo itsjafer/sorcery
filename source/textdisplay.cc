@@ -41,7 +41,7 @@ TextDisplay::~TextDisplay() {
 void TextDisplay::notifyDisplay(BoardController &whoNotified, State command, int minionIndex) {
   
   currentPlayer = whoNotified.getCurrentPlayer();
-  std::cout << "textdisplay.cc: I have been notified by player "<< currentPlayer << "." << std::endl;
+  std::cout << "textdisplay.cc: I have been notified by player " << currentPlayer << "." << std::endl;
 
   // update the board when I'm notified
   this->minionIndex = minionIndex;
