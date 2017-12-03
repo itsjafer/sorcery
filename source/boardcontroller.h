@@ -1,23 +1,33 @@
 #ifndef BOARDCONTROLLER_H
 #define BOARDCONTROLLER_H
 
-#include "subject.h"
 #include "boardmodel.h"
+#include "state.h"
 
-class Player;
+class PlayerController;
+class PlayerModel;
+class Observer;
 
-class BoardController: public Subject {
+
+class BoardController {
+    std::vector<std::shared_ptr<Observer>> observers;
     BoardModel boardData;
     unsigned int currentPlayer;
     bool gameOver;
 public:
-    BoardController(std::vector<std::string> players, std::vector<std::unique_ptr<std::ifstream>> &data);
+    BoardController(std::vector<std::string> players, std::vector<std::unique_ptr<std::ifstream>> &data, std::vector<std::shared_ptr<Observer>> &observers);
     void preTurn();
     void execute();
     void postTurn();
     bool gameEnded();
     int whoWon();
-    void switchPlayers();    
+    void switchPlayers();   
+
+    void attach(std::shared_ptr<Observer> o);  
+    void notifyObservers(State command, int minion = 0);
+    std::vector<PlayerModel> getPlayerInfos() const;
+    int getCurrentPlayer();
+    
     ~BoardController();
 
     // operator overload to print out the board

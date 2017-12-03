@@ -1,5 +1,5 @@
 #include "observer.h"
 
-void Observer::notify(Subject &whoFrom) {
-  notifyDisplay(whoFrom);
+void Observer::notify(BoardController &whoFrom, State command, int minion) {
+  notifyDisplay(whoFrom, command, minion);
 }

@@ -5,6 +5,7 @@ enum class Type {
     Minion,
     Spell,
     Enchantment,
+    AddEnchantment,
     Ritual,
     ActivatedAbility,
     TriggeredAbility

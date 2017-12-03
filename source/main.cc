@@ -1,6 +1,6 @@
-#include "subject.h"
 #include "observer.h"
 #include "boardcontroller.h"
+#include "textdisplay.h"
 #include <iostream>
 #include <sstream>
 #include <fstream>
@@ -34,9 +34,15 @@ int main(int argc, char * argv[]) {
     deckFiles.emplace_back(unique_ptr<ifstream>(new ifstream("default.deck")));
   }
 
+  // our vector of displays
+  vector<shared_ptr<Observer>> displays;
+  shared_ptr<TextDisplay> td(new TextDisplay);
+
+  displays.emplace_back(td);
+  
   cout << "main.cc: Board is now going to be initialized." << endl;
   // initialize the board  
-  BoardController board(names, deckFiles);
+  BoardController board(names, deckFiles, displays);
 
   while (!board.gameEnded()) {
     

@@ -12,6 +12,7 @@ public:
         NonPlayer{cardName, cost, owner, description}, charges{charges}, activationCost{activationCost}, trigger{trigger} {
             type = Type::Ritual;
         }
+    int getCharges() { return charges; }
     virtual ~Ritual() = default;
 };
 
