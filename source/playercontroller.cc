@@ -22,12 +22,6 @@ PlayerController::PlayerController(string &name, unique_ptr<ifstream> &deck, int
         ifstream cardData{cardFile};
         addCard(cardData);
     }
-
-    // set the random number generator to the current time
-    if (!board->testingMode) {
-        srand (time (0));
-        shuffleDeck();
-    }
 }
 
 void PlayerController::shuffleDeck() {

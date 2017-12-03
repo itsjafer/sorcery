@@ -21,6 +21,10 @@ void BoardController::attach(std::shared_ptr<Observer> o) {
   observers.push_back(o);
 }
 
+void BoardController::setInit(std::ifstream *init) {
+  this->init = init;
+}
+
 void BoardController::notifyObservers(State command, int minion) {
   //std::cout << "There are " << observers.size() << " observers" << std::endl;
   for (unsigned int i = 0; i < observers.size(); i++) {
@@ -29,13 +33,13 @@ void BoardController::notifyObservers(State command, int minion) {
   }
 }
 
-BoardController::BoardController(std::vector<std::string> players, std::vector<std::unique_ptr<std::ifstream>> &data, std::vector<std::shared_ptr<Observer>> &displays, bool testingMode, std::stringstream &initss) : 
-boardData(players, data, testingMode), currentPlayer(0), gameOver(false), initss(initss) 
+BoardController::BoardController(std::vector<std::string> &players, std::vector<std::unique_ptr<std::ifstream>> &data, std::vector<std::shared_ptr<Observer>> &displays, bool testingMode) : 
+boardData(players, data, testingMode), observers(displays), currentPlayer(0), gameOver(false) 
 {
 
   // set the BoardModel to be a subject of our textdisplay
-  this->observers = displays;
-  //std::cout << "BoardController.cc: I have been given " << observers.size() << " observers!" << std::endl;
+  //this->observers = displays;
+  std::cout << "BoardController.cc: I have been given " << observers.size() << " observers!" << std::endl;
 
   // checking if default.deck is still open
   if (!data[0]) {
@@ -154,7 +158,7 @@ void BoardController::execute() {
   // this is the full command line
   std::string cmd;
   std::cout << "BoardController.cc: Listening for commands." << std::endl;
-  while (getline(initss, cmd) || getline(std::cin, cmd)) {
+  while ((init && getline(*init, cmd)) || getline(std::cin, cmd)) {
     std::string s;
     std::stringstream ss(cmd);
     ss >> s;

@@ -12,7 +12,6 @@ int main(int argc, char * argv[]) {
   bool TestingMode = false;
   bool GraphicsMode = false;
   ifstream init;
-  stringstream initss;
 
   if (argc >= 2) {
     for (int i = 1; i < argc; ++i) {
@@ -43,9 +42,6 @@ int main(int argc, char * argv[]) {
     }
   }
 
-  if (init) initss << init.rdbuf();
-  init.close();
-
   // initialize each player
   int numPlayers = 2;
   vector<string> names; // this vector is a list of names (used for player construction)
@@ -62,7 +58,7 @@ int main(int argc, char * argv[]) {
   for (int i = 0; i < numPlayers; ++i) {
     // get the names for each player
     string name;
-    if (!(initss >> name)) {
+    if (!(init >> name)) {
       cout << "Player " << i << ", what is your name?" << endl;
       getline(cin, name);
     }
@@ -79,9 +75,10 @@ int main(int argc, char * argv[]) {
 
   displays.emplace_back(td);
 
-  //cout << "main.cc: Board is now going to be initialized." << endl;
+  cout << "main.cc: Board is now going to be initialized." << endl;
   // initialize the board
-  BoardController board(names, deckFiles, displays, TestingMode, initss);
+  BoardController board(names, deckFiles, displays, TestingMode);
+  if (init.good()) board.setInit(&init);
 
   while (!board.gameEnded()) {
 

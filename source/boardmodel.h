@@ -21,7 +21,7 @@ public:
     bool isDeckEmpty(int player); // returns if the deck is empty for the given player
 
     std::vector<std::shared_ptr<PlayerController>> players;
-    BoardModel(std::vector<std::string> players, std::vector<std::unique_ptr<std::ifstream>> &data, bool testingMode);
+    BoardModel(std::vector<std::string> &players, std::vector<std::unique_ptr<std::ifstream>> &data, bool testingMode);
     void updateBoard(std::vector<Event> events);
     void updateBoard(std::vector<Event> events, int player);
     ~BoardModel();

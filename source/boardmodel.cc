@@ -5,11 +5,13 @@
 #include "state.h"
 #include <iostream>
 
-BoardModel::BoardModel(std::vector<std::string> players, std::vector<std::unique_ptr<std::ifstream>> &data, bool testingMode): testingMode{testingMode} {
-  //std::cout << "BoardModel.cc: Players are being initialized in the constructor." << std::endl;
+BoardModel::BoardModel(std::vector<std::string> &players, std::vector<std::unique_ptr<std::ifstream>> &data, bool testingMode): testingMode{testingMode} {
+  std::cout << "BoardModel.cc: Players are being initialized in the constructor." << std::endl;
+
   for (unsigned int i = 0; i < players.size(); ++i) {
     //std::cout << "BoardModel.cc: Player " << i << " has been created." << std::endl;
     this->players.emplace_back(std::unique_ptr<PlayerController>(new PlayerController(players[i], data[i], i)));
+    if (!testingMode) this->players.at(i)->shuffleDeck();
   }
   this->players.at(0)->setBoard(this);
 }
