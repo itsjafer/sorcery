@@ -22,6 +22,7 @@ class AddEnchant: public Enchantment {
     void updateState(std::vector<Event> &events) override;
     void castCard() override;
     void castCard(int p, char t = 'r') override;
+    void unCast(int p, char t = 'r');
 public:
     AddEnchant(std::string &cardName, int cardCost, int owner, std::string &description, int attMod, int defMod, int actPerTurn, int AbilityCost, std::string &attOperation, std::string &defOperation, int silencer);
     int getAttackModifier();
