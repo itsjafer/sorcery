@@ -11,6 +11,7 @@ BoardModel::BoardModel(std::vector<std::string> players, std::vector<std::unique
     std::cout << "BoardModel.cc: Player " << i << " has been created." << std::endl;
     this->players.emplace_back(std::unique_ptr<PlayerController>(new PlayerController(players[i], data[i], i)));
   }
+  this->players.at(0)->setBoard(this);
 }
 
 bool BoardModel::isDeckEmpty(int player) {
@@ -21,7 +22,7 @@ void BoardModel::updateBoard(std::vector<Event> events) {
   // loop through every non-player in each player's minions, ritual(s)
   // for each card, let it know that the events have occurred
   for (unsigned int i = 0; i < players.size(); ++i) {
-      std::cout << "BoardModel.cc: Player " << i << " has been alerted with an event." << std::endl;    
+      std::cout << "BoardModel.cc: Player " << i << " has been alerted with an event." << std::endl;
       players[i]->update(events);
   }
 
@@ -39,6 +40,10 @@ int BoardModel::getHealth(int player) {
   return players[player]->getPlayerData().health;
 }
 
+void BoardModel::setHealth(int player, int newValue) {
+  players[player]->playerModel.health = newValue;
+}
+
 BoardModel::~BoardModel() {
-  
+  players.clear();
 }

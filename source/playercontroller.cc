@@ -321,7 +321,7 @@ void PlayerController::updateState(vector<Event> &events) {
     for (int i = 0; i < playerModel.minions.size(); ++i) {
       playerModel.minions.at(i)->update(events);
     }
-    if (ritual != nullptr) {
+    if (playerModel.ritual != nullptr) {
       playerModel.ritual->update(events);
     }
 }
@@ -336,8 +336,7 @@ void PlayerController::drawCard(int numCards) {
     }
     else throw out_of_range(getName());
 }
-
-const Minion &PlayerController::minion(int i) const {
+Minion &PlayerController::minion(int i) {
     return *(playerModel.minions.at(i - 1));
 }
 
@@ -392,15 +391,19 @@ void PlayerController::attack(int i, int j) {
 }
 
 void PlayerController::toGrave(bool Ritual, int minionIndex) {
+  cout << "toGrave Minion: " << minionIndex << endl;
   if (Ritual) {
-    graveyard.emplace_back(ritual);
-    ritual = nullptr;
+    playerModel.graveyard.emplace_back(playerModel.ritual);
+    playerModel.ritual = nullptr;
   } else {
-    graveyard.emplace_back(minions[minionIndex - 1]);
-    minions.erase(minions.begin() + (minionIndex - 1));
+    playerModel.graveyard.emplace_back(playerModel.minions.at(minionIndex));
+    cout << "Added to grave" << endl;
+    playerModel.minions.erase(playerModel.minions.begin() + (minionIndex));
+    cout << "Removed from board" << endl;
   }
+}
 
-const PlayerModel &PlayerController::getPlayerData() {
+ PlayerModel &PlayerController::getPlayerData() {
     return playerModel;
 }
 

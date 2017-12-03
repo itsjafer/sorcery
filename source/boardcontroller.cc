@@ -26,15 +26,15 @@ void BoardController::notifyObservers(State command, int minion) {
   }
 }
 
-BoardController::BoardController(std::vector<std::string> players, std::vector<std::unique_ptr<std::ifstream>> &data, std::vector<std::shared_ptr<Observer>> &displays) : 
-boardData(players, data), currentPlayer(0), gameOver(false) 
+BoardController::BoardController(std::vector<std::string> players, std::vector<std::unique_ptr<std::ifstream>> &data, std::vector<std::shared_ptr<Observer>> &displays) :
+boardData(players, data), currentPlayer(0), gameOver(false)
 {
-  
+
   // set the BoardModel to be a subject of our textdisplay
   this->observers = displays;
-  std::cout << "BoardController.cc: I have been given " << observers.size() << " observers!" << std::endl;  
+  std::cout << "BoardController.cc: I have been given " << observers.size() << " observers!" << std::endl;
   for (auto observer : observers) {
-    //std::cout << "BoardController.cc: An observer has been attached " << std::endl;    
+    //std::cout << "BoardController.cc: An observer has been attached " << std::endl;
     attach(observer);
   }
 
@@ -209,14 +209,12 @@ int BoardController::whoWon() {
 BoardController::~BoardController() {
   // is this real life, or is this just fantasy?
 }
-<<<<<<< HEAD
-=======
 
 std::vector<PlayerModel> BoardController::getPlayerInfos() const {
   std::vector<PlayerModel> playerInfos;
   for (unsigned int i = 0; i < boardData.players.size(); ++i) {
     PlayerModel myInfo = boardData.players[i]->getPlayerData();
-    playerInfos.emplace_back(myInfo);    
+    playerInfos.emplace_back(myInfo);
   }
   return playerInfos;
 }
@@ -224,4 +222,3 @@ std::vector<PlayerModel> BoardController::getPlayerInfos() const {
 int BoardController::getCurrentPlayer() {
   return currentPlayer;
 }
->>>>>>> master

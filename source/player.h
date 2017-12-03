@@ -3,19 +3,25 @@
 
 #include <memory>
 #include "card.h"
-#include "playermodel.h"
 
 class NonPlayer;
 class Ritual;
 class Minion;
 
-class PlayerController: public Card {
+class Player: public Card {
     friend BoardModel;
-    PlayerModel playerModel;
+    int health = 20;
+    int magic = 3;
+    std::vector<std::shared_ptr<NonPlayer>> deck;
+    std::vector<std::shared_ptr<NonPlayer>> hand;
+    std::shared_ptr<Ritual> ritual = nullptr;
+    std::vector<std::shared_ptr<NonPlayer>> graveyard;
+    std::vector<std::shared_ptr<Minion>> minions;
+    int playerNumber;
     void addCard(std::ifstream &cardData);
     void updateState(std::vector<Event> &events) override;
 public:
-    PlayerController(std::string &name, std::unique_ptr<std::ifstream> &deck, int playerNumber);
+    Player(std::string &name, std::unique_ptr<std::ifstream> &deck, int playerNumber);
     void drawCard(int numCards = 1);
     Minion &minion(int i);                                  //to be used by displays (i.e. Observers)
     void shuffleDeck();                                //to be used by displays (i.e. Observers)
@@ -26,8 +32,7 @@ public:
     void use(int i, int p, char t = 'r');                               //targetted activated ability of ith minion
     void attack(int i, int j = 0);
     void toGrave(bool Ritual, int minionIndex);
-    PlayerModel &getPlayerData();
-    ~PlayerController();
+    ~Player();
 };
 
 #endif
