@@ -15,11 +15,12 @@ public:
     int att;
     int def;
     int action = 0;
+    bool canAttack = true;
     std::vector<std::shared_ptr<Ability>> abilities;
     std::vector<std::shared_ptr<Enchantment>> enchantments;
 
     Minion(std::string &name, int cost, int owner, int attack, int defence, std::vector<std::ifstream> &abilities);
-    void attack(int i = 0);
+    void attack(int i = 0, int me = 0);
     int getAttack();
     int getDefence();
     int getAbilityCost(int i = 0);

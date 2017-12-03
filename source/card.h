@@ -5,8 +5,7 @@
 #include <vector>
 #include "event.h"
 #include "invalidmove.h"
-
-class BoardModel;
+#include "boardmodel.h"
 
 class Card {
     std::string name;

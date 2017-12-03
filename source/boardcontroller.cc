@@ -22,7 +22,7 @@ void BoardController::attach(std::shared_ptr<Observer> o) {
 }
 
 void BoardController::notifyObservers(State command, int minion) {
-  std::cout << "There are " << observers.size() << " observers" << std::endl;
+  //std::cout << "There are " << observers.size() << " observers" << std::endl;
   for (unsigned int i = 0; i < observers.size(); i++) {
     std::cout << i << std::endl;
     observers[i]->notify(*this, command, minion);
@@ -32,11 +32,11 @@ void BoardController::notifyObservers(State command, int minion) {
 BoardController::BoardController(std::vector<std::string> players, std::vector<std::unique_ptr<std::ifstream>> &data, std::vector<std::shared_ptr<Observer>> &displays, bool testingMode) : 
 boardData(players, data, testingMode), currentPlayer(0), gameOver(false) 
 {
-  
+
   // set the BoardModel to be a subject of our textdisplay
   this->observers = displays;
-  std::cout << "BoardController.cc: I have been given " << observers.size() << " observers!" << std::endl;  
-  
+  //std::cout << "BoardController.cc: I have been given " << observers.size() << " observers!" << std::endl;
+
   // checking if default.deck is still open
   if (!data[0]) {
     std::cout << "BoardController.cc: default.deck was not found" << std::endl;
@@ -44,9 +44,9 @@ boardData(players, data, testingMode), currentPlayer(0), gameOver(false)
 
   // have each of the players draw 3 cards
   for (unsigned int i = 0; i < players.size(); ++i) {
-    std::cout << "BoardController.cc: Player " << i << " is drawing 3 cards" << std::endl;
-    boardData.players[i]->drawCard(4);  //will draw 5th card in preTurn()
-    std::cout << "BoardController.cc: Player " << i << " now has " << boardData.players[i]->getHand().size() << " cards in their hand." << std::endl;
+    //std::cout << "BoardController.cc: Player " << i << " is drawing 3 cards" << std::endl;
+    boardData.players[i]->drawCard(4);
+    //std::cout << "BoardController.cc: Player " << i << " now has " << boardData.players[i]->getHand().size() << " cards in their hand." << std::endl;
   }
 }
 
@@ -129,17 +129,17 @@ void BoardController::preTurn() {
   // increase the magic by 1
   int currentMagic = boardData.getMagic(currentPlayer);
   boardData.setMagic(currentPlayer, currentMagic + 1);
-  
-  std::cout << "BoardController.cc: Player " << currentPlayer << " magic increased by 1." << std::endl;
-  std::cout << "BoardController.cc: Player " << currentPlayer << " magic is now " << boardData.getMagic(currentPlayer) << std::endl;
-  
+
+  //std::cout << "BoardController.cc: Player " << currentPlayer << " magic increased by 1." << std::endl;
+  //std::cout << "BoardController.cc: Player " << currentPlayer << " magic is now " << boardData.getMagic(currentPlayer) << std::endl;
+
   // draw a card (if deck is non empty)
   // check if the deck is non-empty
   if (!boardData.isDeckEmpty(currentPlayer) && boardData.players[currentPlayer]->getHand.size() < 5) {
     // draw a card
     boardData.players[currentPlayer]->drawCard();
-    std::cout << "BoardController.cc: Player " << currentPlayer << " has drawn a card." << std::endl;
-    std::cout << "BoardController.cc: Player " << currentPlayer << " now has " << boardData.players[currentPlayer]->getHand().size() << " cards in their hand." << std::endl;    
+    //std::cout << "BoardController.cc: Player " << currentPlayer << " has drawn a card." << std::endl;
+    //std::cout << "BoardController.cc: Player " << currentPlayer << " now has " << boardData.players[currentPlayer]->getHand().size() << " cards in their hand." << std::endl;
   }
 
   // check for start-of-turn effects:
@@ -147,24 +147,23 @@ void BoardController::preTurn() {
   std::vector<Event> events {Event::startTurn};
   boardData.updateBoard(events);
   std::cout << "BoardController.cc: Checking for start of turn effects." << std::endl;
-  
+
 }
 
 void BoardController::execute() {
   // this is the full command line
   std::string cmd;
-  std::cout << "BoardController.cc: Listening for commands." << std::endl;  
+  std::cout << "BoardController.cc: Listening for commands." << std::endl;
   while (getline(std::cin, cmd)) {
     std::string s;
     std::stringstream ss(cmd);
     ss >> s;
     if (s == "end") {
-      std::cout << "BoardController.cc: Player " << currentPlayer << " has ended their turn." << std::endl;  
-      
+      std::cout << "BoardController.cc: Player " << currentPlayer << " has ended their turn." << std::endl;
       // ends the current player's turn
       break;
     } else if (s == "quit") {
-        std::cout << "BoardController.cc: Player " << currentPlayer << " has ended the game." << std::endl;        
+        std::cout << "BoardController.cc: Player " << currentPlayer << " has ended the game." << std::endl;
         gameOver = true;
         break;
     } else if (s == "attack") {
@@ -232,12 +231,6 @@ void BoardController::execute() {
       notifyObservers(State::printBoard);
     } else if (cmd == "help") {
       notifyObservers(State::printHelp);
-    } else if (s == "draw") {
-      // this is only available in testing mode
-      boardData.players[currentPlayer]->drawCard();
-    } else if (s == "discard") {
-      // this is only available in testing mode
-      // TODO: ADD TO PLAYER.H
     } else {
       std::cout << "Invalid command!" << std::endl;
     } 
@@ -247,13 +240,16 @@ void BoardController::execute() {
 
 void BoardController::postTurn() {
 
-  std::cout << "BoardController.cc: Checking for end of turn effects." << std::endl;  
+  std::cout << "BoardController.cc: Checking for end of turn effects." << std::endl;
   // check for end-of-turn effects:
   // gonna create a vector for consistency-sake
   std::vector<Event> events;
+  std::vector<Event> personalEvents;
   events.emplace_back(Event::endTurn);
+  personalEvents.emplace_back(Event::thisEndTurn);
   boardData.updateBoard(events);
-  
+  boardData.updateBoard(personalEvents, currentPlayer);
+
   // check if anyone is dead
   for (unsigned int i = 0; i < boardData.players.size(); ++i) {
     if (boardData.getHealth(i) <= 0) {
@@ -284,7 +280,7 @@ std::vector<PlayerModel> BoardController::getPlayerInfos() const {
   std::vector<PlayerModel> playerInfos;
   for (unsigned int i = 0; i < boardData.players.size(); ++i) {
     PlayerModel myInfo = boardData.players[i]->getPlayerData();
-    playerInfos.emplace_back(myInfo);    
+    playerInfos.emplace_back(myInfo);
   }
   return playerInfos;
 }

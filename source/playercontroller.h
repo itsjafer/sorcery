@@ -17,16 +17,19 @@ class PlayerController: public Card {
 public:
     PlayerController(std::string &name, std::unique_ptr<std::ifstream> &deck, int playerNumber);
     void drawCard(int numCards = 1);
-    void shuffleDeck();
-    const Minion &minion(int i) const;                                  //to be used by displays (i.e. Observers)
+    Minion &minion(int i);                                  //to be used by displays (i.e. Observers)
+    int numMinions();
+    void addMinion(std::shared_ptr<Minion> minion);
+    void shuffleDeck();                                //to be used by displays (i.e. Observers)
     const std::vector<std::shared_ptr<NonPlayer>> &getHand() const;     //same here
     void play(int i);                                                   //non-targetted spells & rituals, as well as placing minions on the field
-    void play(int i, int p, char t = 'r');                              //spells (w/ target) & enchantments 
+    void play(int i, int p, char t = 'r');                              //spells (w/ target) & enchantments
     void use(int i);                                                    //untargetted activated ability of ith minion
     void use(int i, int p, char t = 'r');                               //targetted activated ability of ith minion
     void attack(int i, int j = 0);
     void discard(int i);                                                //-testing mode only
-    const PlayerModel &getPlayerData();  
+    void toGrave(bool Ritual, int minionIndex);
+    PlayerModel &getPlayerData();
     ~PlayerController();
 };
 

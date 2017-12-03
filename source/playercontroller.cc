@@ -30,7 +30,7 @@ PlayerController::PlayerController(string &name, unique_ptr<ifstream> &deck, int
 
 void PlayerController::shuffleDeck() {
     // using this to get a random num gen
-    std::random_shuffle(playerModel.deck.begin(), playerModel.deck.end());   
+    std::random_shuffle(playerModel.deck.begin(), playerModel.deck.end());
 }
 
 void PlayerController::addCard(ifstream &cardData) {
@@ -57,10 +57,10 @@ void PlayerController::addCard(ifstream &cardData) {
     else if (cardType == "Spell") {
         //Adding a spell card
         //Get spell type
-        
+
         string spellType; getline(cardData, spellType);
 
-        cout << "Player.cc: Im making a " << spellType << " spell!" << endl;
+        //cout << "Player.cc: Im making a " << spellType << " spell!" << endl;
         if (spellType == "move") {
 
             //Get move source
@@ -144,7 +144,7 @@ void PlayerController::addCard(ifstream &cardData) {
             cardData.ignore(10000, '\n');
             string attOperation; getline(cardData, attOperation);
             string defOperation; getline(cardData, defOperation);
-            
+
             //Name and Cost and decsription
             string cardName; getline(cardData, cardName);
             int cardCost; cardData >> cardCost;
@@ -312,15 +312,18 @@ void PlayerController::addCard(ifstream &cardData) {
             string cardDscr; getline(cardData, cardDscr);
 
             //Create card
-            shared_ptr<Enchantment> newEnchantment(new AddEnchant(cardName, cardCost, playerModel.playerNumber, cardDscr, attMod, defMod, actPerTurn, abilityCost, attOperation, defOperation, silenced));
-            playerModel.deck.emplace_back(newEnchantment);
+            playerModel.deck.emplace_back(shared_ptr<Enchantment> (new AddEnchant(cardName, cardCost, playerModel.playerNumber, cardDscr, attMod, defMod, actPerTurn, abilityCost, attOperation, defOperation, silenced)));
         }
     }
 }
 
 void PlayerController::updateState(vector<Event> &events) {
-    for (int i = 0; i < playerModel.minions.size(); ++i) playerModel.minions.at(i)->update(events);
-    playerModel.ritual->update(events);
+    for (int i = 0; i < playerModel.minions.size(); ++i) {
+      playerModel.minions.at(i)->update(events);
+    }
+    if (playerModel.ritual != nullptr) {
+      playerModel.ritual->update(events);
+    }
 }
 
 void PlayerController::drawCard(int numCards) {
@@ -333,9 +336,16 @@ void PlayerController::drawCard(int numCards) {
     }
     else throw out_of_range(getName());
 }
-
-const Minion &PlayerController::minion(int i) const {
+Minion &PlayerController::minion(int i) {
     return *(playerModel.minions.at(i - 1));
+}
+
+int PlayerController::numMinions() {
+  return playerModel.minions.size();
+}
+
+void PlayerController::addMinion(shared_ptr<Minion> minion) {
+  playerModel.minions.emplace_back(minion);
 }
 
 const vector<shared_ptr<NonPlayer>> &PlayerController::getHand() const {
@@ -356,9 +366,22 @@ void PlayerController::play(int i) {
         }
         playerModel.ritual = dynamic_pointer_cast<Ritual>(card);
     }
-    else if (card->getType() == Type::Minion) {
+    else if (card->getType() == Type::Minion && playerModel.magic >= card->getCost()) {
         if (playerModel.minions.size() >= board->getFieldSize()) throw InvalidMoveException(InvalidMove::FieldFull);
+        playerModel.magic -= card->getCost();
         playerModel.minions.emplace_back(dynamic_pointer_cast<Minion>(card));
+        std::vector<Event> events;
+        events.emplace_back(Event::minionEnteredPlay);
+        board->updateBoard(events);
+        std::vector<Event> personalEvents;
+        personalEvents.emplace_back(Event::enemyMinionEnteredPlay);
+        int enemy;
+        if (playerModel.playerNumber ==  0) {
+          enemy = 1;
+        } else if (playerModel.playerNumber == 1) {
+          enemy = 0;
+        }
+        board->updateBoard(personalEvents, enemy);
     }
     else { 
         throw InvalidMoveException(InvalidMove::BadPlay);
@@ -394,10 +417,27 @@ void PlayerController::use(int i, int p, char t) {
 }
 
 void PlayerController::attack(int i, int j) {
-    playerModel.minions.at(i - 1)->attack(j);
+    playerModel.minions.at(i - 1)->attack(j, (i - 1));
 }
 
-const PlayerModel &PlayerController::getPlayerData() {
+void PlayerController::toGrave(bool Ritual, int minionIndex) {
+  cout << "toGrave Minion: " << minionIndex << endl;
+  if (Ritual) {
+    playerModel.graveyard.emplace_back(playerModel.ritual);
+    playerModel.ritual = nullptr;
+  } else {
+    playerModel.minions.at(minionIndex)->def = 0;
+    playerModel.graveyard.emplace_back(playerModel.minions.at(minionIndex));
+    cout << "Added to grave" << endl;
+    playerModel.minions.erase(playerModel.minions.begin() + (minionIndex));
+    cout << "Removed from board" << endl;
+    vector<Event> events;
+    events.emplace_back(Event::minionDied);
+    //board->updateBoard(events);
+  }
+}
+
+ PlayerModel &PlayerController::getPlayerData() {
     return playerModel;
 }
 

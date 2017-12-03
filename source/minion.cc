@@ -4,6 +4,7 @@
 #include <sstream>
 #include <iostream>
 #include "activated.h"
+#include "playercontroller.h"
 
 using namespace std;
 
@@ -32,6 +33,10 @@ Minion::Minion(string &name, int cost, int owner, int attack, int defence, vecto
                     //Get the trigger event
                     if (tempLine == "any leave play") {
                         event = Event::minionDied;
+                    } else if (tempLine == "end of turn") {
+                      event = Event::thisEndTurn;
+                    } else if (tempLine == "enemy enters play") {
+                      event = Event::enemyMinionEnteredPlay;
                     }
 
                     //Get modifiers
@@ -52,7 +57,7 @@ Minion::Minion(string &name, int cost, int owner, int attack, int defence, vecto
                     getline(abilities[i], descriptor);
 
                     //Create ability, add it to the back
-                    shared_ptr<Ability> newAddTrig{new AdderTriggered(event, modAtt, modDef, target, descriptor)};
+                    shared_ptr<Ability> newAddTrig{new AdderTriggered(this->getOwner(), event, modAtt, modDef, target, descriptor, this)};
                     this->abilities.emplace_back(newAddTrig);
                 }
 
@@ -87,7 +92,7 @@ Minion::Minion(string &name, int cost, int owner, int attack, int defence, vecto
                     string name = "none";
 
                     //Create ability, add it to the back
-                    shared_ptr<Ability> newAddAct{new AdderActive(name, costAmount, -1, descriptor, modAtt, modDef, target)};
+                    shared_ptr<Ability> newAddAct{new AdderActive(name, costAmount, this->getOwner(), descriptor, modAtt, modDef, target, this)};
                     this->abilities.emplace_back(newAddAct);
 
                 } else if (tempLine == "summon") {
@@ -112,7 +117,7 @@ Minion::Minion(string &name, int cost, int owner, int attack, int defence, vecto
 
                     //Create ability, add it to the back
                     shared_ptr<Ability> newSumAct{
-                            new SummonActive(name, costAmount, -1, descriptor, summonAmount, summonMinion)};
+                            new SummonActive(name, costAmount, this->getOwner(), descriptor, summonAmount, summonMinion, this)};
                     this->abilities.emplace_back(newSumAct);
                 }
             }
@@ -150,19 +155,114 @@ int Minion::getAbilityCost(int i) {
 }
 
 void Minion::updateState(vector<Event> &events) {
-
+  cout << this->getName() << " has been checked for a trigger" << endl;
+  cout << this->getName() << " has " << abilities.size() << " triggers" <<endl;
+  for (int i = 0; i < abilities.size(); ++i) {
+    abilities[i]->update(events);
+  }
 }
 
 void Minion::castCard() {
-
+  if (board->players.at(this->getOwner())->getPlayerData().magic >= abilities[0]->getCost()){
+      board->players.at(this->getOwner())->getPlayerData().magic -= abilities[0]->getCost();
+      abilities[0]->cast();
+  }
 }
 
 void Minion::castCard(int p, char t) {
-
+  abilities[0]->cast(p, t);
 }
 
-void Minion::attack(int i) {
+void Minion::attack(int i, int me) {
+  //If the minion can attack
+  if (canAttack) {
 
+    //Find oponent value
+    int opponent;
+    if (this->getOwner() == 0) {
+      opponent = 1;
+    } else if (this->getOwner() == 1) {
+      opponent = 0;
+    }
+
+    //Attack functionality
+    if (i == 0) {
+      //Attack a person
+      vector<Event> EventsForA;
+      vector<Event> AllEvents;
+
+      //Damage target player
+      board->setHealth(opponent, board->getHealth(opponent) - this->att);
+
+      //Set the events only if damage was dealth ( > 0)
+      if (this->att > 0) {
+        EventsForA.emplace_back(Event::minionDealtDamage);
+        AllEvents.emplace_back(Event::playerTookDamage);
+      }
+
+      //Update minion sates
+      this->updateState(EventsForA);
+      board->updateBoard(AllEvents);
+
+    }
+    else {
+
+      //Attack the ith minions
+      vector<Event> EventsForA;
+      vector<Event> EventsForB;
+      vector<Event> AllEvents;
+
+      //Damage target minion
+      board->players.at(opponent)->minion(i).def -= this->att;
+
+      //Set the events only if damage was dealth ( > 0)
+      if (this->att > 0) {
+        EventsForA.emplace_back(Event::minionDealtDamage);
+        EventsForB.emplace_back(Event::minionTookDamage);
+      }
+
+      //Damage current minion
+      this->def -= board->players.at(opponent)->minion(i).att;
+
+      //Set the events only if damage was dealth ( > 0)
+      if (board->players.at(opponent)->minion(i).att > 0) {
+        EventsForB.emplace_back(Event::minionDealtDamage);
+        EventsForA.emplace_back(Event::minionTookDamage);
+      }
+
+      //Create unique vector for all events
+      if ((this->att > 0) || (board->players.at(opponent)->minion(i).att > 0)) {
+        AllEvents.emplace_back(Event::minionDealtDamage);
+        AllEvents.emplace_back(Event::minionTookDamage);
+      }
+
+      //Create unique vector for all events
+      if ((this->def <= 0) || (board->players.at(opponent)->minion(i).def <= 0)) {
+        AllEvents.emplace_back(Event::minionDied);
+        board->updateBoard(AllEvents);
+      }
+
+      //If this minion died
+      if (this->def <= 0) {
+        //Move to graveyard
+        EventsForA.emplace_back(Event::minionDied);
+        board->players.at(this->getOwner())->toGrave(false, me);
+      }
+
+      //Update this minion with EventsForA
+      this->updateState(EventsForA);
+
+      //If other minion died
+      if (board->players.at(opponent)->minion(i).def <= 0)  {
+        //Move to graveyard
+        EventsForB.emplace_back(Event::minionDied);
+        board->players.at(opponent)->minion(i).updateState(EventsForB);
+        board->players.at(opponent)->toGrave(false, i - 1);
+      } else {
+        board->players.at(opponent)->minion(i).updateState(EventsForB);
+      }
+    }
+  }
 }
 
 Minion::~Minion(){

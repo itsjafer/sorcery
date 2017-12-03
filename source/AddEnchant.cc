@@ -3,7 +3,7 @@
 using namespace std;
 
 AddEnchant::AddEnchant(std::string &cardName, int cardCost, int owner, std::string &description, int attMod, int defMod, int actPerTurn,
-                       int AbilityCost, std::string attOperation, std::string defOperation, int silencer):
+                       int AbilityCost, std::string &attOperation, std::string &defOperation, int silencer):
         Enchantment(cardName, cardCost, owner, description), attMod(attMod), defMod(defMod), actPerTurn(actPerTurn), AbilityCost(AbilityCost), attOperation(attOperation), defOperation(defOperation)
 {
     type = Type::AddEnchantment;

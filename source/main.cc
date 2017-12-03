@@ -46,7 +46,7 @@ int main(int argc, char * argv[]) {
     cerr << "Unable to open default.deck" << endl;
     return 1;
   }
-  
+
   cout << "Main.cc: Found and opened default.deck" << endl;
 
   for (int i = 0; i < numPlayers; ++i) {
@@ -66,27 +66,27 @@ int main(int argc, char * argv[]) {
   shared_ptr<TextDisplay> td(new TextDisplay);
 
   displays.emplace_back(td);
-  
-  cout << "main.cc: Board is now going to be initialized." << endl;
-  // initialize the board  
+
+  //cout << "main.cc: Board is now going to be initialized." << endl;
+  // initialize the board
   BoardController board(names, deckFiles, displays, TestingMode);
 
   while (!board.gameEnded()) {
-    
+
     // go through the three stages of turns
-    cout << "main.cc: Board is now going to go through preTurn." << endl;
+    //cout << "main.cc: Board is now going to go through preTurn." << endl;
     board.preTurn();
-    cout << "main.cc: Board is now going to go through execute." << endl;    
+    //cout << "main.cc: Board is now going to go through execute." << endl;
     board.execute();
     if (board.gameEnded()) return 0;
-    cout << "main.cc: Board is now going to go through postTurn." << endl;    
+    //cout << "main.cc: Board is now going to go through postTurn." << endl;
     board.postTurn();
-    
+
     // switch the player turn
-    cout << "main.cc: Board is now going to switch turns." << endl;    
+    //cout << "main.cc: Board is now going to switch turns." << endl;
     board.switchPlayers();
   }
-  
+
   // find out who won
   cout << "Player " << board.whoWon() << " wins!" << endl;
 }
