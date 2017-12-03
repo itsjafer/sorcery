@@ -4,15 +4,13 @@
 using namespace std;
 
 AdderTriggered::AdderTriggered(int owner, Event trigger, int attMod, int defMod, string &target, string &description, Minion *minion):
-        Triggered(description, owner, 0, description, trigger, minion), attMod(attMod), defMod(defMod), target(target) {}
+        Triggered(description, 0, owner, description, trigger, minion), attMod(attMod), defMod(defMod), target(target) {}
 
 void AdderTriggered::updateState(vector<Event> &events) {
-  cout << "Checking for triggers under " << events.size() << " events" << endl;
   //Go through list of given events
   for (int i = 0; i < events.size(); ++i) {
     //check the event and if it triggers this ability
     if (events[i] == this->getTrigger()) {
-      cout << "Ability triggerd: " << this->getDescription() << endl;;
       this->castCard();
     }
   }
@@ -22,7 +20,6 @@ void AdderTriggered::updateState(vector<Event> &events) {
 void AdderTriggered::castCard() {
   if (target == "all of own") {
     //Go thrugh all personal minions
-    cout << "Apply to " << board->players.at(this->getOwner())->numMinions() << " minions" << endl;
     for (int i = 0; i < board->players.at(this->getOwner())->numMinions(); ++i) {
       vector<Event> EventsForTarget;
 
@@ -39,11 +36,11 @@ void AdderTriggered::castCard() {
 
           //Minion died
           EventsForTarget.emplace_back(Event::minionDied);
-          board->players.at(this->getOwner())->minion(i).update(EventsForTarget);
-          board->players.at(this->getOwner())->toGrave(false, i + 1);
+          board->players.at(this->getOwner())->minion(i + 1).update(EventsForTarget);
+          board->players.at(this->getOwner())->toGrave(false, i);
 
         } else {
-          board->players.at(this->getOwner())->minion(i).update(EventsForTarget);
+          board->players.at(this->getOwner())->minion(i + 1).update(EventsForTarget);
         }
       }
 
@@ -55,6 +52,37 @@ void AdderTriggered::castCard() {
     this->minion->att += attMod;
     this->minion->def += defMod;
 
+  } else if (target == "trigger target") {
+    vector<Event> EventsForTarget;
+
+    int opponent;
+    if (this->getOwner() == 0) {
+      opponent = 1;
+    } else if (this->getOwner() == 1) {
+      opponent = 0;
+    }
+
+    int back = board->players.at(opponent)->numMinions();
+    //Apply affects to minion
+    board->players.at(opponent)->minion(back).att += attMod;
+    board->players.at(opponent)->minion(back).def += defMod;
+
+    //update that minion
+    if (defMod < 0) {
+      //Minion took damage
+      EventsForTarget.emplace_back(Event::minionTookDamage);
+
+      if (board->players.at(opponent)->minion(back).def <= 0) {
+
+        //Minion died
+        EventsForTarget.emplace_back(Event::minionDied);
+        board->players.at(opponent)->minion(back).update(EventsForTarget);
+        board->players.at(opponent)->toGrave(false, back - 1);
+
+      } else {
+        board->players.at(opponent)->minion(back).update(EventsForTarget);
+      }
+    }
   }
 }
 

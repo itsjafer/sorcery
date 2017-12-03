@@ -5,4 +5,3 @@ enemy enters play
 -1
 trigger target
 Whenever an opponent's minion enters play, deal 1 damage to it
-

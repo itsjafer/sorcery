@@ -19,6 +19,7 @@ public:
     void drawCard(int numCards = 1);
     Minion &minion(int i);                                  //to be used by displays (i.e. Observers)
     int numMinions();
+    void addMinion(std::shared_ptr<Minion> minion);
     void shuffleDeck();                                //to be used by displays (i.e. Observers)
     const std::vector<std::shared_ptr<NonPlayer>> &getHand() const;     //same here
     void play(int i);                                                   //non-targetted spells & rituals, as well as placing minions on the field

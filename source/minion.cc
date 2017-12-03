@@ -36,7 +36,7 @@ Minion::Minion(string &name, int cost, int owner, int attack, int defence, vecto
                     } else if (tempLine == "end of turn") {
                       event = Event::thisEndTurn;
                     } else if (tempLine == "enemy enters play") {
-                      event = Event::minionEnteredPlay;
+                      event = Event::enemyMinionEnteredPlay;
                     }
 
                     //Get modifiers
@@ -163,7 +163,10 @@ void Minion::updateState(vector<Event> &events) {
 }
 
 void Minion::castCard() {
-  abilities[0]->cast();
+  if (board->players.at(this->getOwner())->getPlayerData().magic >= abilities[0]->getCost()){
+      board->players.at(this->getOwner())->getPlayerData().magic -= abilities[0]->getCost();
+      abilities[0]->cast();
+  }
 }
 
 void Minion::castCard(int p, char t) {

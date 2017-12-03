@@ -344,6 +344,10 @@ int PlayerController::numMinions() {
   return playerModel.minions.size();
 }
 
+void PlayerController::addMinion(shared_ptr<Minion> minion) {
+  playerModel.minions.emplace_back(minion);
+}
+
 const vector<shared_ptr<NonPlayer>> &PlayerController::getHand() const {
     return playerModel.hand;
 }
@@ -358,8 +362,21 @@ void PlayerController::play(int i) {
     else if (card->getType() == Type::Ritual) {
         playerModel.ritual = dynamic_pointer_cast<Ritual>(card);
     }
-    else if (card->getType() == Type::Minion) {
+    else if (card->getType() == Type::Minion && playerModel.magic >= card->getCost()) {
+        playerModel.magic -= card->getCost();
         playerModel.minions.emplace_back(dynamic_pointer_cast<Minion>(card));
+        std::vector<Event> events;
+        events.emplace_back(Event::minionEnteredPlay);
+        board->updateBoard(events);
+        std::vector<Event> personalEvents;
+        personalEvents.emplace_back(Event::enemyMinionEnteredPlay);
+        int enemy;
+        if (playerModel.playerNumber ==  0) {
+          enemy = 1;
+        } else if (playerModel.playerNumber == 1) {
+          enemy = 0;
+        }
+        board->updateBoard(personalEvents, enemy);
     }
     else { }    //handle exception
 
@@ -400,7 +417,7 @@ void PlayerController::toGrave(bool Ritual, int minionIndex) {
     playerModel.graveyard.emplace_back(playerModel.ritual);
     playerModel.ritual = nullptr;
   } else {
-    playerModel.minions.at(minionIndex)->def = 0;  
+    playerModel.minions.at(minionIndex)->def = 0;
     playerModel.graveyard.emplace_back(playerModel.minions.at(minionIndex));
     cout << "Added to grave" << endl;
     playerModel.minions.erase(playerModel.minions.begin() + (minionIndex));
