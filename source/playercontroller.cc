@@ -336,6 +336,11 @@ Minion &PlayerController::minion(int i) {
     return *(playerModel.minions.at(i - 1));
 }
 
+Minion &PlayerController::graveMinion() {
+  std::shared_ptr<Minion> m = std::dynamic_pointer_cast<Minion>(playerModel.graveyard.back());
+  return *(m);
+}
+
 int PlayerController::numMinions() {
   return playerModel.minions.size();
 }
@@ -401,16 +406,20 @@ void PlayerController::play(int i, int p, char t) {
     if (card->getType() == Type::Spell) {
         card->cast(p, t);               //will update the board: no need to do in here
         playerModel.graveyard.emplace_back(card);
+        playerModel.hand.erase(playerModel.hand.begin() + (i - 1));     //remove card from hand
     }
-    else if (card->getType() == Type::Enchantment) {
+    else if (card->getType() == Type::AddEnchantment && playerModel.magic >= card->getCost()) {
+        cout << "Casting enchantment: " << card->getName() << endl;
         card->cast(p, t);
         playerModel.minions.at((int)(t - 1))->enchantments.emplace_back(dynamic_pointer_cast<Enchantment>(card));
+        cout << playerModel.minions.at((int)(t - 1))->enchantments.back()->getDescription() << endl;;
+        cout << playerModel.minions.at((int)(t - 1))->enchantments.size() << endl;;
+        playerModel.hand.erase(playerModel.hand.begin() + (i - 1));     //remove card from hand
     }
     else { 
         throw InvalidMoveException(InvalidMove::BadPlay);
     }    //handle exception
 
-    playerModel.hand.erase(playerModel.hand.begin() + (i - 1));     //remove card from hand
 }
 
 void PlayerController::use(int i) {

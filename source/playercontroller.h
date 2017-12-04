@@ -18,6 +18,7 @@ public:
     PlayerController(std::string &name, std::unique_ptr<std::ifstream> &deck, int playerNumber);
     void drawCard(int numCards = 1);
     Minion &minion(int i);                                  //to be used by displays (i.e. Observers)
+    Minion &graveMinion();
     int numMinions();
     void addMinion(std::shared_ptr<Minion> minion);
     void shuffleDeck();                                //to be used by displays (i.e. Observers)

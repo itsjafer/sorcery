@@ -148,7 +148,11 @@ void BoardController::preTurn() {
 
   // check for start-of-turn effects:
   // gonna create a vector for consistency-sake
-  std::vector<Event> events {Event::startTurn};
+  std::vector<Event> events;
+  std::vector<Event> personalEvents;
+  events.emplace_back(Event::startTurn);
+  personalEvents.emplace_back(Event::thisStartTurn);
+  boardData.updateBoard(personalEvents, currentPlayer);
   boardData.updateBoard(events);
   std::cout << "BoardController.cc: Checking for start of turn effects." << std::endl;
 

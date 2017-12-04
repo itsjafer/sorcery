@@ -1,4 +1,5 @@
 #include "enchantment.h"
+#include "ability.h"
 
 using namespace std;
 
@@ -22,7 +23,79 @@ void AddEnchant::castCard() {
 
 }
 
+void AddEnchant::unCast(int p, char t) {
+
+  vector<Event> EventsForTarget;
+  int target = t;
+
+  if (defOperation == "+" ) {
+    board->players.at(p)->minion(target).def -= defMod;
+  } else if (defOperation == "-") {
+    board->players.at(p)->minion(target).def += defMod;
+  } else if (defOperation == "*" && defMod != 0) {
+    board->players.at(p)->minion(target).def /= defMod;
+  }
+
+  if (attOperation == "+" ) {
+    board->players.at(p)->minion(target).att -= attMod;
+  } else if (attOperation == "-") {
+    board->players.at(p)->minion(target).att += attMod;
+  } else if (attOperation == "*" && attMod != 0) {
+    board->players.at(p)->minion(target).att /= attMod;
+  }
+
+  board->players.at(p)->minion(target).actionPerTurn -= actPerTurn;
+
+  if (board->players.at(p)->minion(target).abilities.back()->getType() == Type::ActivatedAbility) {
+    board->players.at(p)->minion(target).abilities.back()->setCost(board->players.at(p)->minion(target).abilities.back()->getCost() - AbilityCost);
+  }
+
+  if (silence) {
+    board->players.at(p)->minion(target).canCast = true;
+  }
+
+  if (board->players.at(p)->minion(target).def <= 0) {
+    EventsForTarget.emplace_back(Event::minionDied);
+    board->players.at(p)->minion(target).update(EventsForTarget);
+    board->players.at(p)->toGrave(false, target - 1);
+  }
+
+}
+
 void AddEnchant::castCard(int p, char t) {
+
+  int target = t;
+
+  if (defOperation == "+" ) {
+    board->players.at(p)->minion(target).def += defMod;
+  } else if (defOperation == "-") {
+    board->players.at(p)->minion(target).def -= defMod;
+  } else if (defOperation == "*") {
+    board->players.at(p)->minion(target).def *= defMod;
+  } else if (defOperation == "=") {
+    board->players.at(p)->minion(target).def = defMod;
+  }
+
+  if (attOperation == "+" ) {
+    board->players.at(p)->minion(target).att += attMod;
+  } else if (attOperation == "-") {
+    board->players.at(p)->minion(target).att -= attMod;
+  } else if (attOperation == "*") {
+    board->players.at(p)->minion(target).att *= attMod;
+  } else if (attOperation == "=") {
+    board->players.at(p)->minion(target).att = attMod;
+  }
+
+  board->players.at(p)->minion(target).actionPerTurn += actPerTurn;
+
+  if (board->players.at(p)->minion(target).abilities.back()->getType() == Type::ActivatedAbility) {
+    board->players.at(p)->minion(target).abilities.back()->setCost(board->players.at(p)->minion(target).abilities.back()->getCost() + AbilityCost);
+  }
+
+  if (silence) {
+    board->players.at(p)->minion(target).canCast = false;
+  }
+
 
 }
 

@@ -155,9 +155,10 @@ int Minion::getAbilityCost(int i) {
 }
 
 void Minion::updateState(vector<Event> &events) {
-  cout << this->getName() << " has been checked for a trigger" << endl;
-  cout << this->getName() << " has " << abilities.size() << " triggers" <<endl;
   for (int i = 0; i < abilities.size(); ++i) {
+    if (events[i] == Event::thisStartTurn) {
+      action = actionPerTurn;
+    }
     abilities[i]->update(events);
   }
 }
@@ -166,6 +167,7 @@ void Minion::castCard() {
   if (abilities.empty() || abilities[0]->getType() != Type::ActivatedAbility) throw InvalidMoveException(InvalidMove::NoActivatedAbility);
   if (board->getMagic(this->getOwner()) < abilities[0]->getCost() && !(board->testingMode)) throw InvalidMoveException(InvalidMove::InsufficientMagic);
   
+  --action;
   board->setMagic(this->getOwner(), board->getMagic(this->getOwner()) - abilities[0]->getCost());
   abilities[0]->cast();
 }
@@ -174,14 +176,15 @@ void Minion::castCard(int p, char t) {
   if (abilities.empty() || abilities[0]->getType() != Type::ActivatedAbility) throw InvalidMoveException(InvalidMove::NoActivatedAbility);
   if (board->getMagic(this->getOwner()) < abilities[0]->getCost() && !(board->testingMode)) throw InvalidMoveException(InvalidMove::InsufficientMagic);
   
+  --action;
   board->setMagic(this->getOwner(), board->getMagic(this->getOwner()) - abilities[0]->getCost());
   abilities[0]->cast(p, t);
 }
 
 void Minion::attack(int i, int me) {
-  //If the minion can attack
-  if (canAttack) {
-
+//If the minion can attack
+  if (action >= 1) {
+    action -= 1;
     //Find oponent value
     int opponent;
     if (this->getOwner() == 0) {
@@ -229,7 +232,7 @@ void Minion::attack(int i, int me) {
       //Damage current minion
       this->def -= board->players.at(opponent)->minion(i).att;
 
-      //Set the events only if damage was dealth ( > 0)
+      //Set the events only if damage was dealt ( > 0)
       if (board->players.at(opponent)->minion(i).att > 0) {
         EventsForB.emplace_back(Event::minionDealtDamage);
         EventsForA.emplace_back(Event::minionTookDamage);
@@ -261,8 +264,8 @@ void Minion::attack(int i, int me) {
       if (board->players.at(opponent)->minion(i).def <= 0)  {
         //Move to graveyard
         EventsForB.emplace_back(Event::minionDied);
-        board->players.at(opponent)->minion(i).updateState(EventsForB);
         board->players.at(opponent)->toGrave(false, i - 1);
+        board->players.at(opponent)->graveMinion().updateState(EventsForB);
       } else {
         board->players.at(opponent)->minion(i).updateState(EventsForB);
       }
