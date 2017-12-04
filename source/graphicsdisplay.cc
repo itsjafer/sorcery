@@ -108,7 +108,7 @@ void GraphicsDisplay::inspectMinion(std::vector<PlayerModel> boardInfos) {
     return;
   }
 
-  for (int i = boardInfos[currentPlayer].minions[minionIndex]->enchantments.size(); i >= 0; --i) {
+  for (int i = 0; i > boardInfos[currentPlayer].minions[minionIndex]->enchantments.size(); ++i) {
     if (widthIndex >= winSize * 2) {
       widthIndex = 0;
       heightIndex += cardHeight;
@@ -219,6 +219,8 @@ void GraphicsDisplay::displayCard(std::shared_ptr<NonPlayer> card, int x, int y)
     xw.drawString(x, totalSpacing, "Cost: " + std::to_string(cost));
     totalSpacing += spacing;
     xw.drawString(x, totalSpacing, "Ritual");
+    totalSpacing += spacing;
+    xw.drawString(x, totalSpacing, "Activation Cost: " + std::to_string(r->getActCost()));
     totalSpacing += spacing;
     displayDescription(r->getDescription(), x, totalSpacing);    
     y += cardHeight - spacing;

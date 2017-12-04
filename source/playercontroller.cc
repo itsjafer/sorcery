@@ -101,30 +101,6 @@ void PlayerController::addCard(ifstream &cardData) {
             //Create card
             shared_ptr<Spell> newSpell(new AddSpell(cardName, cardCost, playerModel.playerNumber, cardDscr, attMod, defMod, attOperation, defOperation, target));
             playerModel.deck.emplace_back(newSpell);
-        } else if (spellType == "moveAdsd") {
-            //Get move source
-            string moveSrc; getline(cardData, moveSrc);
-            //Get move destination
-            string moveDest; getline(cardData, moveDest);
-            //Get Target
-            string target; getline(cardData, target);
-
-            //Get Target and modifiers
-            int attMod; cardData >> attMod;
-            int defMod; cardData >> defMod;
-            string attOperation; getline(cardData, attOperation);
-            string defOperation; getline(cardData, defOperation);
-
-            //Name and Cost and decsription
-            string cardName; getline(cardData, cardName);
-            int cardCost; cardData >> cardCost;
-            // skip to the next line
-            cardData.ignore(10000, '\n');
-            string cardDscr; getline(cardData, cardDscr);
-
-            //Create card
-            shared_ptr<Spell> newSpell(new AddSpell(cardName, cardCost, playerModel.playerNumber, cardDscr, attMod, defMod, attOperation, defOperation, target));
-            playerModel.deck.emplace_back(newSpell);
         } else if (spellType == "moveAdd") {
             //Get move source
             string moveSrc; getline(cardData, moveSrc);
