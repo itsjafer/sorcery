@@ -8,7 +8,9 @@ enum class InvalidMove {
     FieldFull,
     InsufficientMagic,
     NoActivatedAbility,
-    CannotUseMinion
+    CannotUseMinion,
+    NoChargesLeft,
+    InsufficientMagicRitual
 };
 
 class InvalidMoveException {

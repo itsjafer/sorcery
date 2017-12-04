@@ -18,6 +18,13 @@ InvalidMoveException::InvalidMoveException(InvalidMove im) {
             break;
         case InvalidMove::CannotUseMinion:
             message = "You cannot currently use this minion!";
+            break;
+        case InvalidMove::NoChargesLeft:
+            message = "This ritual does not have any charges left!";
+            break;
+        case InvalidMove::InsufficientMagicRitual:
+            message = "You do not have enough magic to run your ritual!";
+            break;
     }
 }
 

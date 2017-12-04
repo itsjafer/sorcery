@@ -173,8 +173,13 @@ void BoardController::preTurn() {
   std::vector<Event> personalEvents;
   events.emplace_back(Event::startTurn);
   personalEvents.emplace_back(Event::thisStartTurn);
-  boardData.updateBoard(personalEvents, currentPlayer);
-  boardData.updateBoard(events);
+  try {
+    boardData.updateBoard(personalEvents, currentPlayer);
+    boardData.updateBoard(events);
+  }
+  catch(const InvalidMoveException &e) {
+    std::cout << e.what() << std::endl;
+  }
   std::cout << "BoardController.cc: Checking for start of turn effects." << std::endl;
 
 }
@@ -242,8 +247,13 @@ void BoardController::postTurn() {
   std::vector<Event> personalEvents;
   events.emplace_back(Event::endTurn);
   personalEvents.emplace_back(Event::thisEndTurn);
-  boardData.updateBoard(events);
-  boardData.updateBoard(personalEvents, currentPlayer);
+  try {
+    boardData.updateBoard(personalEvents, currentPlayer);
+    boardData.updateBoard(events);
+  }
+  catch(const InvalidMoveException &e) {
+    std::cout << e.what() << std::endl;
+  }
 
   // check if anyone is dead
   for (unsigned int i = 0; i < boardData.players.size(); ++i) {

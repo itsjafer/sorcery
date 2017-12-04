@@ -23,15 +23,16 @@ void AddMinionRitual::updateState(vector<Event> &events) {
 }
 
 void AddMinionRitual::castCard() {
-  if (board->getMagic(this->getOwner()) >= this->getActCost() && this->getCharges() > 0) {
-    board->setMagic(this->getOwner(), board->getMagic(this->getOwner()) - this->getActCost());
-    this->setCharges(this->getCharges() - 1);
+  if (board->getMagic(this->getOwner()) < this->getActCost && !(board->testingMode)) throw InvalidMoveException(InvalidMove::InsufficientMagicRitual);
+  if (this->getCharges() < 0) throw InvalidMoveException(InvalidMove::NoChargesLeft);
 
-    //Apply affects to minion
-    board->players.at(this->getOwner())->minion(board->players.at(this->getOwner())->numMinions()).att += attMod;
-    board->players.at(this->getOwner())->minion(board->players.at(this->getOwner())->numMinions()).def += defMod;
+  board->setMagic(this->getOwner(), board->getMagic(this->getOwner()) - this->getActCost());
+  this->setCharges(this->getCharges() - 1);
+  if (board->getMagic(this->getOwner()) < 0) board->setMagic(this->getOwner(), 0);
 
-  }
+  //Apply affects to minion
+  board->players.at(this->getOwner())->minion(board->players.at(this->getOwner())->numMinions()).att += attMod;
+  board->players.at(this->getOwner())->minion(board->players.at(this->getOwner())->numMinions()).def += defMod;
 }
 
 void AddMinionRitual::castCard(int p, int t) {
