@@ -12,6 +12,8 @@ int main(int argc, char * argv[]) {
 
   bool TestingMode = false;
   bool GraphicsMode = false;
+  string deck1File = "default.deck";
+  string deck2File = "default.deck";
   ifstream init;
 
   if (argc >= 2) {
@@ -23,10 +25,12 @@ int main(int argc, char * argv[]) {
       else if (arg == "-deck1") {
         // Next arg is filename of -deck1, set up deck1 to that filename
         ++i;
+        deck1File = argv[i];
       }
       else if (arg == "-deck2") {
         // Same idea
         ++i;
+        deck2File = argv[i];
       }
       else if (arg == "-init") {
         // Next arg is a filename--whatever commands are in this are the first commands to be used
@@ -48,13 +52,19 @@ int main(int argc, char * argv[]) {
   vector<string> names; // this vector is a list of names (used for player construction)
   vector<unique_ptr<ifstream>> deckFiles;
 
-  ifstream deck("default.deck");
-  if (!deck) {
-    cerr << "Unable to open default.deck" << endl;
+  ifstream *deck1 = new ifstream{deck1File};
+  ifstream *deck2 = new ifstream{deck2File};
+
+  if (!(*deck1)) {
+    cerr << "Unable to open " << deck1File << endl;
+    return 1;
+  }
+  if (!(*deck2)) {
+    cerr << "Unable to open " << deck2File << endl;
     return 1;
   }
 
-  cout << "Main.cc: Found and opened default.deck" << endl;
+  cout << "Main.cc: Found and opened decks" << endl;
 
   for (int i = 0; i < numPlayers; ++i) {
     // get the names for each player
@@ -67,8 +77,11 @@ int main(int argc, char * argv[]) {
 
     // get the deckfiles for each player
     // for now, we're going to assume both players use default.deck
-    deckFiles.emplace_back(unique_ptr<ifstream>(new ifstream("default.deck")));
+    if (i == 0) deckFiles.emplace_back(unique_ptr<ifstream>(move(deck1)));
+    else if (i == 1) deckFiles.emplace_back(unique_ptr<ifstream>(move(deck2)));
   }
+  deck1 = nullptr;
+  deck2 = nullptr;
 
   // our vector of displays
   vector<shared_ptr<Observer>> displays;
