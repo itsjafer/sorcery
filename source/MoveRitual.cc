@@ -28,28 +28,30 @@ void MoveRitual::updateState(vector<Event> &events) {
 }
 
 void MoveRitual::castCard() {
-  if (board->getMagic(this->getOwner()) >= this->getActCost() && this->getCharges() > 0) {
-    board->setMagic(this->getOwner(), board->getMagic(this->getOwner()) - this->getActCost());
-    this->setCharges(this->getCharges() - 1);
-    //Requires implementation
-    vector<Event> EventsForTarget;
-    if (onOwn) {
-      EventsForTarget.emplace_back(Event::minionDied);
-      board->players.at(this->getOwner())->minion(board->players.at(this->getOwner())->numMinions()).update(EventsForTarget);
-      board->players.at(this->getOwner())->toGrave(false, board->players.at(this->getOwner())->numMinions() - 1);
-    } else {
-      cout << "getting the other guy" << endl;
-      int opponent;
-      if (this->getOwner() == 1) {
-        opponent = 0;
-      } else if (this->getOwner() == 0) {
-        opponent = 1;
-      }
-      cout << "killing his ass" << endl;
-      board->players.at(opponent)->minion(board->players.at(opponent)->numMinions()).update(EventsForTarget);
-      board->players.at(opponent)->toGrave(false, board->players.at(opponent)->numMinions() - 1);
-      cout << "job done" << endl;
+  if (board->getMagic(this->getOwner()) < this->getActCost && !(board->testingMode)) throw InvalidMoveException(InvalidMove::InsufficientMagicRitual);
+  if (this->getCharges() < 0) throw InvalidMoveException(InvalidMove::NoChargesLeft);
+
+  board->setMagic(this->getOwner(), board->getMagic(this->getOwner()) - this->getActCost());
+  if (board->getMagic(this->getOwner()) < 0) board->setMagic(this->getOwner(), 0);
+  this->setCharges(this->getCharges() - 1);
+  //Requires implementation
+  vector<Event> EventsForTarget;
+  if (onOwn) {
+    EventsForTarget.emplace_back(Event::minionDied);
+    board->players.at(this->getOwner())->minion(board->players.at(this->getOwner())->numMinions()).update(EventsForTarget);
+    board->players.at(this->getOwner())->toGrave(false, board->players.at(this->getOwner())->numMinions() - 1);
+  } else {
+    cout << "getting the other guy" << endl;
+    int opponent;
+    if (this->getOwner() == 1) {
+      opponent = 0;
+    } else if (this->getOwner() == 0) {
+      opponent = 1;
     }
+    cout << "killing his ass" << endl;
+    board->players.at(opponent)->minion(board->players.at(opponent)->numMinions()).update(EventsForTarget);
+    board->players.at(opponent)->toGrave(false, board->players.at(opponent)->numMinions() - 1);
+    cout << "job done" << endl;
   }
 }
 
