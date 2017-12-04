@@ -23,7 +23,7 @@ void AddMinionRitual::updateState(vector<Event> &events) {
 }
 
 void AddMinionRitual::castCard() {
-  if (board->getMagic(this->getOwner()) < this->getActCost && !(board->testingMode)) throw InvalidMoveException(InvalidMove::InsufficientMagicRitual);
+  if (board->getMagic(this->getOwner()) < this->getActCost() && !(board->testingMode)) throw InvalidMoveException(InvalidMove::InsufficientMagicRitual);
   if (this->getCharges() < 0) throw InvalidMoveException(InvalidMove::NoChargesLeft);
 
   board->setMagic(this->getOwner(), board->getMagic(this->getOwner()) - this->getActCost());
