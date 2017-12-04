@@ -16,6 +16,8 @@ InvalidMoveException::InvalidMoveException(InvalidMove im) {
         case InvalidMove::NoActivatedAbility:
             message = "That minion does not have an activated ability!";
             break;
+        case InvalidMove::CannotUseMinion:
+            message = "You cannot currently use this minion!";
     }
 }
 

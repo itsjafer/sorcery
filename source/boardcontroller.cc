@@ -81,9 +81,18 @@ void BoardController::play(std::stringstream &ss) {
     if (!(ss >> p)) throw std::invalid_argument("Invalid use of play! Type 'help' for more info.");
     // TODO: discuss the next line..
     if (!(ss >> t)) throw std::invalid_argument("Invalid use of play! Type 'help' for more info."); // the t'th minion to affect
+
+    int target;
+    if (t == 'r')
+      target = -1;
+    else if (t >= '1' && t <= '5') {
+      target = t - '0';
+    }
+    else throw std::invalid_argument("Invalid use of play! Type 'help' for more info.");
+
     std::cout << "BoardController.cc: Player " << currentPlayer << " has used card " << i << " on player " << p << "'s minion " << t << std::endl;                    
     // call the play
-    boardData.players[currentPlayer]->play(i, p, t);
+    boardData.players[currentPlayer]->play(i, p, target);
   }
   else {
     // call the play
@@ -106,15 +115,25 @@ void BoardController::use(std::stringstream &ss) {
     // TODO: discuss the next line..
     if (!(ss >> t)) throw std::invalid_argument("Invalid use! Type 'help' for more info."); // the t'th minion to affect
 
+    int target;
+    if (t == 'r')
+      target = -1;
+    else if (t >= '1' && t <= '5') {
+      target = t - '0';
+    }
+    else throw std::invalid_argument("Invalid use of play! Type 'help' for more info.");
+
     std::cout << "BoardController.cc: Player " << currentPlayer << " has used minion " << i << "'s ability on player " << p << "'s minion " << t << std::endl;                              
     // call the use
-    boardData.players[currentPlayer]->use(i, p, t);
+    boardData.players[currentPlayer]->use(i, p, target);
   }
   else {
     std::cout << "BoardController.cc: Player " << currentPlayer << " has used the ability of minion " << i << std::endl;                                  
     // call the use
     boardData.players[currentPlayer]->use(i);
   }
+
+  notifyObservers(State::printBoard);
 }
 
 void BoardController::discard(std::stringstream &ss) {
