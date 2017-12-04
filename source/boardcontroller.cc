@@ -132,8 +132,6 @@ void BoardController::use(std::stringstream &ss) {
     // call the use
     boardData.players[currentPlayer]->use(i);
   }
-
-  notifyObservers(State::printBoard);
 }
 
 void BoardController::discard(std::stringstream &ss) {
@@ -208,7 +206,7 @@ void BoardController::execute() {
           draw();
       } else if (s == "inspect") {
           int i;
-          if (ss >> i) notifyObservers(State::printMinion, i); // the i'th minion to inspect
+          if (ss >> i) notifyObservers(State::printMinion, i - 1); // the i'th minion to inspect
           else throw std::invalid_argument("Invalid inspect! Type 'help' for more info.");
       } else if (s == "hand") {
           notifyObservers(State::printHand);
@@ -259,9 +257,13 @@ bool BoardController::gameEnded() {
 
 int BoardController::whoWon() {
   int winner = 0; // the default winner
+  int currentHealth = boardData.getHealth(0);
   for (unsigned int i = 0; i < boardData.players.size(); ++i) {
-    if (boardData.getHealth(i) < boardData.getHealth(winner)) {
+    if (boardData.getHealth(i) > currentHealth) {
       winner = i;
+    } else 
+    {
+      winner = -1;
     }
   }
   return winner;

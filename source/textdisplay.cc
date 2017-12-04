@@ -289,7 +289,7 @@ void TextDisplay::inspectMinion(std::ostream &out) const {
   }
   
   row_template_r enchantmentRow;
-  for (int k = enchantments[currentPlayer][minionIndex].size() - 1; k >= 0; --k) {
+  for (int k = 0; k < enchantments[currentPlayer][minionIndex].size(); ++k) {
     enchantmentRow.emplace_back(enchantments[currentPlayer][minionIndex][k]);
     if (enchantmentRow.size() >= 5) {
       printRow(enchantmentRow, out);
