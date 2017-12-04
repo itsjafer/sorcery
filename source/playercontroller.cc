@@ -356,6 +356,7 @@ void PlayerController::play(int i) {
         playerModel.magic -= card->getCost();
         if (playerModel.magic < 0) playerModel.magic = 0;
         playerModel.graveyard.emplace_back(card);
+        playerModel.hand.erase(playerModel.hand.begin() + (i - 1));     //remove card from hand
     }
     else if (card->getType() == Type::Ritual) {
         if (playerModel.ritual) {
@@ -363,6 +364,7 @@ void PlayerController::play(int i) {
             playerModel.ritual = nullptr;
         }
         playerModel.ritual = dynamic_pointer_cast<Ritual>(card);
+        playerModel.hand.erase(playerModel.hand.begin() + (i - 1));     //remove card from hand
         playerModel.magic -= card->getCost();
         if (playerModel.magic < 0) playerModel.magic = 0;
     }
@@ -373,6 +375,7 @@ void PlayerController::play(int i) {
         if (playerModel.magic < 0) playerModel.magic = 0;
 
         playerModel.minions.emplace_back(dynamic_pointer_cast<Minion>(card));
+        playerModel.hand.erase(playerModel.hand.begin() + (i - 1));     //remove card from hand
         std::vector<Event> events;
         std::vector<Event> enemyPersonalEvents;
         std::vector<Event> personalEvents;
@@ -394,10 +397,6 @@ void PlayerController::play(int i) {
     else {
         throw InvalidMoveException(InvalidMove::BadPlay);
     }
-
-    std::cout << "Removing from hand" << std::endl;
-    playerModel.hand.erase(playerModel.hand.begin() + (i - 1));     //remove card from hand
-    std::cout << "Removed" << std::endl;
 }
 
 void PlayerController::play(int i, int p, int t) {
@@ -420,7 +419,6 @@ void PlayerController::play(int i, int p, int t) {
     else {
         throw InvalidMoveException(InvalidMove::BadPlay);
     }    //handle exception
-
 }
 
 void PlayerController::use(int i) {
