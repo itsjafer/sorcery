@@ -73,11 +73,11 @@ int main(int argc, char * argv[]) {
   // our vector of displays
   vector<shared_ptr<Observer>> displays;
   shared_ptr<TextDisplay> td(new TextDisplay);
-  shared_ptr<GraphicsDisplay> gd(new GraphicsDisplay(750));
+  //shared_ptr<GraphicsDisplay> gd(new GraphicsDisplay(750));
 
   displays.emplace_back(td);
-  displays.emplace_back(gd);
-  
+  //displays.emplace_back(gd);
+
   cout << "main.cc: Board is now going to be initialized." << endl;
   // initialize the board
   BoardController board(names, deckFiles, displays, TestingMode);

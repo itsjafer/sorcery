@@ -392,18 +392,20 @@ void PlayerController::play(int i) {
     }
     else if (card->getType() == Type::Minion) {
         if (playerModel.minions.size() >= board->getFieldSize()) throw InvalidMoveException(InvalidMove::FieldFull);
+
         playerModel.magic -= card->getCost();
         if (playerModel.magic < 0) playerModel.magic = 0;
+
         playerModel.minions.emplace_back(dynamic_pointer_cast<Minion>(card));
         std::vector<Event> events;
-        events.emplace_back(Event::minionEnteredPlay);
-        board->updateBoard(events);
         std::vector<Event> enemyPersonalEvents;
         std::vector<Event> personalEvents;
+        events.emplace_back(Event::minionEnteredPlay);
         enemyPersonalEvents.emplace_back(Event::enemyMinionEnteredPlay);
+        enemyPersonalEvents.emplace_back(Event::minionEnteredPlay);
         personalEvents.emplace_back(Event::minionEnteredPlayControlled);
         personalEvents.emplace_back(Event::minionEnteredPlay);
-        enemyPersonalEvents.emplace_back(Event::minionEnteredPlay);
+        board->updateBoard(events);
         int enemy;
         if (playerModel.playerNumber ==  0) {
           enemy = 1;
@@ -413,11 +415,13 @@ void PlayerController::play(int i) {
         board->updateBoard(enemyPersonalEvents, enemy);
         board->updateBoard(personalEvents, playerModel.playerNumber);
     }
-    else { 
+    else {
         throw InvalidMoveException(InvalidMove::BadPlay);
     }
 
+    std::cout << "Removing from hand" << std::endl;
     playerModel.hand.erase(playerModel.hand.begin() + (i - 1));     //remove card from hand
+    std::cout << "Removed" << std::endl;
 }
 
 void PlayerController::play(int i, int p, int t) {
@@ -437,7 +441,7 @@ void PlayerController::play(int i, int p, int t) {
         playerModel.minions.at((int)(t - 1))->enchantments.emplace_back(dynamic_pointer_cast<Enchantment>(card));
         playerModel.hand.erase(playerModel.hand.begin() + (i - 1));     //remove card from hand
     }
-    else { 
+    else {
         throw InvalidMoveException(InvalidMove::BadPlay);
     }    //handle exception
 
