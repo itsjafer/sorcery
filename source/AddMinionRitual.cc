@@ -1,4 +1,5 @@
 #include "ritual.h"
+#include "minion.h"
 
 using namespace std;
 
@@ -14,11 +15,23 @@ Ritual(cardName, cost, owner, description, charges, activationCost, trigger), at
 }
 
 void AddMinionRitual::updateState(vector<Event> &events) {
-
+  for (int i = 0; i < events.size(); i++) {
+    if (events[i] == this->getTrigger()){
+        castCard();
+    }
+  }
 }
 
 void AddMinionRitual::castCard() {
+  if (board->getMagic(this->getOwner()) >= this->getActCost() && this->getCharges() > 0) {
+    board->setMagic(this->getOwner(), board->getMagic(this->getOwner()) - this->getActCost());
+    this->setCharges(this->getCharges() - 1);
 
+    //Apply affects to minion
+    board->players.at(this->getOwner())->minion(board->players.at(this->getOwner())->numMinions()).att += attMod;
+    board->players.at(this->getOwner())->minion(board->players.at(this->getOwner())->numMinions()).def += defMod;
+
+  }
 }
 
 void AddMinionRitual::castCard(int p, int t) {

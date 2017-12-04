@@ -2,6 +2,7 @@
 #define RITUAL_H
 
 #include "nonplayer.h"
+#include "playercontroller.h"
 
 class Ritual: public NonPlayer {
     int charges;
@@ -16,6 +17,7 @@ public:
     void setCharges(int i) { charges = i; }
     int getActCost() { return activationCost; }
     void setActCost(int i) { activationCost = i; };
+    Event getTrigger() { return trigger; };
     virtual ~Ritual() = default;
 };
 

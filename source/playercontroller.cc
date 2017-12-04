@@ -191,9 +191,9 @@ void PlayerController::addCard(ifstream &cardData) {
                 Event cardTrigger;
                 string trigger; getline(cardData, trigger);
                 if (trigger == "Beginning of turn") {
-                    cardTrigger = Event::startTurn;
+                    cardTrigger = Event::thisStartTurn;
                 } else if (trigger == "Enter controlled") {
-                    cardTrigger = Event::minionEnteredPlay; //Note incorrect event type for now, will change later
+                    cardTrigger = Event::minionEnteredPlayControlled; //Note incorrect event type for now, will change later
                 } else if (trigger == "Enter any") {
                     cardTrigger = Event::minionEnteredPlay;
                 }
@@ -227,9 +227,9 @@ void PlayerController::addCard(ifstream &cardData) {
                 Event cardTrigger;
                 string trigger; getline(cardData, trigger);
                 if (trigger == "Beginning of turn") {
-                    cardTrigger = Event::startTurn;
+                    cardTrigger = Event::thisStartTurn;
                 } else if (trigger == "Enter controlled") {
-                    cardTrigger = Event::minionEnteredPlay; //Note incorrect event type for now, will change later
+                    cardTrigger = Event::minionEnteredPlayControlled; //Note incorrect event type for now, will change later
                 } else if (trigger == "Enter any") {
                     cardTrigger = Event::minionEnteredPlay;
                 }
@@ -264,9 +264,9 @@ void PlayerController::addCard(ifstream &cardData) {
             Event cardTrigger;
             string trigger; getline(cardData, trigger);
             if (trigger == "Beginning of turn") {
-                cardTrigger = Event::startTurn;
+                cardTrigger = Event::thisStartTurn;
             } else if (trigger == "Enter controlled") {
-                cardTrigger = Event::minionEnteredPlay; //Note incorrect event type for now, will change later
+                cardTrigger = Event::minionEnteredPlayControlled; //Note incorrect event type for now, will change later
             } else if (trigger == "Enter any") {
                 cardTrigger = Event::minionEnteredPlay;
             }
@@ -393,15 +393,18 @@ void PlayerController::play(int i) {
         std::vector<Event> events;
         events.emplace_back(Event::minionEnteredPlay);
         board->updateBoard(events);
+        std::vector<Event> enemyPersonalEvents;
         std::vector<Event> personalEvents;
-        personalEvents.emplace_back(Event::enemyMinionEnteredPlay);
+        enemyPersonalEvents.emplace_back(Event::enemyMinionEnteredPlay);
+        personalEvents.emplace_back(Event::minionEnteredPlayControlled);
         int enemy;
         if (playerModel.playerNumber ==  0) {
           enemy = 1;
         } else if (playerModel.playerNumber == 1) {
           enemy = 0;
         }
-        board->updateBoard(personalEvents, enemy);
+        board->updateBoard(enemyPersonalEvents, enemy);
+        board->updateBoard(personalEvents, playerModel.playerNumber);
         playerModel.hand.erase(playerModel.hand.begin() + (i - 1));     //remove card from hand
     }
     else { }    //handle exception
