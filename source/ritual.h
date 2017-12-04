@@ -13,6 +13,9 @@ public:
             type = Type::Ritual;
         }
     int getCharges() { return charges; }
+    void setCharges(int i) { charges = i; }
+    int getActCost() { return activationCost; }
+    void setActCost(int i) { activationCost = i; };
     virtual ~Ritual() = default;
 };
 
@@ -22,7 +25,7 @@ class AddPlayerRitual: public Ritual {
     std::string target;
     void updateState(std::vector<Event> &events) override;
     void castCard() override;
-    void castCard(int p, char t = 'r') override;
+    void castCard(int p, int t = -1) override;
 public:
     AddPlayerRitual(std::string &cardName, int cost, int owner, std::string &description, int charges, int activationCost, int healthMod, int magicMod, Event trigger, std::string &target);
     ~AddPlayerRitual() { }
@@ -37,7 +40,7 @@ class AddMinionRitual: public Ritual {
     std::string target;
     void updateState(std::vector<Event> &events) override;
     void castCard() override;
-    void castCard(int p, char t = 'r') override;
+    void castCard(int p, int t = -1) override;
 public:
     AddMinionRitual(std::string &cardName, int cost, int owner, std::string &description, int charges, int activationCost, int attMod, int defMod, int actPerTurn, int abilityCost, int silencer, Event trigger, std::string &target);
     ~AddMinionRitual() { }
@@ -48,7 +51,7 @@ class MoveRitual: public Ritual {
     std::string destination;
     void updateState(std::vector<Event> &events) override;
     void castCard() override;
-    void castCard(int p, char t = 'r') override;
+    void castCard(int p, int t = -1) override;
 public:
     MoveRitual(std::string &cardName, int cost, int owner, std::string &description, int charges, int activationCost, Event trigger, std::string &target, std::string &destination);
     ~MoveRitual() { }

@@ -16,7 +16,7 @@ void AdderActive::castCard() {
 
 }
 
-void AdderActive::castCard(int p, char t) {
+void AdderActive::castCard(int p, int t) {
   //If this ability takes a target do something to the target
   vector<Event> EventsForTarget;
   if (target == "chosen") { //cannot be a ritual

@@ -1,5 +1,6 @@
 #include "enchantment.h"
 #include "ability.h"
+#include <iostream>
 
 using namespace std;
 
@@ -23,8 +24,13 @@ void AddEnchant::castCard() {
 
 }
 
-void AddEnchant::unCast(int p, char t) {
+void AddEnchant::unCast() {
 
+}
+
+void AddEnchant::unCast(int p, int t) {
+
+  cout << "in castlantis baby" << endl;
   vector<Event> EventsForTarget;
   int target = t;
 
@@ -55,6 +61,7 @@ void AddEnchant::unCast(int p, char t) {
   }
 
   if (board->players.at(p)->minion(target).def <= 0) {
+    cout << "minion died with " << board->players.at(p)->minion(target).def << " defence" << endl;
     EventsForTarget.emplace_back(Event::minionDied);
     board->players.at(p)->minion(target).update(EventsForTarget);
     board->players.at(p)->toGrave(false, target - 1);
@@ -62,9 +69,10 @@ void AddEnchant::unCast(int p, char t) {
 
 }
 
-void AddEnchant::castCard(int p, char t) {
+void AddEnchant::castCard(int p, int t) {
 
   int target = t;
+  cout << "in castlantis baby target: " << target << endl;
 
   if (defOperation == "+" ) {
     board->players.at(p)->minion(target).def += defMod;
@@ -76,6 +84,7 @@ void AddEnchant::castCard(int p, char t) {
     board->players.at(p)->minion(target).def = defMod;
   }
 
+  cout << "def done" << endl;
   if (attOperation == "+" ) {
     board->players.at(p)->minion(target).att += attMod;
   } else if (attOperation == "-") {
@@ -86,12 +95,14 @@ void AddEnchant::castCard(int p, char t) {
     board->players.at(p)->minion(target).att = attMod;
   }
 
+  cout << "att done" << endl;
   board->players.at(p)->minion(target).actionPerTurn += actPerTurn;
 
-  if (board->players.at(p)->minion(target).abilities.back()->getType() == Type::ActivatedAbility) {
+  if (board->players.at(p)->minion(target).abilities.size() > 0 && board->players.at(p)->minion(target).abilities.back()->getType() == Type::ActivatedAbility) {
     board->players.at(p)->minion(target).abilities.back()->setCost(board->players.at(p)->minion(target).abilities.back()->getCost() + AbilityCost);
   }
 
+  cout << "actions and abilities donzo" << endl;
   if (silence) {
     board->players.at(p)->minion(target).canCast = false;
   }

@@ -86,6 +86,6 @@ void AdderTriggered::castCard() {
   }
 }
 
-void AdderTriggered::castCard(int p, char t) {
+void AdderTriggered::castCard(int p, int t) {
 
 }

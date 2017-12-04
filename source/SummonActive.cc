@@ -36,6 +36,6 @@ void SummonActive::castCard() {
 
 }
 
-void SummonActive::castCard(int p, char t) {
+void SummonActive::castCard(int p, int t) {
 
 }

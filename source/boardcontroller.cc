@@ -114,16 +114,25 @@ void BoardController::execute() {
     } else if (s == "play") {
         int i;
         int p;
-        int t;
+        char t;
+
+        int target;
 
         ss >> i; // i'th card
 
         if (ss.good()) { // the p'th player
           ss >> p;
           ss >> t; // the t'th minion to affect
-          std::cout << "BoardController.cc: Player " << currentPlayer << " has used card " << i << " on player " << p << "'s minion " << t << std::endl;
+
+          if (t == 'r') {
+            target = -1;
+          } else {
+            target = t - '0';
+          }
+
+          std::cout << "BoardController.cc: Player " << currentPlayer << " has used card " << i << " on player " << p << "'s minion " << target << std::endl;
           // call the play
-          boardData.players[currentPlayer]->play(i, p, t);
+          boardData.players[currentPlayer]->play(i, p, target);
           continue;
         }
 
@@ -135,7 +144,9 @@ void BoardController::execute() {
         // j = 0 is the special case where the i'th minion attacks the inactive player himself
         int i;
         int p;
-        int t;
+        char t;
+
+        int target;
 
         ss >> i; // i'th minion to use
 
@@ -143,9 +154,15 @@ void BoardController::execute() {
           ss >> p;
           ss >> t; // the t'th minion to affect
 
-          std::cout << "BoardController.cc: Player " << currentPlayer << " has used minion " << i << "'s ability on player " << p << "'s minion " << t << std::endl;
+          if (t == 'r') {
+            target = -1;
+          } else {
+            target = t - '0';
+          }
 
-          boardData.players[currentPlayer]->use(i, p, t);
+          std::cout << "BoardController.cc: Player " << currentPlayer << " has used minion " << i << "'s ability on player " << p << "'s minion " << target << std::endl;
+
+          boardData.players[currentPlayer]->use(i, p, target);
           continue;
         }
 

@@ -344,6 +344,23 @@ Minion &PlayerController::graveMinion() {
   return *(m);
 }
 
+Ritual &PlayerController::getRitual() {
+  std::shared_ptr<Ritual> m = std::dynamic_pointer_cast<Ritual>(playerModel.ritual);
+  return *(m);
+}
+
+void PlayerController::resurrectLast() {
+
+  for (int i = playerModel.graveyard.size() - 1; i >= 0; --i) {
+    if (playerModel.graveyard.at(i)->getType() == Type::Minion) {
+
+      std::shared_ptr<Minion> m = std::dynamic_pointer_cast<Minion>(playerModel.graveyard.at(i));
+      playerModel.minions.emplace_back(m);
+      playerModel.graveyard.erase(playerModel.graveyard.begin() + (i));
+    }
+  }
+}
+
 int PlayerController::numMinions() {
   return playerModel.minions.size();
 }
@@ -389,7 +406,7 @@ void PlayerController::play(int i) {
     //remove card from hand
 }
 
-void PlayerController::play(int i, int p, char t) {
+void PlayerController::play(int i, int p, int t) {
     auto card = playerModel.hand.at(i - 1);
 
     if (card->getType() == Type::Spell && playerModel.magic >= card->getCost()) {
@@ -398,11 +415,8 @@ void PlayerController::play(int i, int p, char t) {
         playerModel.hand.erase(playerModel.hand.begin() + (i - 1));     //remove card from hand
     }
     else if (card->getType() == Type::AddEnchantment && playerModel.magic >= card->getCost()) {
-        cout << "Casting enchantment: " << card->getName() << endl;
         card->cast(p, t);
         playerModel.minions.at((int)(t - 1))->enchantments.emplace_back(dynamic_pointer_cast<Enchantment>(card));
-        cout << playerModel.minions.at((int)(t - 1))->enchantments.back()->getDescription() << endl;;
-        cout << playerModel.minions.at((int)(t - 1))->enchantments.size() << endl;;
         playerModel.hand.erase(playerModel.hand.begin() + (i - 1));     //remove card from hand
     }
     else { }    //handle exception
@@ -413,7 +427,7 @@ void PlayerController::use(int i) {
     playerModel.minions.at(i - 1)->cast();
 }
 
-void PlayerController::use(int i, int p, char t) {
+void PlayerController::use(int i, int p, int t) {
     playerModel.minions.at(i - 1)->cast(p, t);
 }
 
@@ -422,20 +436,22 @@ void PlayerController::attack(int i, int j) {
 }
 
 void PlayerController::toGrave(bool Ritual, int minionIndex) {
-  cout << "toGrave Minion: " << minionIndex << endl;
   if (Ritual) {
     playerModel.graveyard.emplace_back(playerModel.ritual);
     playerModel.ritual = nullptr;
   } else {
     playerModel.minions.at(minionIndex)->def = 0;
     playerModel.graveyard.emplace_back(playerModel.minions.at(minionIndex));
-    cout << "Added to grave" << endl;
     playerModel.minions.erase(playerModel.minions.begin() + (minionIndex));
-    cout << "Removed from board" << endl;
     vector<Event> events;
     events.emplace_back(Event::minionDied);
     //board->updateBoard(events);
   }
+}
+
+void PlayerController::toHand(int minionIndex) {
+  playerModel.hand.emplace_back(playerModel.minions.at(minionIndex));
+  playerModel.minions.erase(playerModel.minions.begin() + (minionIndex));
 }
 
  PlayerModel &PlayerController::getPlayerData() {

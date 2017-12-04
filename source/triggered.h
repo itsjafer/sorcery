@@ -17,7 +17,7 @@ class AdderTriggered: public Triggered {
     std::string target;
     void updateState(std::vector<Event> &events) override;
     void castCard() override;
-    void castCard(int p, char t = 'r') override;
+    void castCard(int p, int t = -1) override;
 public:
     AdderTriggered(int owner, Event trigger, int attMod, int defMod, std::string &target, std::string &description, Minion *minion);
     ~AdderTriggered() { }
