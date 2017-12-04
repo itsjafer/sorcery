@@ -16,7 +16,6 @@ void MoveSpell::castCard() {
 }
 
 void MoveSpell::castCard(int p, int t) {
-  cout << t << endl;
   if (t == -1) {
     if (moveSource == "field") {
       if (moveDestination == "grave") {

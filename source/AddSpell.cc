@@ -15,7 +15,6 @@ void AddSpell::castCard() {
     for (int i = 0; i < board->players.size(); ++i) {
       for (int j = board->players.at(i)->numMinions(); j > 0; --j) {
         vector<Event> eventsForTarget;
-        cout << board->players.at(i)->minion(j).getName() << endl;
         if (attOperation == "+") {
           board->players.at(i)->minion(j).att += attMod;
         }
