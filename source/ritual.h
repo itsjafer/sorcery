@@ -54,6 +54,7 @@ class MoveRitual: public Ritual {
     void updateState(std::vector<Event> &events) override;
     void castCard() override;
     void castCard(int p, int t = -1) override;
+    bool onOwn = false;
 public:
     MoveRitual(std::string &cardName, int cost, int owner, std::string &description, int charges, int activationCost, Event trigger, std::string &target, std::string &destination);
     ~MoveRitual() { }

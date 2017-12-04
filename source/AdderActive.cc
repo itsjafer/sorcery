@@ -31,7 +31,7 @@ void AdderActive::castCard(int p, int t) {
       //Minion took damage
       EventsForTarget.emplace_back(Event::minionTookDamage);
 
-      if (board->players.at(p)->minion  (target).def <= 0) {
+      if (board->players.at(p)->minion(target).def <= 0) {
 
         //Minion died
         EventsForTarget.emplace_back(Event::minionDied);

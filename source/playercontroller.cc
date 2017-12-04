@@ -397,6 +397,8 @@ void PlayerController::play(int i) {
         std::vector<Event> personalEvents;
         enemyPersonalEvents.emplace_back(Event::enemyMinionEnteredPlay);
         personalEvents.emplace_back(Event::minionEnteredPlayControlled);
+        personalEvents.emplace_back(Event::minionEnteredPlay);
+        enemyPersonalEvents.emplace_back(Event::minionEnteredPlay);
         int enemy;
         if (playerModel.playerNumber ==  0) {
           enemy = 1;

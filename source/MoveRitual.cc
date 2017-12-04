@@ -1,4 +1,6 @@
 #include "ritual.h"
+#include "minion.h"
+#include <iostream>
 
 using namespace std;
 
@@ -7,11 +9,20 @@ MoveRitual::MoveRitual(string &cardName, int cost, int owner, string &descriptio
 Ritual(cardName, cost, owner, description, charges, activationCost, trigger), target(target), destination(destination){}
 
 void MoveRitual::updateState(vector<Event> &events) {
+
   //Go through list of given events
   for (int i = 0; i < events.size(); ++i) {
     //check the event and if it triggers this ability
     if (events[i] == this->getTrigger()) {
-      this->castCard();
+      for (int j = 0; j < events.size(); ++j) {
+        if (events[j] == Event::enemyMinionEnteredPlay) {
+          onOwn = false;
+          this->castCard();
+        } else if (events[j] == Event::minionEnteredPlayControlled) {
+          onOwn = true;
+          this->castCard();
+        }
+      }
     }
   }
 }
@@ -21,6 +32,24 @@ void MoveRitual::castCard() {
     board->setMagic(this->getOwner(), board->getMagic(this->getOwner()) - this->getActCost());
     this->setCharges(this->getCharges() - 1);
     //Requires implementation
+    vector<Event> EventsForTarget;
+    if (onOwn) {
+      EventsForTarget.emplace_back(Event::minionDied);
+      board->players.at(this->getOwner())->minion(board->players.at(this->getOwner())->numMinions()).update(EventsForTarget);
+      board->players.at(this->getOwner())->toGrave(false, board->players.at(this->getOwner())->numMinions() - 1);
+    } else {
+      cout << "getting the other guy" << endl;
+      int opponent;
+      if (this->getOwner() == 1) {
+        opponent = 0;
+      } else if (this->getOwner() == 0) {
+        opponent = 1;
+      }
+      cout << "killing his ass" << endl;
+      board->players.at(opponent)->minion(board->players.at(opponent)->numMinions()).update(EventsForTarget);
+      board->players.at(opponent)->toGrave(false, board->players.at(opponent)->numMinions() - 1);
+      cout << "job done" << endl;
+    }
   }
 }
 
