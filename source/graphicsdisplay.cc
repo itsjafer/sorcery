@@ -220,6 +220,8 @@ void GraphicsDisplay::displayCard(std::shared_ptr<NonPlayer> card, int x, int y)
     totalSpacing += spacing;
     xw.drawString(x, totalSpacing, "Ritual");
     totalSpacing += spacing;
+    xw.drawString(x, totalSpacing, "Activation Cost: " + std::to_string(r->getActCost()));
+    totalSpacing += spacing;
     displayDescription(r->getDescription(), x, totalSpacing);    
     y += cardHeight - spacing;
     xw.drawString(x, y, "Charges: " + std::to_string(r->getCharges()));

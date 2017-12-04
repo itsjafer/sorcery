@@ -109,7 +109,7 @@ card_template_t TextDisplay::cardTemplate(std::shared_ptr<NonPlayer> card) {
   // check if its a ritual
   else if (card->getType() == Type::Ritual) {
     std::shared_ptr<Ritual> r = std::dynamic_pointer_cast<Ritual>(card);
-    return (display_ritual(name, cost, r->getCost(), r->getDescription(), r->getCharges()));
+    return (display_ritual(name, cost, r->getActCost(), r->getDescription(), r->getCharges()));
   }
 
   // check if its a spell

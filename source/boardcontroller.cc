@@ -59,7 +59,7 @@ void BoardController::attack(std::stringstream &ss) {
   // j = 0 is the special case where the i'th minion attacks the inactive player himself
   int i;
   if (!(ss >> i)) throw std::invalid_argument("Invalid use of attack! Type 'help' for more info."); // i'th minion
-  int j = 0;
+  int j = (currentPlayer == 0) ? 1 : currentPlayer;
 
   if (ss.good()) {
     if (!(ss >> j)) throw std::invalid_argument("Invalid use of attack! Type 'help' for more info."); // i'th minion
@@ -83,7 +83,7 @@ void BoardController::play(std::stringstream &ss) {
     if (!(ss >> t)) throw std::invalid_argument("Invalid use of play! Type 'help' for more info."); // the t'th minion to affect
 
     int target;
-    if (t == 'r')
+    if (t == 'r'), r->getCost()
       target = -1;
     else if (t >= '1' && t <= '5') {
       target = t - '0';
