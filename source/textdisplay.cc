@@ -190,7 +190,7 @@ void TextDisplay::updateMinions(std::vector<PlayerModel> boardInfos) {
 
     // if neither players have any minions, we're done
     if (boardInfos[i].minions.empty()) {
-      continue;
+      //continue;
     }
 
     // if we have minions, let's populate our field
@@ -202,7 +202,7 @@ void TextDisplay::updateMinions(std::vector<PlayerModel> boardInfos) {
       for (auto enchantment : boardInfos[i].minions[j]->enchantments) {
         enchantments.emplace_back(cardTemplate(enchantment));
       }
-
+      
       this->enchantments[i].emplace_back(enchantments);
     }
 
@@ -283,19 +283,22 @@ void TextDisplay::inspectMinion(std::ostream &out) const {
     out << minions[currentPlayer][minionIndex][i] << std::endl;
   }
 
+  // if we have no enchantments, we're done
   if (enchantments[currentPlayer][minionIndex].empty()) {
     return;
   }
   
   row_template_r enchantmentRow;
-  for (auto enchantment : enchantments[currentPlayer][minionIndex]) {
-    // print out each row of enchantments
-    for (unsigned int i = 0; i < cardsPerRow; ++i) {
-      enchantmentRow.emplace_back(enchantment);
+  for (int k = enchantments[currentPlayer][minionIndex].size() - 1; k >= 0; --k) {
+    enchantmentRow.emplace_back(enchantments[currentPlayer][minionIndex][k]);
+    if (enchantmentRow.size() >= 5) {
+      printRow(enchantmentRow, out);
+      enchantmentRow.clear();
     }
-    printRow(enchantmentRow, out);
-    enchantmentRow.clear();
   }
+
+  // print anything left over
+  printRow(enchantmentRow, out);
 }
 
 void TextDisplay::printHand(std::ostream &out) const {

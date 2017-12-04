@@ -156,7 +156,7 @@ void BoardController::execute() {
       int i;
       ss >> i; // the i'th minion to inspect
 
-      notifyObservers(State::printMinion, i);
+      notifyObservers(State::printMinion, i + 1);
     } else if (s == "hand") {
       notifyObservers(State::printHand);
     } else if (s == "board") {

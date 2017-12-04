@@ -14,8 +14,8 @@ GraphicsDisplay::GraphicsDisplay(int winSize) : winSize(winSize), xw(winSize * 2
 
   // set the card sizes
   cardWidth = (winSize * 2 ) / 5;
-  logoHeight = winSize / 4;
-  cardHeight = (winSize - logoHeight) / 4;
+  logoHeight = winSize / 5;
+  cardHeight = (winSize - logoHeight) / 5;
   spacing = cardHeight / 8;
   // start by creating an empty display with just templates
   std::cout << "graphicsdisplay.cc: Initializing graphicsdisplay." << std::endl;
@@ -39,13 +39,16 @@ void GraphicsDisplay::notifyDisplay(BoardController &whoNotified, State command,
 
   displayPlayers(boardInfos);
   displayMinions(boardInfos);
+  displayHand(boardInfos);
 
   // display the logo
-  xw.drawBigString(0, cardHeight * 2 + cardHeight / 2, "SORCERY", Xwindow::White);
+  xw.drawBigString(0, cardHeight * (3 - currentPlayer) + cardHeight / (3 - currentPlayer), "SORCERY", Xwindow::White);
   
   if (command == State::printMinion) {
+    xw.fillRectangle(0, 0, winSize * 2, winSize, Xwindow::Black);    
     inspectMinion(boardInfos);
   } else if (command == State::printHand) {
+    xw.fillRectangle(0, 0, winSize * 2, winSize, Xwindow::Black);    
     displayHand(boardInfos);
   } else if (command == State::printHelp) {
     displayHelp();
@@ -82,10 +85,14 @@ void GraphicsDisplay::displayHelp() {
 }
 
 void GraphicsDisplay::displayHand(std::vector<PlayerModel> boardInfos) {
-  int widthIndex = 0;
+  int height = 0;
+  int width = 0;
+  if (currentPlayer == 1) {
+    height = winSize - cardHeight;
+  }
   for (int i = 0; i < boardInfos[currentPlayer].hand.size(); i++) {
-    displayCard(boardInfos[currentPlayer].hand[i], widthIndex, 0);
-    widthIndex += cardWidth;
+    displayCard(boardInfos[currentPlayer].hand[i], width, height);
+    width += cardWidth;
   }
 } 
 
@@ -101,9 +108,10 @@ void GraphicsDisplay::inspectMinion(std::vector<PlayerModel> boardInfos) {
     return;
   }
 
-  for (int i = 0; i < boardInfos[currentPlayer].minions[minionIndex]->enchantments.size(); ++i) {
+  for (int i = boardInfos[currentPlayer].minions[minionIndex]->enchantments.size(); i >= 0; --i) {
     if (widthIndex >= winSize * 2) {
       widthIndex = 0;
+      heightIndex += cardHeight;
     }
     displayCard(boardInfos[currentPlayer].minions[minionIndex]->enchantments[i], widthIndex, heightIndex);
     widthIndex += cardWidth;
@@ -224,7 +232,7 @@ void GraphicsDisplay::displayCard(std::shared_ptr<NonPlayer> card, int x, int y)
     xw.drawString(x, totalSpacing, name);
     totalSpacing += spacing;
     xw.drawString(x, totalSpacing, "Cost: " + std::to_string(cost));
-    
+    totalSpacing += spacing;
     xw.drawString(x, totalSpacing, "Spell");
     totalSpacing += spacing;
     displayDescription(description, x, totalSpacing);     
@@ -269,9 +277,10 @@ void GraphicsDisplay::displayCard(std::shared_ptr<NonPlayer> card, int x, int y)
 
 void GraphicsDisplay::displayPlayers(std::vector<PlayerModel> boardInfos) {
 
-  int halfway = (winSize - logoHeight) / 2;
-
-  int heightIndex = 0; 
+  int heightIndex = 0;
+  if (currentPlayer == 0) {
+    heightIndex = cardHeight; // account for the hand displayed above
+  }
   for (int i = 0; i < boardInfos.size(); ++i) {
     // draw the ritual
     if (boardInfos[i].ritual != nullptr) {
@@ -301,12 +310,19 @@ void GraphicsDisplay::displayPlayers(std::vector<PlayerModel> boardInfos) {
     }
 
     // update the heightIndex to print player 2's row
-    heightIndex = winSize - cardHeight;
+    if (currentPlayer == 0) {      
+      heightIndex = winSize - cardHeight;
+    } else {
+      heightIndex = winSize - (cardHeight * 2);
+    }
   }
 }
 
 void GraphicsDisplay::displayMinions(std::vector<PlayerModel> boardInfos) {
   int heightIndex = cardHeight;
+  if (currentPlayer == 0) {
+    heightIndex += cardHeight; // account for the hand displayed above
+  }
   for (int i = 0 ; i < boardInfos.size(); ++i) {
     for (int j = 0; j < winSize * 2; j+= cardWidth) {
       // fill minion slots with white space
@@ -326,6 +342,10 @@ void GraphicsDisplay::displayMinions(std::vector<PlayerModel> boardInfos) {
       widthIndex += cardWidth;
     }
 
-    heightIndex = winSize - (2 * cardHeight);
+    if (currentPlayer == 0) {      
+      heightIndex = winSize - (2 * cardHeight);
+    } else {
+      heightIndex = winSize - (cardHeight * 3);
+    }
   }
 }
