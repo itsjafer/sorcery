@@ -41,17 +41,16 @@ void MoveRitual::castCard() {
     board->players.at(this->getOwner())->minion(board->players.at(this->getOwner())->numMinions()).update(EventsForTarget);
     board->players.at(this->getOwner())->toGrave(false, board->players.at(this->getOwner())->numMinions() - 1);
   } else {
-    cout << "getting the other guy" << endl;
     int opponent;
     if (this->getOwner() == 1) {
       opponent = 0;
     } else if (this->getOwner() == 0) {
       opponent = 1;
     }
-    cout << "killing his ass" << endl;
+
+    EventsForTarget.emplace_back(Event::minionDied);
     board->players.at(opponent)->minion(board->players.at(opponent)->numMinions()).update(EventsForTarget);
     board->players.at(opponent)->toGrave(false, board->players.at(opponent)->numMinions() - 1);
-    cout << "job done" << endl;
   }
 }
 

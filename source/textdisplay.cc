@@ -109,7 +109,7 @@ card_template_t TextDisplay::cardTemplate(std::shared_ptr<NonPlayer> card) {
   // check if its a ritual
   else if (card->getType() == Type::Ritual) {
     std::shared_ptr<Ritual> r = std::dynamic_pointer_cast<Ritual>(card);
-    return (display_ritual(name, cost, r->getCost(), r->getDescription(), r->getCharges()));
+    return (display_ritual(name, cost, r->getActCost(), r->getDescription(), r->getCharges()));
   }
 
   // check if its a spell
@@ -289,7 +289,7 @@ void TextDisplay::inspectMinion(std::ostream &out) const {
   }
   
   row_template_r enchantmentRow;
-  for (int k = enchantments[currentPlayer][minionIndex].size() - 1; k >= 0; --k) {
+  for (int k = 0; k < enchantments[currentPlayer][minionIndex].size(); ++k) {
     enchantmentRow.emplace_back(enchantments[currentPlayer][minionIndex][k]);
     if (enchantmentRow.size() >= 5) {
       printRow(enchantmentRow, out);

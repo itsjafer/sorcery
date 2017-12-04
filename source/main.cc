@@ -85,18 +85,18 @@ int main(int argc, char * argv[]) {
 
   // our vector of displays
   vector<shared_ptr<Observer>> displays;
-  shared_ptr<TextDisplay> td(new TextDisplay);
-  shared_ptr<GraphicsDisplay> gd(new GraphicsDisplay(750));
+  displays.emplace_back(new TextDisplay);
 
-  displays.emplace_back(td);
-  displays.emplace_back(gd);
+  if (GraphicsMode == true) {
+    displays.emplace_back(new GraphicsDisplay(750));
+  }
   
   cout << "main.cc: Board is now going to be initialized." << endl;
   // initialize the board
   BoardController board(names, deckFiles, displays, TestingMode);
   if (init.good()) board.setInit(&init);
 
-  while (!board.gameEnded()) {
+  while (!board.gameEnded() && !cin.eof()) {
 
     // go through the three stages of turns
     //cout << "main.cc: Board is now going to go through preTurn." << endl;
@@ -113,5 +113,9 @@ int main(int argc, char * argv[]) {
   }
 
   // find out who won
-  cout << "Player " << board.whoWon() << " wins!" << endl;
+  if (board.whoWon() < 0) {
+    cout << "Tie game!" << endl;
+  } else {
+    cout << "Player " << board.whoWon() << " wins!" << endl;
+  }
 }

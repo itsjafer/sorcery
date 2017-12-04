@@ -59,7 +59,7 @@ void BoardController::attack(std::stringstream &ss) {
   // j = 0 is the special case where the i'th minion attacks the inactive player himself
   int i;
   if (!(ss >> i)) throw std::invalid_argument("Invalid use of attack! Type 'help' for more info."); // i'th minion
-  int j = 0;
+  int j = (currentPlayer == 0) ? 1 : currentPlayer;
 
   if (ss.good()) {
     if (!(ss >> j)) throw std::invalid_argument("Invalid use of attack! Type 'help' for more info."); // i'th minion
@@ -83,7 +83,7 @@ void BoardController::play(std::stringstream &ss) {
     if (!(ss >> t)) throw std::invalid_argument("Invalid use of play! Type 'help' for more info."); // the t'th minion to affect
 
     int target;
-    if (t == 'r')
+    if (t == 'r'), r->getCost()
       target = -1;
     else if (t >= '1' && t <= '5') {
       target = t - '0';
@@ -132,8 +132,6 @@ void BoardController::use(std::stringstream &ss) {
     // call the use
     boardData.players[currentPlayer]->use(i);
   }
-
-  notifyObservers(State::printBoard);
 }
 
 void BoardController::discard(std::stringstream &ss) {
@@ -213,7 +211,7 @@ void BoardController::execute() {
           draw();
       } else if (s == "inspect") {
           int i;
-          if (ss >> i) notifyObservers(State::printMinion, i); // the i'th minion to inspect
+          if (ss >> i) notifyObservers(State::printMinion, i - 1); // the i'th minion to inspect
           else throw std::invalid_argument("Invalid inspect! Type 'help' for more info.");
       } else if (s == "hand") {
           notifyObservers(State::printHand);
@@ -269,9 +267,13 @@ bool BoardController::gameEnded() {
 
 int BoardController::whoWon() {
   int winner = 0; // the default winner
+  int currentHealth = boardData.getHealth(0);
   for (unsigned int i = 0; i < boardData.players.size(); ++i) {
-    if (boardData.getHealth(i) < boardData.getHealth(winner)) {
+    if (boardData.getHealth(i) > currentHealth) {
       winner = i;
+    } else 
+    {
+      winner = -1;
     }
   }
   return winner;
