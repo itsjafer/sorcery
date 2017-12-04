@@ -235,7 +235,7 @@ void Minion::attack(int i, int me) {
       //Damage current minion
       this->def -= board->players.at(opponent)->minion(i).att;
 
-      //Set the events only if damage was dealth ( > 0)
+      //Set the events only if damage was dealt ( > 0)
       if (board->players.at(opponent)->minion(i).att > 0) {
         EventsForB.emplace_back(Event::minionDealtDamage);
         EventsForA.emplace_back(Event::minionTookDamage);
@@ -267,8 +267,8 @@ void Minion::attack(int i, int me) {
       if (board->players.at(opponent)->minion(i).def <= 0)  {
         //Move to graveyard
         EventsForB.emplace_back(Event::minionDied);
-        board->players.at(opponent)->minion(i).updateState(EventsForB);
         board->players.at(opponent)->toGrave(false, i - 1);
+        board->players.at(opponent)->graveMinion().updateState(EventsForB);
       } else {
         board->players.at(opponent)->minion(i).updateState(EventsForB);
       }

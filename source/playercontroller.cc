@@ -339,6 +339,11 @@ Minion &PlayerController::minion(int i) {
     return *(playerModel.minions.at(i - 1));
 }
 
+Minion &PlayerController::graveMinion() {
+  std::shared_ptr<Minion> m = std::dynamic_pointer_cast<Minion>(playerModel.graveyard.back());
+  return *(m);
+}
+
 int PlayerController::numMinions() {
   return playerModel.minions.size();
 }
