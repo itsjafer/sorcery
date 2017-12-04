@@ -42,7 +42,7 @@ void GraphicsDisplay::notifyDisplay(BoardController &whoNotified, State command,
   displayHand(boardInfos);
 
   // display the logo
-  xw.drawBigString(0, cardHeight * (2 + currentPlayer) + cardHeight / (2 + currentPlayer), "SORCERY", Xwindow::White);
+  xw.drawBigString(0, cardHeight * (3 - currentPlayer) + cardHeight / (3 - currentPlayer), "SORCERY", Xwindow::White);
   
   if (command == State::printMinion) {
     xw.fillRectangle(0, 0, winSize * 2, winSize, Xwindow::Black);    
@@ -232,7 +232,7 @@ void GraphicsDisplay::displayCard(std::shared_ptr<NonPlayer> card, int x, int y)
     xw.drawString(x, totalSpacing, name);
     totalSpacing += spacing;
     xw.drawString(x, totalSpacing, "Cost: " + std::to_string(cost));
-    
+    totalSpacing += spacing;
     xw.drawString(x, totalSpacing, "Spell");
     totalSpacing += spacing;
     displayDescription(description, x, totalSpacing);     
@@ -279,7 +279,7 @@ void GraphicsDisplay::displayPlayers(std::vector<PlayerModel> boardInfos) {
 
   int heightIndex = 0;
   if (currentPlayer == 0) {
-    int heightIndex = cardHeight; // account for the hand displayed above
+    heightIndex = cardHeight; // account for the hand displayed above
   }
   for (int i = 0; i < boardInfos.size(); ++i) {
     // draw the ritual
