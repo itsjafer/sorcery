@@ -1,5 +1,6 @@
 #include "enchantment.h"
 #include "ability.h"
+#include <iostream>
 
 using namespace std;
 
@@ -23,7 +24,11 @@ void AddEnchant::castCard() {
 
 }
 
-void AddEnchant::unCast(int p, char t) {
+void AddEnchant::unCast() {
+
+}
+
+void AddEnchant::unCast(int p, int t) {
 
   vector<Event> EventsForTarget;
   int target = t;
@@ -62,7 +67,7 @@ void AddEnchant::unCast(int p, char t) {
 
 }
 
-void AddEnchant::castCard(int p, char t) {
+void AddEnchant::castCard(int p, int t) {
 
   int target = t;
 
@@ -88,7 +93,7 @@ void AddEnchant::castCard(int p, char t) {
 
   board->players.at(p)->minion(target).actionPerTurn += actPerTurn;
 
-  if (board->players.at(p)->minion(target).abilities.back()->getType() == Type::ActivatedAbility) {
+  if (board->players.at(p)->minion(target).abilities.size() > 0 && board->players.at(p)->minion(target).abilities.back()->getType() == Type::ActivatedAbility) {
     board->players.at(p)->minion(target).abilities.back()->setCost(board->players.at(p)->minion(target).abilities.back()->getCost() + AbilityCost);
   }
 

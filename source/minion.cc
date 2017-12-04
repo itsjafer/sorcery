@@ -172,13 +172,24 @@ void Minion::castCard() {
   abilities[0]->cast();
 }
 
-void Minion::castCard(int p, char t) {
+void Minion::castCard(int p, int t) { //t is not a char?
   if (abilities.empty() || abilities[0]->getType() != Type::ActivatedAbility) throw InvalidMoveException(InvalidMove::NoActivatedAbility);
   if (board->getMagic(this->getOwner()) < abilities[0]->getCost() && !(board->testingMode)) throw InvalidMoveException(InvalidMove::InsufficientMagic);
   
   --action;
   board->setMagic(this->getOwner(), board->getMagic(this->getOwner()) - abilities[0]->getCost());
   abilities[0]->cast(p, t);
+  // TODO: discuss with Berges about merging this...
+/*
+void Minion::castCard(int p, int t) {
+  if (board->players.at(this->getOwner())->getPlayerData().magic >= abilities[0]->getCost() && canCast && action >= 1) {
+    action -= 1;
+    board->players.at(this->getOwner())->getPlayerData().magic -= abilities[0]->getCost();
+    abilities[0]->cast(p, t);
+  } else {
+      cout << "Cannot use this ability right now, this minion has " << action << " action(S)" << endl;
+    }
+*/
 }
 
 void Minion::attack(int i, int me) {

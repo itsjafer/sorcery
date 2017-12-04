@@ -18,7 +18,7 @@ BoardModel::BoardModel(std::vector<std::string> &players, std::vector<std::uniqu
 
 bool BoardModel::isDeckEmpty(int player) {
   return players[player]->getPlayerData().deck.empty();
-  }
+}
 
 void BoardModel::updateBoard(std::vector<Event> events) {
   // loop through every non-player in each player's minions, ritual(s)

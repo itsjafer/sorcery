@@ -7,6 +7,7 @@ enum class Event {
     minionTookDamage,
     minionEnteredPlay,
     enemyMinionEnteredPlay,
+    minionEnteredPlayControlled,
     endTurn,
     thisEndTurn,
     startTurn,

@@ -12,7 +12,7 @@ void NonPlayer::cast() {
   castCard();
 }
 
-void NonPlayer::cast(int p, char t) {
+void NonPlayer::cast(int p, int t) {
   castCard(p,t);
 }
 

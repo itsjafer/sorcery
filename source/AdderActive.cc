@@ -16,7 +16,7 @@ void AdderActive::castCard() {
 
 }
 
-void AdderActive::castCard(int p, char t) {
+void AdderActive::castCard(int p, int t) {
   //If this ability takes a target do something to the target
   vector<Event> EventsForTarget;
   if (target == "chosen") { //cannot be a ritual
@@ -31,7 +31,7 @@ void AdderActive::castCard(int p, char t) {
       //Minion took damage
       EventsForTarget.emplace_back(Event::minionTookDamage);
 
-      if (board->players.at(p)->minion  (target).def <= 0) {
+      if (board->players.at(p)->minion(target).def <= 0) {
 
         //Minion died
         EventsForTarget.emplace_back(Event::minionDied);

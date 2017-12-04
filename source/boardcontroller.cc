@@ -73,12 +73,13 @@ void BoardController::attack(std::stringstream &ss) {
 void BoardController::play(std::stringstream &ss) {
   int i;
   int p;
-  int t;
+  char t;
 
   if (!(ss >> i)) throw std::invalid_argument("Invalid use of play! Type 'help' for more info.");  // i'th card
 
   if (ss.good()) { // the p'th player
     if (!(ss >> p)) throw std::invalid_argument("Invalid use of play! Type 'help' for more info.");
+    // TODO: discuss the next line..
     if (!(ss >> t)) throw std::invalid_argument("Invalid use of play! Type 'help' for more info."); // the t'th minion to affect
     std::cout << "BoardController.cc: Player " << currentPlayer << " has used card " << i << " on player " << p << "'s minion " << t << std::endl;                    
     // call the play
@@ -96,12 +97,13 @@ void BoardController::use(std::stringstream &ss) {
   // j = 0 is the special case where the i'th minion attacks the inactive player himself
   int i;
   int p;
-  int t;
+  char t;
 
   if (!(ss >> i)) throw std::invalid_argument("Invalid use! Type 'help' for more info."); // i'th minion to use
 
   if (ss.good()) { // the p'th player
     if (!(ss >> p)) throw std::invalid_argument("Invalid use! Type 'help' for more info.");
+    // TODO: discuss the next line..
     if (!(ss >> t)) throw std::invalid_argument("Invalid use! Type 'help' for more info."); // the t'th minion to affect
 
     std::cout << "BoardController.cc: Player " << currentPlayer << " has used minion " << i << "'s ability on player " << p << "'s minion " << t << std::endl;                              

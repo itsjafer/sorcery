@@ -1,4 +1,5 @@
 #include "spell.h"
+#include <iostream>
 
 using namespace std;
 
@@ -12,10 +13,27 @@ void MoveAddSpell::updateState(vector<Event> &events) {
 }
 
 void MoveAddSpell::castCard() {
+  if (moveSource == "grave") {
+    if (moveDestination == "field") {
+      if (Target == "minion") {
 
+        board->players.at(this->getOwner())->resurrectLast();
+        if (attOperation == "+") {
+          board->players.at(this->getOwner())->minion(board->players.at(this->getOwner())->numMinions()).att += attMod;
+        } else if (attOperation == "=") {
+          board->players.at(this->getOwner())->minion(board->players.at(this->getOwner())->numMinions()).att = attMod;
+        }
+
+        if (defOperation == "+") {
+          board->players.at(this->getOwner())->minion(board->players.at(this->getOwner())->numMinions()).def += defMod;
+        } else if (defOperation == "=") {
+          board->players.at(this->getOwner())->minion(board->players.at(this->getOwner())->numMinions()).def = defMod;
+        }
+      }
+    }
+  }
 }
 
-void MoveAddSpell::castCard(int p, char t) {
+void MoveAddSpell::castCard(int p, int t) {
 
 }
-
