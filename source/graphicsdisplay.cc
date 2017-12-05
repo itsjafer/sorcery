@@ -56,6 +56,16 @@ void GraphicsDisplay::notifyDisplay(BoardController &whoNotified, State command,
 
 }
 
+void GraphicsDisplay::notifyDisplay(std::string &message) {
+  int height = winSize * 0.25;
+  int width = winSize * 0.5;
+  int x = width / 2;
+  int y = height / 2 + spacing;
+  xw.fillRectangle(x, y, width, height, Xwindow::Cyan);
+  y += spacing;
+  displayDescription(message, x, y);
+}
+
 void GraphicsDisplay::displayHelp() {
   int height = winSize * 0.5;
   int width = winSize;

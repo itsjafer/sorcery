@@ -33,6 +33,7 @@ public:
     GraphicsDisplay(int winSize);
     ~GraphicsDisplay();
     void notifyDisplay(BoardController &whoNotified, State command, int minionIndex) override;
+    void notifyDisplay(std::string &message) override;
 };
 
 #endif

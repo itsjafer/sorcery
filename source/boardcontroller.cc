@@ -33,6 +33,13 @@ void BoardController::notifyObservers(State command, int minion) {
   }
 }
 
+void BoardController::notifyObservers(std::string message) {
+  //std::cout << "There are " << observers.size() << " observers" << std::endl;
+  for (unsigned int i = 0; i < observers.size(); i++) {
+    observers[i]->notify(message);
+  }
+}
+
 BoardController::BoardController(std::vector<std::string> &players, std::vector<std::unique_ptr<std::ifstream>> &data, std::vector<std::shared_ptr<Observer>> &displays, bool testingMode) : 
 boardData(players, data, testingMode), observers(displays), currentPlayer(0), gameOver(false) 
 {
@@ -224,13 +231,14 @@ void BoardController::execute() {
       }
     }
     catch(const std::out_of_range &e) {
-      std::cout << "The card you are trying to access or perform an action on does not exist!" << std::endl;
+      std::string message = "The card you are trying to access or perform an action on does not exist!";
+      notifyObservers(message);
     }
     catch(const std::invalid_argument &e) {
-      std::cout << e.what() << std::endl;
+      notifyObservers(e.what());
     }
     catch(const InvalidMoveException &e) {
-      std::cout << e.what() << std::endl;
+      notifyObservers(e.what());
     }
   }
 
