@@ -56,7 +56,6 @@ void PlayerController::addCard(ifstream &cardData) {
 
         string spellType; getline(cardData, spellType);
 
-        //cout << "Player.cc: Im making a " << spellType << " spell!" << endl;
         if (spellType == "move") {
 
             //Get move source
