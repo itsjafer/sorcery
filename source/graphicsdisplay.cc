@@ -293,7 +293,7 @@ void GraphicsDisplay::displayPlayers(std::vector<PlayerModel> boardInfos) {
   for (int i = 0; i < boardInfos.size(); ++i) {
     // draw the ritual
     if (boardInfos[i].ritual != nullptr) {
-      displayCard(boardInfos[i].ritual, 0, 0);
+      displayCard(boardInfos[i].ritual, 0, heightIndex);
     } else {
       xw.fillRectangle(0, heightIndex, cardWidth, cardHeight, Xwindow::White);
     }
@@ -313,7 +313,7 @@ void GraphicsDisplay::displayPlayers(std::vector<PlayerModel> boardInfos) {
 
     // draw the graveyard
     if (!boardInfos[i].graveyard.empty()) {
-      displayCard(boardInfos[i].graveyard.back(), cardWidth * 4, 0);
+      displayCard(boardInfos[i].graveyard.back(), cardWidth * 4, heightIndex);
     } else {
       xw.fillRectangle(cardWidth * 4, heightIndex, cardWidth, cardHeight, Xwindow::White);
     }
