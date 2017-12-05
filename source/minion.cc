@@ -160,14 +160,14 @@ void Minion::updateState(vector<Event> &events) {
       action = actionPerTurn;
     }
   }
-  abilities.back()->update(events);
+  if (!abilities.empty()) abilities.back()->update(events);
 }
 
 void Minion::castCard() {
   if (abilities.empty()) throw InvalidMoveException(InvalidMove::NoActivatedAbility);
   if (board->getMagic(this->getOwner()) < abilities.back()->getCost() && !(board->testingMode)) throw InvalidMoveException(InvalidMove::InsufficientMagic);
   if (!canCast || action < 1) throw InvalidMoveException(InvalidMove::CannotUseMinion);
-  
+
   --action;
   board->setMagic(this->getOwner(), board->getMagic(this->getOwner()) - abilities.back()->getCost());
   abilities.back()->cast();
@@ -177,7 +177,7 @@ void Minion::castCard(int p, int t) { //t is not a char?
   if (abilities.empty()) throw InvalidMoveException(InvalidMove::NoActivatedAbility);
   if (board->getMagic(this->getOwner()) < abilities.back()->getCost() && !(board->testingMode)) throw InvalidMoveException(InvalidMove::InsufficientMagic);
   if (!canCast || action < 1) throw InvalidMoveException(InvalidMove::CannotUseMinion);
-  
+
   --action;
   board->setMagic(this->getOwner(), board->getMagic(this->getOwner()) - abilities.back()->getCost());
   abilities.back()->cast(p, t);
@@ -185,7 +185,7 @@ void Minion::castCard(int p, int t) { //t is not a char?
 
 void Minion::attack(int i, int me) {
   if (action < 1) throw InvalidMoveException(InvalidMove::CannotUseMinion);
-  
+
 //If the minion can attack
     action -= 1;
     //Find oponent value
@@ -277,5 +277,4 @@ void Minion::attack(int i, int me) {
 
 Minion::~Minion(){
     abilities.clear();
-    enchantments.clear();
 };
