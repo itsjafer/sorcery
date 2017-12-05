@@ -330,6 +330,7 @@ void PlayerController::resurrectLast() {
       std::shared_ptr<Minion> m = std::dynamic_pointer_cast<Minion>(playerModel.graveyard.at(i));
       playerModel.minions.emplace_back(m);
       playerModel.graveyard.erase(playerModel.graveyard.begin() + (i));
+      return;
     }
   }
 }
