@@ -298,6 +298,7 @@ void PlayerController::updateState(vector<Event> &events) {
 }
 
 void PlayerController::drawCard(int numCards) {
+    if (playerModel.hand.size() >= 5) throw invalid_argument("Your hand is full!");
     if (playerModel.deck.size() > 0) {
         for (int i = 0; i < numCards; ++i)
         {
