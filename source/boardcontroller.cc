@@ -15,6 +15,8 @@ void BoardController::switchPlayers() {
     return;
   }
   currentPlayer++;
+
+  std::cout << "Player " << currentPlayer << ", it is now your turn." << std::endl;
 }
 
 void BoardController::attach(std::shared_ptr<Observer> o) {
@@ -53,6 +55,8 @@ boardData(players, data, testingMode), observers(displays), currentPlayer(0), ga
   for (unsigned int i = 0; i < players.size(); ++i) {
     boardData.players[i]->drawCard(4);
   }
+
+  std::cout << "Player " << currentPlayer << ", it is now your turn." << std::endl;
 }
 
 void BoardController::attack(std::stringstream &ss) {
@@ -237,7 +241,7 @@ void BoardController::postTurn() {
     boardData.updateBoard(events);
   }
   catch(const InvalidMoveException &e) {
-    notifyObservers(e.what())
+    notifyObservers(e.what());
   }
 
   // check if anyone is dead

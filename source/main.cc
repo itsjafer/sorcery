@@ -95,16 +95,12 @@ int main(int argc, char * argv[]) {
   while (!board.gameEnded() && !cin.eof()) {
 
     // go through the three stages of turns
-    //cout << "main.cc: Board is now going to go through preTurn." << endl;
     board.preTurn();
-    //cout << "main.cc: Board is now going to go through execute." << endl;
     board.execute();
     if (board.gameEnded()) return 0;
-    //cout << "main.cc: Board is now going to go through postTurn." << endl;
     board.postTurn();
 
     // switch the player turn
-    //cout << "main.cc: Board is now going to switch turns." << endl;
     board.switchPlayers();
   }
 
