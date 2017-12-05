@@ -83,7 +83,7 @@ void BoardController::play(std::stringstream &ss) {
     if (!(ss >> t)) throw std::invalid_argument("Invalid use of play! Type 'help' for more info."); // the t'th minion to affect
 
     int target;
-    if (t == 'r'), r->getCost()
+    if (t == 'r')
       target = -1;
     else if (t >= '1' && t <= '5') {
       target = t - '0';

@@ -313,7 +313,7 @@ void GraphicsDisplay::displayPlayers(std::vector<PlayerModel> boardInfos) {
 
     // update the heightIndex to print player 2's row
     if (currentPlayer == 0) {      
-      heightIndex = winSize - cardHeight;
+      heightIndex = winSize - (cardHeight);
     } else {
       heightIndex = winSize - (cardHeight * 2);
     }
@@ -333,7 +333,11 @@ void GraphicsDisplay::displayMinions(std::vector<PlayerModel> boardInfos) {
 
     //skip if there's no minions
     if (boardInfos[i].minions.empty()) {
-      heightIndex = winSize - (2 * cardHeight);
+      if (currentPlayer == 0) {      
+        heightIndex = winSize - (2 * cardHeight);
+      } else {
+        heightIndex = winSize - (cardHeight * 3);
+      }
       continue;
     }
 
