@@ -163,6 +163,7 @@ void BoardController::preTurn() {
     std::cout << e.what() << std::endl;
   }
 
+  }
 }
 
 void BoardController::execute() {
