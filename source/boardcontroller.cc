@@ -155,19 +155,19 @@ void BoardController::preTurn() {
     // draw a card
     draw();
 
-  // check for start-of-turn effects:
-  // gonna create a vector for consistency-sake
-  std::vector<Event> events;
-  std::vector<Event> personalEvents;
-  events.emplace_back(Event::startTurn);
-  personalEvents.emplace_back(Event::thisStartTurn);
-  try {
-    boardData.updateBoard(personalEvents, currentPlayer);
-    boardData.updateBoard(events);
-  }
-  catch(const InvalidMoveException &e) {
-    std::cout << "Player " << currentPlayer << ": " << e.what() << std::endl;
-  }
+    // check for start-of-turn effects:
+    // gonna create a vector for consistency-sake
+    std::vector<Event> events;
+    std::vector<Event> personalEvents;
+    events.emplace_back(Event::startTurn);
+    personalEvents.emplace_back(Event::thisStartTurn);
+    try {
+      boardData.updateBoard(personalEvents, currentPlayer);
+      boardData.updateBoard(events);
+    }
+    catch(const InvalidMoveException &e) {
+      notifyObservers("Player " + std::to_string(currentPlayer) + ": " + e.what());
+    }
 
   }
 }
@@ -237,7 +237,7 @@ void BoardController::postTurn() {
     boardData.updateBoard(events);
   }
   catch(const InvalidMoveException &e) {
-    std::cout << e.what() << std::endl;
+    notifyObservers(e.what())
   }
 
   // check if anyone is dead
