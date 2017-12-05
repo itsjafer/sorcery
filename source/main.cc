@@ -64,8 +64,6 @@ int main(int argc, char * argv[]) {
     return 1;
   }
 
-  cout << "Main.cc: Found and opened decks" << endl;
-
   for (int i = 0; i < numPlayers; ++i) {
     // get the names for each player
     string name;
@@ -90,8 +88,6 @@ int main(int argc, char * argv[]) {
   if (GraphicsMode == true) {
     displays.emplace_back(new GraphicsDisplay(750));
   }
-
-  cout << "main.cc: Board is now going to be initialized." << endl;
   // initialize the board
   BoardController board(names, deckFiles, displays, TestingMode);
   if (init.good()) board.setInit(&init);

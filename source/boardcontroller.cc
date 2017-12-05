@@ -26,20 +26,17 @@ void BoardController::setInit(std::ifstream *init) {
 }
 
 void BoardController::notifyObservers(State command, int minion) {
-  //std::cout << "There are " << observers.size() << " observers" << std::endl;
   for (unsigned int i = 0; i < observers.size(); i++) {
-    std::cout << i << std::endl;
     observers[i]->notify(*this, command, minion);
   }
 }
 
-BoardController::BoardController(std::vector<std::string> &players, std::vector<std::unique_ptr<std::ifstream>> &data, std::vector<std::shared_ptr<Observer>> &displays, bool testingMode) : 
-boardData(players, data, testingMode), observers(displays), currentPlayer(0), gameOver(false) 
+BoardController::BoardController(std::vector<std::string> &players, std::vector<std::unique_ptr<std::ifstream>> &data, std::vector<std::shared_ptr<Observer>> &displays, bool testingMode) :
+boardData(players, data, testingMode), observers(displays), currentPlayer(0), gameOver(false)
 {
 
   // set the BoardModel to be a subject of our textdisplay
   //this->observers = displays;
-  std::cout << "BoardController.cc: I have been given " << observers.size() << " observers!" << std::endl;
 
   // checking if default.deck is still open
   if (!data[0]) {
@@ -48,9 +45,7 @@ boardData(players, data, testingMode), observers(displays), currentPlayer(0), ga
 
   // have each of the players draw 3 cards
   for (unsigned int i = 0; i < players.size(); ++i) {
-    //std::cout << "BoardController.cc: Player " << i << " is drawing 3 cards" << std::endl;
     boardData.players[i]->drawCard(4);
-    //std::cout << "BoardController.cc: Player " << i << " now has " << boardData.players[i]->getHand().size() << " cards in their hand." << std::endl;
   }
 }
 
@@ -65,7 +60,6 @@ void BoardController::attack(std::stringstream &ss) {
     if (!(ss >> j)) throw std::invalid_argument("Invalid use of attack! Type 'help' for more info."); // i'th minion
   }
 
-  std::cout << "BoardController.cc: Player " << currentPlayer << " has attacked using minion " << i << " on " << j << std::endl;          
   // call the attack
   boardData.players[currentPlayer]->attack(i, j);
 }
@@ -90,13 +84,11 @@ void BoardController::play(std::stringstream &ss) {
     }
     else throw std::invalid_argument("Invalid use of play! Type 'help' for more info.");
 
-    std::cout << "BoardController.cc: Player " << currentPlayer << " has used card " << i << " on player " << p << "'s minion " << t << std::endl;                    
     // call the play
     boardData.players[currentPlayer]->play(i, p, target);
   }
   else {
     // call the play
-    std::cout << "BoardController.cc: Player " << currentPlayer << " has used card " << i << std::endl;                          
     boardData.players[currentPlayer]->play(i);
   }
 }
@@ -123,12 +115,11 @@ void BoardController::use(std::stringstream &ss) {
     }
     else throw std::invalid_argument("Invalid use of play! Type 'help' for more info.");
 
-    std::cout << "BoardController.cc: Player " << currentPlayer << " has used minion " << i << "'s ability on player " << p << "'s minion " << t << std::endl;                              
     // call the use
     boardData.players[currentPlayer]->use(i, p, target);
   }
   else {
-    std::cout << "BoardController.cc: Player " << currentPlayer << " has used the ability of minion " << i << std::endl;                                  
+
     // call the use
     boardData.players[currentPlayer]->use(i);
   }
@@ -139,7 +130,6 @@ void BoardController::discard(std::stringstream &ss) {
 
   if (!(ss >> i)) throw std::invalid_argument("Invalid use of discard!");
 
-  std::cout << "BoardController.cc: Player " << currentPlayer << " has discarded card " << i << std::endl;
   boardData.players[currentPlayer]->discard(i);
 }
 
@@ -148,22 +138,16 @@ void BoardController::draw() {
 }
 
 void BoardController::preTurn() {
-  std::cout << "BoardController.cc: preTurn starting now." << std::endl;
   // increase the magic by 1
   int currentMagic = boardData.getMagic(currentPlayer);
   boardData.setMagic(currentPlayer, currentMagic + 1);
 
-  //std::cout << "BoardController.cc: Player " << currentPlayer << " magic increased by 1." << std::endl;
-  //std::cout << "BoardController.cc: Player " << currentPlayer << " magic is now " << boardData.getMagic(currentPlayer) << std::endl;
 
   // draw a card (if deck is non empty)
   // check if the deck is non-empty
   if (!boardData.isDeckEmpty(currentPlayer) && boardData.players[currentPlayer]->getHand().size() < 5) {
     // draw a card
     draw();
-    //std::cout << "BoardController.cc: Player " << currentPlayer << " has drawn a card." << std::endl;
-    //std::cout << "BoardController.cc: Player " << currentPlayer << " now has " << boardData.players[currentPlayer]->getHand().size() << " cards in their hand." << std::endl;
-  }
 
   // check for start-of-turn effects:
   // gonna create a vector for consistency-sake
@@ -178,25 +162,21 @@ void BoardController::preTurn() {
   catch(const InvalidMoveException &e) {
     std::cout << e.what() << std::endl;
   }
-  std::cout << "BoardController.cc: Checking for start of turn effects." << std::endl;
 
 }
 
 void BoardController::execute() {
   // this is the full command line
   std::string cmd;
-  std::cout << "BoardController.cc: Listening for commands." << std::endl;
   while ((init && getline(*init, cmd)) || getline(std::cin, cmd)) {
     std::string s;
     std::stringstream ss(cmd);
     ss >> s;
     try {
       if (s == "end") {
-        std::cout << "BoardController.cc: Player " << currentPlayer << " has ended their turn." << std::endl;
         // ends the current player's turn
         break;
       } else if (s == "quit") {
-          std::cout << "BoardController.cc: Player " << currentPlayer << " has ended the game." << std::endl;
           gameOver = true;
           break;
       } else if (s == "attack") {
@@ -238,7 +218,6 @@ void BoardController::execute() {
 
 void BoardController::postTurn() {
 
-  std::cout << "BoardController.cc: Checking for end of turn effects." << std::endl;
   // check for end-of-turn effects:
   // gonna create a vector for consistency-sake
   std::vector<Event> events;
@@ -271,7 +250,7 @@ int BoardController::whoWon() {
   for (unsigned int i = 0; i < boardData.players.size(); ++i) {
     if (boardData.getHealth(i) > currentHealth) {
       winner = i;
-    } else 
+    } else
     {
       winner = -1;
     }

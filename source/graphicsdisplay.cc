@@ -18,23 +18,20 @@ GraphicsDisplay::GraphicsDisplay(int winSize) : winSize(winSize), xw(winSize * 2
   cardHeight = (winSize - logoHeight) / 5;
   spacing = cardHeight / 8;
   // start by creating an empty display with just templates
-  std::cout << "graphicsdisplay.cc: Initializing graphicsdisplay." << std::endl;
   xw.fillRectangle(0, 0, winSize * 2, winSize, Xwindow::Black);
 }
 
 GraphicsDisplay::~GraphicsDisplay() {
- 
+
 }
 
 void GraphicsDisplay::notifyDisplay(BoardController &whoNotified, State command, int minionIndex) {
-  xw.fillRectangle(0, 0, winSize * 2, winSize, Xwindow::Black);  
+  xw.fillRectangle(0, 0, winSize * 2, winSize, Xwindow::Black);
   currentPlayer = whoNotified.getCurrentPlayer();
-  std::cout << "graphicsdisplay.cc: I have been notified by player " << currentPlayer << "." << std::endl;
 
   // update the board when I'm notified
   this->minionIndex = minionIndex;
 
-  std::cout << "graphicsdisplay.cc: Updating myself with players information." << std::endl;
   std::vector<PlayerModel> boardInfos = whoNotified.getPlayerInfos();
 
   displayPlayers(boardInfos);
@@ -43,12 +40,12 @@ void GraphicsDisplay::notifyDisplay(BoardController &whoNotified, State command,
 
   // display the logo
   xw.drawBigString(0, cardHeight * (3 - currentPlayer) + cardHeight / (3 - currentPlayer), "SORCERY", Xwindow::White);
-  
+
   if (command == State::printMinion) {
-    xw.fillRectangle(0, 0, winSize * 2, winSize, Xwindow::Black);    
+    xw.fillRectangle(0, 0, winSize * 2, winSize, Xwindow::Black);
     inspectMinion(boardInfos);
   } else if (command == State::printHand) {
-    xw.fillRectangle(0, 0, winSize * 2, winSize, Xwindow::Black);    
+    xw.fillRectangle(0, 0, winSize * 2, winSize, Xwindow::Black);
     displayHand(boardInfos);
   } else if (command == State::printHelp) {
     displayHelp();
@@ -63,7 +60,7 @@ void GraphicsDisplay::displayHelp() {
   int y = height / 2 + spacing;
   xw.fillRectangle(x, y, width, height, Xwindow::Cyan);
   y += spacing;
-  
+
   std::vector<std::string> helpMessages = {
 	"help -- Display this message." ,
 	"end -- End the current player's turn.",
@@ -94,10 +91,10 @@ void GraphicsDisplay::displayHand(std::vector<PlayerModel> boardInfos) {
     displayCard(boardInfos[currentPlayer].hand[i], width, height);
     width += cardWidth;
   }
-} 
+}
 
 void GraphicsDisplay::inspectMinion(std::vector<PlayerModel> boardInfos) {
-  xw.fillRectangle(0, 0, winSize * 2, winSize, Xwindow::Black);  
+  xw.fillRectangle(0, 0, winSize * 2, winSize, Xwindow::Black);
   int heightIndex = 0;
   int widthIndex = 0;
 
@@ -132,10 +129,10 @@ void GraphicsDisplay::displayDescription(std::string description, int x, int y) 
   {
       rows.emplace_back(description.substr(width * numRows));
   }
-  
+
   for (auto row : rows) {
     xw.drawString(x, y, row);
-    y += spacing;    
+    y += spacing;
   }
 }
 
@@ -146,11 +143,11 @@ void GraphicsDisplay::displayCard(std::shared_ptr<NonPlayer> card, int x, int y)
 
   if (card->getType() == Type::Minion) {
     // dynamically cast this as a minion pointer
-    std::shared_ptr<Minion> m = std::dynamic_pointer_cast<Minion>(card);    
+    std::shared_ptr<Minion> m = std::dynamic_pointer_cast<Minion>(card);
     // get attack and defense
     int attack = m->getAttack();
     int defence = m->getDefence();
-    
+
     // check if theres an ability
     if (m->hasAbility()) {
       // get the description of the abilities
@@ -158,7 +155,7 @@ void GraphicsDisplay::displayCard(std::shared_ptr<NonPlayer> card, int x, int y)
       for (auto ability : m->abilities) {
         description = ability->getDescription();
       }
-      
+
       // check the type of ability
       if (m->getAbilityType(0) == Type::ActivatedAbility) {
         // check the cost of the activated ability
@@ -193,7 +190,7 @@ void GraphicsDisplay::displayCard(std::shared_ptr<NonPlayer> card, int x, int y)
         y += cardHeight - spacing;
         xw.drawString(x, y, "Attack: " + std::to_string(attack));
         y += spacing;
-        xw.drawString(x, y, "Defence: " + std::to_string(defence));   
+        xw.drawString(x, y, "Defence: " + std::to_string(defence));
       }
     } else {
       xw.fillRectangle(x, y, cardWidth, cardHeight, Xwindow::Blue);
@@ -207,13 +204,13 @@ void GraphicsDisplay::displayCard(std::shared_ptr<NonPlayer> card, int x, int y)
       y += cardHeight - spacing;
       xw.drawString(x, y, "Attack: " + std::to_string(attack));
       y += spacing;
-      xw.drawString(x, y, "Defence: " + std::to_string(defence));     
+      xw.drawString(x, y, "Defence: " + std::to_string(defence));
     }
   }
    else if (card->getType() == Type::Ritual) {
     std::shared_ptr<Ritual> r = std::dynamic_pointer_cast<Ritual>(card);
     xw.fillRectangle(x, y, cardWidth, cardHeight, Xwindow::Brown);
-    int totalSpacing = y + spacing;    
+    int totalSpacing = y + spacing;
     xw.drawString(x, totalSpacing, name);
     totalSpacing += spacing;
     xw.drawString(x, totalSpacing, "Cost: " + std::to_string(cost));
@@ -222,7 +219,7 @@ void GraphicsDisplay::displayCard(std::shared_ptr<NonPlayer> card, int x, int y)
     totalSpacing += spacing;
     xw.drawString(x, totalSpacing, "Activation Cost: " + std::to_string(r->getActCost()));
     totalSpacing += spacing;
-    displayDescription(r->getDescription(), x, totalSpacing);    
+    displayDescription(r->getDescription(), x, totalSpacing);
     y += cardHeight - spacing;
     xw.drawString(x, y, "Charges: " + std::to_string(r->getCharges()));
   }
@@ -237,7 +234,7 @@ void GraphicsDisplay::displayCard(std::shared_ptr<NonPlayer> card, int x, int y)
     totalSpacing += spacing;
     xw.drawString(x, totalSpacing, "Spell");
     totalSpacing += spacing;
-    displayDescription(description, x, totalSpacing);     
+    displayDescription(description, x, totalSpacing);
   }
 
   else if (card->getType() == Type::AddEnchantment) {
@@ -245,7 +242,7 @@ void GraphicsDisplay::displayCard(std::shared_ptr<NonPlayer> card, int x, int y)
 
     if (e->getAttackModifier() == 0 && e->getDefenceModifier() == 0) {
       //return display_enchantment(name, cost, description);
-      xw.fillRectangle(x, y, cardWidth, cardHeight, Xwindow::Green);   
+      xw.fillRectangle(x, y, cardWidth, cardHeight, Xwindow::Green);
       int totalSpacing = y + spacing;
       xw.drawString(x, totalSpacing, name);
       totalSpacing += spacing;
@@ -253,13 +250,13 @@ void GraphicsDisplay::displayCard(std::shared_ptr<NonPlayer> card, int x, int y)
       totalSpacing += spacing;
       xw.drawString(x, totalSpacing, "Enchantment");
       totalSpacing += spacing;
-      displayDescription(description, x, totalSpacing);            
+      displayDescription(description, x, totalSpacing);
     }
 
     std::string attack = e->getAttackOperator() + std::to_string(e->getAttackModifier());
     std::string defence = e->getDefenceOperator() + std::to_string(e->getDefenceModifier());
 
-    xw.fillRectangle(x, y, cardWidth, cardHeight, Xwindow::Green);     
+    xw.fillRectangle(x, y, cardWidth, cardHeight, Xwindow::Green);
     int totalSpacing = y + spacing;
     xw.drawString(x, totalSpacing, name);
     totalSpacing += spacing;
@@ -272,9 +269,9 @@ void GraphicsDisplay::displayCard(std::shared_ptr<NonPlayer> card, int x, int y)
     y += cardHeight - spacing;
     xw.drawString(x, y, "Attack: " + attack);
     y += spacing;
-    xw.drawString(x, y, "Defence: " + defence);   
-  }          
-  
+    xw.drawString(x, y, "Defence: " + defence);
+  }
+
 }
 
 void GraphicsDisplay::displayPlayers(std::vector<PlayerModel> boardInfos) {
@@ -288,7 +285,7 @@ void GraphicsDisplay::displayPlayers(std::vector<PlayerModel> boardInfos) {
     if (boardInfos[i].ritual != nullptr) {
       displayCard(boardInfos[i].ritual, 0, 0);
     } else {
-      xw.fillRectangle(0, heightIndex, cardWidth, cardHeight, Xwindow::White); 
+      xw.fillRectangle(0, heightIndex, cardWidth, cardHeight, Xwindow::White);
     }
 
     // draw the player card
@@ -308,11 +305,11 @@ void GraphicsDisplay::displayPlayers(std::vector<PlayerModel> boardInfos) {
     if (!boardInfos[i].graveyard.empty()) {
       displayCard(boardInfos[i].graveyard.back(), cardWidth * 4, 0);
     } else {
-      xw.fillRectangle(cardWidth * 4, heightIndex, cardWidth, cardHeight, Xwindow::White); 
+      xw.fillRectangle(cardWidth * 4, heightIndex, cardWidth, cardHeight, Xwindow::White);
     }
 
     // update the heightIndex to print player 2's row
-    if (currentPlayer == 0) {      
+    if (currentPlayer == 0) {
       heightIndex = winSize - cardHeight;
     } else {
       heightIndex = winSize - (cardHeight * 2);
@@ -328,7 +325,7 @@ void GraphicsDisplay::displayMinions(std::vector<PlayerModel> boardInfos) {
   for (int i = 0 ; i < boardInfos.size(); ++i) {
     for (int j = 0; j < winSize * 2; j+= cardWidth) {
       // fill minion slots with white space
-      xw.fillRectangle(j, heightIndex, cardWidth, cardHeight, Xwindow::White); 
+      xw.fillRectangle(j, heightIndex, cardWidth, cardHeight, Xwindow::White);
     }
 
     //skip if there's no minions
@@ -344,7 +341,7 @@ void GraphicsDisplay::displayMinions(std::vector<PlayerModel> boardInfos) {
       widthIndex += cardWidth;
     }
 
-    if (currentPlayer == 0) {      
+    if (currentPlayer == 0) {
       heightIndex = winSize - (2 * cardHeight);
     } else {
       heightIndex = winSize - (cardHeight * 3);
