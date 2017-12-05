@@ -90,12 +90,13 @@ void Xwindow::drawBigString(int x, int y, string msg, int colour) {
   ostringstream name;
   name << "-*-helvetica-bold-r-*-*-*-240-" << width/5 << "-" << height/5 << "-*-*-*-*";
 
-  XFontStruct * f = XLoadQueryFont(d, name.str().c_str());
+  //XFontStruct * f = XLoadQueryFont(d, name.str().c_str());
   XTextItem ti;
   ti.chars = const_cast<char*>(msg.c_str());
   ti.nchars = msg.length();
   ti.delta = 0;
-  ti.font = f->fid;
+  Font f = XLoadFont(d, "6x13");  
+  ti.font = f;
   XDrawText(d, w, gc, x, y, &ti, 1);
   XSetForeground(d, gc, colours[Black]);
   XFlush(d);

@@ -15,6 +15,7 @@ void BoardController::switchPlayers() {
     return;
   }
   currentPlayer++;
+  notifyObservers("Player " + std::to_string(currentPlayer + 1) + ", it is now your turn.");
 }
 
 void BoardController::attach(std::shared_ptr<Observer> o) {
@@ -31,8 +32,14 @@ void BoardController::notifyObservers(State command, int minion) {
   }
 }
 
-BoardController::BoardController(std::vector<std::string> &players, std::vector<std::unique_ptr<std::ifstream>> &data, std::vector<std::shared_ptr<Observer>> &displays, bool testingMode) :
-boardData(players, data, testingMode), observers(displays), currentPlayer(0), gameOver(false)
+void BoardController::notifyObservers(std::string message) {
+  for (unsigned int i = 0; i < observers.size(); i++) {
+    observers[i]->notify(message);
+  }
+}
+
+BoardController::BoardController(std::vector<std::string> &players, std::vector<std::unique_ptr<std::ifstream>> &data, std::vector<std::shared_ptr<Observer>> &displays, bool testingMode) : 
+boardData(players, data, testingMode), observers(displays), currentPlayer(0), gameOver(false) 
 {
 
   // set the BoardModel to be a subject of our textdisplay
@@ -40,13 +47,15 @@ boardData(players, data, testingMode), observers(displays), currentPlayer(0), ga
 
   // checking if default.deck is still open
   if (!data[0]) {
-    std::cout << "BoardController.cc: default.deck was not found" << std::endl;
+    notifyObservers("BoardController.cc: default.deck was not found");
   }
 
   // have each of the players draw 3 cards
   for (unsigned int i = 0; i < players.size(); ++i) {
     boardData.players[i]->drawCard(4);
   }
+
+  notifyObservers("Player " + std::to_string(currentPlayer + 1) + ", it is now your turn.");
 }
 
 void BoardController::attack(std::stringstream &ss) {
@@ -54,14 +63,14 @@ void BoardController::attack(std::stringstream &ss) {
   // j = 0 is the special case where the i'th minion attacks the inactive player himself
   int i;
   if (!(ss >> i)) throw std::invalid_argument("Invalid use of attack! Type 'help' for more info."); // i'th minion
-  int j = (currentPlayer == 0) ? 1 : currentPlayer;
+  int j = (currentPlayer == 0) ? 2 : 1;
 
   if (ss.good()) {
     if (!(ss >> j)) throw std::invalid_argument("Invalid use of attack! Type 'help' for more info."); // i'th minion
   }
 
   // call the attack
-  boardData.players[currentPlayer]->attack(i, j);
+  boardData.players[currentPlayer]->attack(i, j - 1);
 }
 
 void BoardController::play(std::stringstream &ss) {
@@ -71,7 +80,7 @@ void BoardController::play(std::stringstream &ss) {
 
   if (!(ss >> i)) throw std::invalid_argument("Invalid use of play! Type 'help' for more info.");  // i'th card
 
-  if (ss.good()) { // the p'th player
+  if (ss.good()) { // the p'th playercurrentPlayer
     if (!(ss >> p)) throw std::invalid_argument("Invalid use of play! Type 'help' for more info.");
     // TODO: discuss the next line..
     if (!(ss >> t)) throw std::invalid_argument("Invalid use of play! Type 'help' for more info."); // the t'th minion to affect
@@ -85,7 +94,7 @@ void BoardController::play(std::stringstream &ss) {
     else throw std::invalid_argument("Invalid use of play! Type 'help' for more info.");
 
     // call the play
-    boardData.players[currentPlayer]->play(i, p, target);
+    boardData.players[currentPlayer]->play(i, p - 1, target);
   }
   else {
     // call the play
@@ -116,7 +125,7 @@ void BoardController::use(std::stringstream &ss) {
     else throw std::invalid_argument("Invalid use of play! Type 'help' for more info.");
 
     // call the use
-    boardData.players[currentPlayer]->use(i, p, target);
+    boardData.players[currentPlayer]->use(i, p - 1, target);
   }
   else {
 
@@ -149,20 +158,21 @@ void BoardController::preTurn() {
     // draw a card
     draw();
 
-  // check for start-of-turn effects:
-  // gonna create a vector for consistency-sake
-  std::vector<Event> events;
-  std::vector<Event> personalEvents;
-  events.emplace_back(Event::startTurn);
-  personalEvents.emplace_back(Event::thisStartTurn);
-  try {
-    boardData.updateBoard(personalEvents, currentPlayer);
-    boardData.updateBoard(events);
-  }
-  catch(const InvalidMoveException &e) {
-    std::cout << "Player " << currentPlayer << ": " << e.what() << std::endl;
-  }
+    // check for start-of-turn effects:
+    // gonna create a vector for consistency-sake
+    std::vector<Event> events;
+    std::vector<Event> personalEvents;
+    events.emplace_back(Event::startTurn);
+    personalEvents.emplace_back(Event::thisStartTurn);
+    try {
+      boardData.updateBoard(personalEvents, currentPlayer);
+      boardData.updateBoard(events);
+    }
+    catch(const InvalidMoveException &e) {
+      notifyObservers("Player " + std::to_string(currentPlayer + 1) + ": " + e.what());
+    }
 
+  }
 }
 
 void BoardController::execute() {
@@ -204,13 +214,14 @@ void BoardController::execute() {
       }
     }
     catch(const std::out_of_range &e) {
-      std::cout << "The card you are trying to access or perform an action on does not exist!" << std::endl;
+      std::string message = "The card you are trying to access or perform an action on does not exist!";
+      notifyObservers(message);
     }
     catch(const std::invalid_argument &e) {
-      std::cout << e.what() << std::endl;
+      notifyObservers(e.what());
     }
     catch(const InvalidMoveException &e) {
-      std::cout << "Player " << currentPlayer << ": " << e.what() << std::endl;
+      notifyObservers("Player " + std::to_string(currentPlayer + 1) + ": " + e.what());
     }
   }
 
@@ -229,7 +240,7 @@ void BoardController::postTurn() {
     boardData.updateBoard(events);
   }
   catch(const InvalidMoveException &e) {
-    std::cout << e.what() << std::endl;
+    notifyObservers(e.what());
   }
 
   // check if anyone is dead

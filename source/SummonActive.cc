@@ -30,7 +30,29 @@ void SummonActive::castCard() {
       }
 
       for (int i = 0; i < summonAmount && board->players.at(this->getOwner())->numMinions() < 5; ++i) {
+          vector<Event> eventsForEnemy;
+          vector<Event> eventsForBoard;
+          vector<Event> eventsForOwner;
           board->players.at(this->getOwner())->addMinion(make_shared<Minion>(cardName, cardCost, this->getOwner(), cardAttack, cardDefense, cardAbilityFiles));
+
+          eventsForEnemy.emplace_back(Event::minionEnteredPlay);
+          eventsForEnemy.emplace_back(Event::enemyMinionEnteredPlay);
+          eventsForBoard.emplace_back(Event::minionEnteredPlay);
+          eventsForOwner.emplace_back(Event::minionEnteredPlay);
+          eventsForOwner.emplace_back(Event::minionEnteredPlayControlled);
+
+          try {
+            if (this->getOwner() == 0) {
+              board->updateBoard(eventsForEnemy, 1);
+            } else if (this->getOwner() == 0) {
+              board->updateBoard(eventsForEnemy, 0);
+            }
+            board->updateBoard(eventsForBoard);
+            board->updateBoard(eventsForOwner, this->getOwner());
+          }
+          catch(const InvalidMoveException &e) {
+            continue;
+          }
       }
   }
 

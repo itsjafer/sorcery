@@ -32,6 +32,8 @@ public:
 
     void attach(std::shared_ptr<Observer> o);  
     void notifyObservers(State command, int minion = 0);
+    void notifyObservers(std::string message);
+    
     void setInit(std::ifstream *init);
     std::vector<PlayerModel> getPlayerInfos() const;
     int getCurrentPlayer();

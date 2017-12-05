@@ -53,6 +53,16 @@ void GraphicsDisplay::notifyDisplay(BoardController &whoNotified, State command,
 
 }
 
+void GraphicsDisplay::notifyDisplay(std::string &message) {
+  int height = winSize * 0.25;
+  int width = winSize * 0.5;
+  int x = width / 2;
+  int y = height / 2 + spacing;
+  xw.fillRectangle(x, y, width, height, Xwindow::Cyan);
+  y += spacing;
+  displayDescription(message, x, y);
+}
+
 void GraphicsDisplay::displayHelp() {
   int height = winSize * 0.5;
   int width = winSize;
@@ -283,7 +293,7 @@ void GraphicsDisplay::displayPlayers(std::vector<PlayerModel> boardInfos) {
   for (int i = 0; i < boardInfos.size(); ++i) {
     // draw the ritual
     if (boardInfos[i].ritual != nullptr) {
-      displayCard(boardInfos[i].ritual, 0, 0);
+      displayCard(boardInfos[i].ritual, 0, heightIndex);
     } else {
       xw.fillRectangle(0, heightIndex, cardWidth, cardHeight, Xwindow::White);
     }
@@ -303,7 +313,7 @@ void GraphicsDisplay::displayPlayers(std::vector<PlayerModel> boardInfos) {
 
     // draw the graveyard
     if (!boardInfos[i].graveyard.empty()) {
-      displayCard(boardInfos[i].graveyard.back(), cardWidth * 4, 0);
+      displayCard(boardInfos[i].graveyard.back(), cardWidth * 4, heightIndex);
     } else {
       xw.fillRectangle(cardWidth * 4, heightIndex, cardWidth, cardHeight, Xwindow::White);
     }
@@ -330,7 +340,11 @@ void GraphicsDisplay::displayMinions(std::vector<PlayerModel> boardInfos) {
 
     //skip if there's no minions
     if (boardInfos[i].minions.empty()) {
-      heightIndex = winSize - (2 * cardHeight);
+      if (currentPlayer == 0) {      
+        heightIndex = winSize - (2 * cardHeight);
+      } else {
+        heightIndex = winSize - (cardHeight * 3);
+      }
       continue;
     }
 

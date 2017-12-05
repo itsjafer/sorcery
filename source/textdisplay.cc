@@ -65,6 +65,10 @@ void TextDisplay::notifyDisplay(BoardController &whoNotified, State command, int
   }
 }
 
+void TextDisplay::notifyDisplay(std::string &message) {
+  printMessage(std::cout, message);
+}
+
 // returns the correct card template for a given NonPlayer
 card_template_t TextDisplay::cardTemplate(std::shared_ptr<NonPlayer> card) {
 
@@ -313,4 +317,8 @@ void TextDisplay::printHelp(std::ostream &out) const {
 	"inspect minion -- View a minion's card and all enchantments on that minion." << std::endl <<
 	"hand -- Describe all cards in your hand." << std::endl <<
 	"board -- Describe all cards on the board." << std::endl;
+}
+
+void TextDisplay::printMessage(std::ostream &out, std::string &message) const {
+  out << message << std::endl;
 }

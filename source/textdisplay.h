@@ -36,7 +36,7 @@ class TextDisplay: public Observer {
     void printBoard(std::ostream &out) const;
     void printRow(row_template_r row, std::ostream &out, bool border = false) const;
 
-
+    void printMessage(std::ostream &out, std::string &message) const;
     void printHelp(std::ostream &out) const; // prints the help message
     void printHand(std::ostream &out) const; // prints the hand
     void inspectMinion(std::ostream &out) const;  // prints the i'th minion
@@ -45,8 +45,7 @@ public:
     ~TextDisplay();
     void updateBoard(BoardController &whoNotified); 
     void notifyDisplay(BoardController &whoNotified, State command, int minionIndex) override;
-    friend std::ostream &operator<<(std::ostream &out, const TextDisplay &td);
-
+    void notifyDisplay(std::string &message) override;
 };
 
 #endif
