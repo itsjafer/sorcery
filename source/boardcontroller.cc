@@ -160,7 +160,7 @@ void BoardController::preTurn() {
     boardData.updateBoard(events);
   }
   catch(const InvalidMoveException &e) {
-    std::cout << e.what() << std::endl;
+    std::cout << "Player " << currentPlayer << ": " << e.what() << std::endl;
   }
 
   }
@@ -211,7 +211,7 @@ void BoardController::execute() {
       std::cout << e.what() << std::endl;
     }
     catch(const InvalidMoveException &e) {
-      std::cout << e.what() << std::endl;
+      std::cout << "Player " << currentPlayer << ": " << e.what() << std::endl;
     }
   }
 
