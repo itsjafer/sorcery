@@ -115,7 +115,7 @@ void GraphicsDisplay::inspectMinion(std::vector<PlayerModel> boardInfos) {
     return;
   }
 
-  for (int i = 0; i > boardInfos[currentPlayer].minions[minionIndex]->enchantments.size(); ++i) {
+  for (int i = 0; i < boardInfos[currentPlayer].minions[minionIndex]->enchantments.size(); ++i) {
     if (widthIndex >= winSize * 2) {
       widthIndex = 0;
       heightIndex += cardHeight;
