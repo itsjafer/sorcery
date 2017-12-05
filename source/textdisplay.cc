@@ -279,17 +279,21 @@ void TextDisplay::printRow(row_template_r row, std::ostream &out, bool border) c
 void TextDisplay::inspectMinion(std::ostream &out) const {
 
   // print our minion
+  if (minions[currentPlayer].at(minionIndex) == CARD_TEMPLATE_BORDER) {
+    return;
+  }
+
   for (unsigned int i = 0; i < CARD_TEMPLATE_BORDER.size(); ++i) {
-    out << minions[currentPlayer][minionIndex][i] << std::endl;
+    out << minions[currentPlayer].at(minionIndex)[i] << std::endl;
   }
 
   // if we have no enchantments, we're done
-  if (enchantments[currentPlayer][minionIndex].empty()) {
+  if (enchantments[currentPlayer].at(minionIndex).empty()) {
     return;
   }
 
   row_template_r enchantmentRow;
-  for (int k = 0; k < enchantments[currentPlayer][minionIndex].size(); ++k) {
+  for (int k = 0; k < enchantments[currentPlayer].at(minionIndex).size(); ++k) {
     enchantmentRow.emplace_back(enchantments[currentPlayer][minionIndex][k]);
     if (enchantmentRow.size() >= 5) {
       printRow(enchantmentRow, out);

@@ -108,7 +108,7 @@ void GraphicsDisplay::inspectMinion(std::vector<PlayerModel> boardInfos) {
   int heightIndex = 0;
   int widthIndex = 0;
 
-  displayCard(boardInfos[currentPlayer].minions[minionIndex], 0, heightIndex);
+  displayCard(boardInfos[currentPlayer].minions.at(minionIndex), 0, heightIndex);
   heightIndex += cardHeight;
 
   if (boardInfos[currentPlayer].minions[minionIndex]->enchantments.empty()) {
@@ -126,7 +126,7 @@ void GraphicsDisplay::inspectMinion(std::vector<PlayerModel> boardInfos) {
 }
 
 void GraphicsDisplay::displayDescription(std::string description, int x, int y) {
-  int width = cardWidth / 6; // each character is 6 pixels wide
+  int width = cardWidth / 5; // each character is 6 pixels wide
   int numRows = description.length() / (width);
   std::vector<std::string> rows;
 
