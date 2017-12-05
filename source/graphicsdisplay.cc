@@ -39,7 +39,7 @@ void GraphicsDisplay::notifyDisplay(BoardController &whoNotified, State command,
   displayHand(boardInfos);
 
   // display the logo
-  xw.drawBigString(0, cardHeight * (3 - currentPlayer) + cardHeight / (3 - currentPlayer), "SORCERY", Xwindow::White);
+  xw.drawBigString(winSize, cardHeight * (3 - currentPlayer) + cardHeight / (3 - currentPlayer), "SORCERY", Xwindow::White);
 
   if (command == State::printMinion) {
     xw.fillRectangle(0, 0, winSize * 2, winSize, Xwindow::Black);
