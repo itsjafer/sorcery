@@ -25,16 +25,25 @@ int main(int argc, char * argv[]) {
       else if (arg == "-deck1") {
         // Next arg is filename of -deck1, set up deck1 to that filename
         ++i;
+        if (i >= argc) {
+          return 1;
+        }
         deck1File = argv[i];
       }
       else if (arg == "-deck2") {
         // Same idea
         ++i;
+        if (i >= argc) {
+          return 1;
+        }
         deck2File = argv[i];
       }
       else if (arg == "-init") {
         // Next arg is a filename--whatever commands are in this are the first commands to be used
         ++i;
+        if (i >= argc) {
+          return 1;
+        }
         init.open(argv[i]);
         if (!init) {
           cerr << "Unable to open init file" << endl;
