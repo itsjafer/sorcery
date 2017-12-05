@@ -13,9 +13,8 @@ TextDisplay::TextDisplay() {
   // initialize the theDisplay
 
   // start by creating an empty display with just templates
-  std::cout << "textdisplay.cc: Initializing TextDisplay." << std::endl;
 
-  std::vector<row_template_r> emptyRows;  
+  std::vector<row_template_r> emptyRows;
   // draw an empty enchantment
   for (int i = 0; i < 2; ++i) {
     // drawing empty rows for minions
@@ -39,14 +38,12 @@ TextDisplay::~TextDisplay() {
 }
 
 void TextDisplay::notifyDisplay(BoardController &whoNotified, State command, int minionIndex) {
-  
+
   currentPlayer = whoNotified.getCurrentPlayer();
-  std::cout << "textdisplay.cc: I have been notified by player " << currentPlayer << "." << std::endl;
 
   // update the board when I'm notified
   this->minionIndex = minionIndex;
 
-  std::cout << "textdisplay.cc: Updating myself with players information." << std::endl;
   std::vector<PlayerModel> boardInfos = whoNotified.getPlayerInfos();
 
   updatePlayers(boardInfos);
@@ -78,21 +75,20 @@ card_template_t TextDisplay::cardTemplate(std::shared_ptr<NonPlayer> card) {
   // check if its a minion
   if (card->getType() == Type::Minion) {
     // dynamically cast this as a minion pointer
-    std::shared_ptr<Minion> m = std::dynamic_pointer_cast<Minion>(card);    
+    std::shared_ptr<Minion> m = std::dynamic_pointer_cast<Minion>(card);
     // get attack and defense
     int attack = m->getAttack();
     int defence = m->getDefence();
-    
+
     // check if theres an ability
     if (m->hasAbility()) {
-      std::cout << "I have been asked if I have an ability" << std::endl;
 
       // get the description of the abilities
       description = "";
       for (auto ability : m->abilities) {
         description = ability->getDescription();
       }
-      
+
       // check the type of ability
       if (m->getAbilityType(0) == Type::ActivatedAbility) {
         // check the cost of the activated ability
@@ -137,7 +133,7 @@ card_template_t TextDisplay::cardTemplate(std::shared_ptr<NonPlayer> card) {
 
 // updates players information
 void TextDisplay::updatePlayers(std::vector<PlayerModel> boardInfos) {
-  
+
   for (unsigned int i = 0; i < boardInfos.size(); ++i) {
     // the first card is the ritual
     // check if player one has a ritual
@@ -147,7 +143,7 @@ void TextDisplay::updatePlayers(std::vector<PlayerModel> boardInfos) {
       std::shared_ptr<Ritual> r = std::dynamic_pointer_cast<Ritual>(boardInfos[i].ritual);
       players[i][0] = (display_ritual(r->getName(), r->getCost(), r->getCost(), r->getDescription(), r->getCharges()));
     }
-    
+
     // note that the second and fourth cards of the player row are always empty
     // this is due to the graphics described in project requirements
 
@@ -157,7 +153,7 @@ void TextDisplay::updatePlayers(std::vector<PlayerModel> boardInfos) {
     // the last card is the top of the graveyard
     // this code is not yet implemented so for now we have an empty card
     if (boardInfos[i].graveyard.empty()) {
-      players[i][4] = CARD_TEMPLATE_BORDER;    
+      players[i][4] = CARD_TEMPLATE_BORDER;
     } else {
       players[i][4] = cardTemplate(boardInfos[i].graveyard.back());
     }
@@ -167,13 +163,13 @@ void TextDisplay::updatePlayers(std::vector<PlayerModel> boardInfos) {
 // update the players hands
 void TextDisplay::updateHands(std::vector<PlayerModel> boardInfos) {
 
-  for (unsigned int i = 0; i < boardInfos.size(); ++i) {  
+  for (unsigned int i = 0; i < boardInfos.size(); ++i) {
 
     // we're going to empty our hand
     hands[i].clear();
 
     // update the hands of the players
-    for (unsigned int j = 0; j < boardInfos[i].hand.size(); j++) { 
+    for (unsigned int j = 0; j < boardInfos[i].hand.size(); j++) {
       hands[i].emplace_back(cardTemplate(boardInfos[i].hand[j]));
     }
   }
@@ -196,13 +192,13 @@ void TextDisplay::updateMinions(std::vector<PlayerModel> boardInfos) {
     // if we have minions, let's populate our field
     for (unsigned int j = 0; j < boardInfos[i].minions.size(); ++j) {
       minions[i][j] = cardTemplate(boardInfos[i].minions[j]);
-      
+
       std::vector<card_template_t> enchantments;
       // add any enchantments for this minion
       for (auto enchantment : boardInfos[i].minions[j]->enchantments) {
         enchantments.emplace_back(cardTemplate(enchantment));
       }
-      
+
       this->enchantments[i].emplace_back(enchantments);
     }
 
@@ -226,7 +222,7 @@ void TextDisplay::printBoard(std::ostream &out) const {
 
   // draw player1's player row and minion row
   printRow(players[playerIndex], out, true);
-  printRow(minions[playerIndex], out, true);  
+  printRow(minions[playerIndex], out, true);
 
   // print out the logo
   for (unsigned int i = 0; i < CENTRE_GRAPHIC.size(); ++i) {
@@ -236,7 +232,7 @@ void TextDisplay::printBoard(std::ostream &out) const {
   // increment to the next player
   playerIndex++;
 
-  printRow(minions[playerIndex], out, true);    
+  printRow(minions[playerIndex], out, true);
   printRow(players[playerIndex], out, true);
 
   // draw the bottom left border
@@ -257,7 +253,7 @@ void TextDisplay::printRow(row_template_r row, std::ostream &out, bool border) c
   }
   // print out the hand by printing from top to bottom of each card
   for (unsigned int i = 0; i < CARD_TEMPLATE_BORDER.size(); ++i) {
-    
+
     if (border) {
       // draw the left-hand side vertical border
       out << EXTERNAL_BORDER_CHAR_UP_DOWN;
@@ -277,7 +273,7 @@ void TextDisplay::printRow(row_template_r row, std::ostream &out, bool border) c
 
 // inspects a minion
 void TextDisplay::inspectMinion(std::ostream &out) const {
-  
+
   // print our minion
   for (unsigned int i = 0; i < CARD_TEMPLATE_BORDER.size(); ++i) {
     out << minions[currentPlayer][minionIndex][i] << std::endl;
@@ -287,7 +283,7 @@ void TextDisplay::inspectMinion(std::ostream &out) const {
   if (enchantments[currentPlayer][minionIndex].empty()) {
     return;
   }
-  
+
   row_template_r enchantmentRow;
   for (int k = 0; k < enchantments[currentPlayer][minionIndex].size(); ++k) {
     enchantmentRow.emplace_back(enchantments[currentPlayer][minionIndex][k]);
@@ -318,5 +314,3 @@ void TextDisplay::printHelp(std::ostream &out) const {
 	"hand -- Describe all cards in your hand." << std::endl <<
 	"board -- Describe all cards on the board." << std::endl;
 }
-
-

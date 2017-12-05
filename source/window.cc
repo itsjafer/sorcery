@@ -85,7 +85,6 @@ void Xwindow::drawString(int x, int y, string msg, int colour) {
 
 
 void Xwindow::drawBigString(int x, int y, string msg, int colour) {
-  cout << "window.cc: I'm printing a big string: " << msg << std::endl;
   XSetForeground(d, gc, colours[colour]);
   // Font f = XLoadFont(d, "-*-helvetica-bold-r-normal--*-240-*-*-*-*-*");
   ostringstream name;
