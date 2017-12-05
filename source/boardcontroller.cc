@@ -12,6 +12,7 @@
 void BoardController::switchPlayers() {
   if (currentPlayer == boardData.players.size() - 1) {
     currentPlayer = 0;
+    notifyObservers("Player " + std::to_string(currentPlayer + 1) + ", it is now your turn.");    
     return;
   }
   currentPlayer++;
