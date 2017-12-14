@@ -1,0 +1,1 @@
+we used smart pointers to avoid using any instanced of the word 'delete' in our code
